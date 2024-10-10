@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum FoodType
-{
-    Raw,
-    Processed,
-    Cooked
-}
+
 
 [CreateAssetMenu(fileName = "New Food", menuName = "New Food")]
-public class FoodData : ScriptableObject
+public class FoodStateData : ScriptableObject
 {
-    [SerializeField] private string foodName;       // Nombre de la comida o el ingrediente
-    [SerializeField] private FoodType foodType;     // Tipo de comida
+    [SerializeField] private string foodName;       // Nombre del estado (una comida o ingredinte)
     [SerializeField] private GameObject foodPrefab; 
 
     //private int action; //Acción a realizar sobre la comida
@@ -23,11 +17,6 @@ public class FoodData : ScriptableObject
     public string getName()
     {
         return foodName; 
-    }
-
-    public FoodType getType()
-    {
-        return foodType;
     }
 
 }
