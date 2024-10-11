@@ -11,16 +11,16 @@ public enum FoodAction
 [System.Serializable]
 public class FoodTransition
 {
-    [SerializeField] private FoodAction action; // Acción a realizar en esta transición
-    [SerializeField] private FoodStateData nextState; // Siguiente estado al que se transiciona
+    [SerializeField] private FoodAction action;             // Acción a realizar en esta transición
+    [SerializeField] private GameObject nextStatePrefab;    // Prefab del estado al que se transiciona
 
     public FoodAction getAction()
     {
         return action; 
     }
 
-    public FoodStateData getNextState()
+    public GameObject getNextStatePrefab()
     {
-        return nextState;
+        return nextStatePrefab;
     }
 }

@@ -17,6 +17,11 @@ public class PlayerInteraction : MonoBehaviour
         {
             handleReleaseObject();
         }
+        else if (pickedObject != null && Input.GetKey("r") && pickedObject.GetComponent<Food>() != null)
+        {
+            Debug.Log("Se quiere cambiar el estado");
+            pickedObject.GetComponent<Food>().changeFoodState(FoodAction.Cut);
+        }
     }
 
 

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Food : MonoBehaviour
 {
     [SerializeField] private FoodStateData stateData; // Al serializarlo puedo ver el atributo en el inspector aunque sea privado. Así, desde otras clases se mantiene privado (buenas prácticas) pero desde el inspector se puede modificar
-    [SerializeField] private List<FoodTransition> transitions; // Esto son las transiciones entre estados que se puede hacer en función de la acción que se haga
+    
 
     public FoodStateData getStateData()
     {
@@ -15,19 +15,30 @@ public class Food : MonoBehaviour
     }
 
     // Método para obtener el estado resultante basado en una acción específica
-    public FoodStateData GetNextState(FoodAction action)
+    public GameObject getNextState(FoodAction action)
     {
 
-        foreach (FoodTransition transition in transitions)
+        foreach (FoodTransition transition in stateData.getTransitions())
         {
             if (transition.getAction() == action)
             {
-                return transition.getNextState();
+                return transition.getNextStatePrefab();
             }
         }
 
         Debug.LogWarning($"No se encontró transición para la acción: {action}");
         return null;
+    }
+
+    public void changeFoodState(FoodAction action)
+    {
+        GameObject nextState = getNextState(action);
+
+        if (nextState != null)
+        {
+            Instantiate(nextState, transform.position, transform.rotation);
+            Destroy(this.gameObject);
+        }
     }
 
 }
