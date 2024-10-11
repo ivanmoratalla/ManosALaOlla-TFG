@@ -14,8 +14,8 @@ public class Food : MonoBehaviour
         return stateData;
     }
 
-    // Método para obtener el estado resultante basado en una acción específica
-    public GameObject getNextState(FoodAction action)
+    // Método para obtener el estado siguiente (si lo hay) en función de la acción
+    private GameObject getNextState(FoodAction action)
     {
 
         foreach (FoodTransition transition in stateData.getTransitions())
@@ -30,16 +30,31 @@ public class Food : MonoBehaviour
         return null;
     }
 
-    public void changeFoodState(FoodAction action)
+    public void changeFoodState(FoodAction action, out GameObject go)
     {
-        GameObject nextState = getNextState(action);
+        go = null;
 
-        if (nextState != null)
+        GameObject nextStatePrefab = getNextState(action);
+        if (nextStatePrefab != null)
         {
-            Instantiate(nextState, transform.position, transform.rotation);
+            go = Instantiate(nextStatePrefab, transform.position, transform.rotation);
             Destroy(this.gameObject);
         }
     }
 
+    public bool canTransition(FoodAction action)
+    {
+
+        foreach (FoodTransition transition in stateData.getTransitions())
+        {
+            if (transition.getAction() == action)
+            {
+                return true;
+            }
+        }
+
+        Debug.LogWarning($"No se encontró transición para la acción: {action}");
+        return false;
+    }
 }
 

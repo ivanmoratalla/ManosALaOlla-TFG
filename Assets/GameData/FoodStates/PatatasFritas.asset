@@ -9,16 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5ecb3ceb8e6a8f4c9c965fcc667d1ea, type: 3}
-  m_Name: LevelData
+  m_Script: {fileID: 11500000, guid: 61784639648383748b8415a28d3a4b34, type: 3}
+  m_Name: PatatasFritas
   m_EditorClassIdentifier: 
-  customers:
-  - name: Pedro
-    dish: Lechuga
-    arrivalTime: 0
-  - name: Tico
-    dish: Lechuga
-    arrivalTime: 5
-  - name: Jesusito
-    dish: PatatasFritas
-    arrivalTime: 7
+  foodName: PatatasFritas
+  transitions: []
