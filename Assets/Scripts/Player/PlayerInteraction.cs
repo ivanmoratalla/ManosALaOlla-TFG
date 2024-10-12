@@ -98,24 +98,28 @@ public class PlayerInteraction : MonoBehaviour
         pickedObject = other.gameObject;
     }
 
-    /* Este método es el encargado de manejar cuando el usuario quiere soltar un objeto. Lo puede hacer por tres motivos:
+    /* Este método es el encargado de manejar cuando el usuario quiere soltar un objeto. Lo puede hacer por cuatro motivos:
      * - Dejar un objeto en una encimera
+     * - Dejar un ingrediente en un plato
      * - Dejar un objeto en el suelo
      * - Dejar un objeto, tipo comida, en un electrodoméstico para cocinarlo (el electrodoméstico se encargará de mirar si se puede)
      */
     private void handleReleaseObject()
     {
+        // INTERACTUAR CON UN ELECTRODOMÉSTICO
         if(pickedObject.GetComponent<Food>() != null && collidingAppliance != null && collidingAppliance.interactWithAppliance(pickedObject))
         {
             Debug.Log("Se ha interactuado con el electrodoméstico");
             pickedObject = null;                                               
 
         }
+        // DEJAR EN UNA ENCIMERA
         else if (collidingCounter != null && !collidingCounter.hasObject())      // Si hay una encimera cerca, se deja en ella el objeto
         {
             collidingCounter.placeObject(pickedObject);
             pickedObject = null;                                                
         }
+        // DEJAR EN EL SUELO
         else                                                                // Si no hay encimera, se tira el objeto al suelo
         {
             pickedObject.GetComponent<Rigidbody>().useGravity = true;

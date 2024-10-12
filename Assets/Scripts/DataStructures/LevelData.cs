@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.PackageManager;
 
 
-[CreateAssetMenu(fileName = "New LevelData", menuName = "New LevelData")]
+[CreateAssetMenu(fileName = "NewLevelData", menuName = "LevelData")]
 public class LevelData : ScriptableObject
 {
     [SerializeField] private List<CustomerData> customers; // Lista de clientes que va a tener el nivel

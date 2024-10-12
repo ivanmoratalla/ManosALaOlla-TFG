@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-[CreateAssetMenu(fileName = "New Food", menuName = "New Food")]
+[CreateAssetMenu(fileName = "NewFood", menuName = "Food")]
 public class FoodStateData : ScriptableObject
 {
     [SerializeField] private string foodName;       // Nombre del estado (una comida o ingredinte)
