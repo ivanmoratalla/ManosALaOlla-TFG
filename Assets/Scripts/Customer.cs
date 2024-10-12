@@ -21,10 +21,9 @@ public class Customer : MonoBehaviour
         Debug.Log("Esperando a que le toque llegar");
         yield return new WaitForSeconds(data.getArrivalTime());     // Con esto se espera a que le llegue el turno de llegar al restaurante
 
-
+        Debug.Log("Comienza a buscar mesa disponible");
         while (assignedTable == null)                               // El cliente espera hasta que tenga una mesa disponible para sentarse
         {
-            Debug.Log("Buscando mesa disponible");
             assignedTable = levelManager.getAvailableTable();
 
             if (assignedTable != null)      

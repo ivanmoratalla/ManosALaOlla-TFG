@@ -6,10 +6,37 @@ public class Counter : MonoBehaviour
 {
     public GameObject storedObject = null;         // Objeto que hay encima de la encimera
 
+
+    /* Método para que el jugador interactúe con la encimera. Devuelve true en dos casos:
+     * - Si no hay ningún objeto en la mesa y se deja el objeto
+     * - Si hay un plato y el ingrediente se puede emplatar
+     */
+
+    public bool interactWithCounter(GameObject obj)
+    {
+        // DEJAR OBJETO EN LA MESA
+        if(storedObject == null)
+        {
+            placeObject(obj);
+            return true;
+        }
+        
+        // AÑADIR INGREDIENTE AL PLATO
+        Plate plate = storedObject.GetComponent<Plate>();
+        Food ingredient = obj.GetComponent<Food>();
+
+        return plate != null && ingredient != null && plate.addIngredient(ingredient);
+    }
+
+
+
+
     // Método que llamaré desde el jugador para colocar un objeto
     public void placeObject(GameObject obj)
     {
-        obj.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);    // Se coloca el objeto encima de la encimera
+        
+        float placePosition = calculatePosition(obj);
+        obj.transform.position = new Vector3(transform.position.x, placePosition, transform.position.z);    // Se coloca el objeto encima de la encimera
         obj.transform.SetParent(this.transform);                                                                        // Se establece la encimera como padre del objeto
 
         Rigidbody rb = obj.GetComponent<Rigidbody>();
@@ -23,20 +50,33 @@ public class Counter : MonoBehaviour
     }
 
     // Método para recoger el objeto de la encimera
-    public GameObject pickUpObject()
+    public bool pickUpObject(out GameObject objectToPick)
     {
-        GameObject objectToPick = storedObject;
-        if (objectToPick != null)
+        objectToPick = null;
+        if (storedObject != null)
         {
+            objectToPick = storedObject;
             storedObject = null;
+            return true;
         }
-        return objectToPick;
+        return false;
     }
 
-    // Método que devuelve si hay algún objeto en la encimera
-    public bool hasObject()
+    private float calculatePosition(GameObject obj)
     {
-        return storedObject != null;
+        // Calcula la posición de la encimera
+        float counterHeight = transform.localScale.y; // Obtiene la altura de la encimera
+        float objectHeight = 0f; // Inicializa la altura del objeto
+
+        // Verifica si el objeto tiene un Collider para calcular su altura
+        Collider objCollider = obj.GetComponent<Collider>();
+        if (objCollider != null)
+        {
+            objectHeight = objCollider.bounds.size.y; // Obtiene la altura del objeto basado en su Collider
+        }
+
+        // Calcula la posición Y para colocar el objeto
+        return  transform.position.y + (counterHeight / 2) + (objectHeight / 2);
     }
 }
 

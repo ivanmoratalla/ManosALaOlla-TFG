@@ -44,9 +44,9 @@ public class PlayerInteraction : MonoBehaviour
         GameObject applianceObject;
         if(pickedObject == null && Input.GetKey("e"))                       // Se comprueba si se ha pulsado la tecla y si se puede coger un objeto
         {
-            if (collidingCounter != null && collidingCounter.hasObject())   // Se comprueba si hay cerca una estantería y si tiene un objeto para coger 
+            GameObject counterObject;
+            if (collidingCounter != null && collidingCounter.pickUpObject(out counterObject))   // Se comprueba si hay cerca una estantería y si tiene un objeto para coger 
             {
-                GameObject counterObject = collidingCounter.pickUpObject();
 
                 handlePickObject(counterObject);
             }
@@ -113,10 +113,9 @@ public class PlayerInteraction : MonoBehaviour
             pickedObject = null;                                               
 
         }
-        // DEJAR EN UNA ENCIMERA
-        else if (collidingCounter != null && !collidingCounter.hasObject())      // Si hay una encimera cerca, se deja en ella el objeto
+        // INTERACTUAR CON UNA ENCIMERA, TANTO PARA DEJAR OBJETO COMO PARA EMPLATAR
+        else if (collidingCounter != null && collidingCounter.interactWithCounter(pickedObject))      // Si hay una encimera cerca, se deja en ella el objeto
         {
-            collidingCounter.placeObject(pickedObject);
             pickedObject = null;                                                
         }
         // DEJAR EN EL SUELO
@@ -133,10 +132,10 @@ public class PlayerInteraction : MonoBehaviour
 
     private void handleTableInteraction(Table table)
     {
-        Food dish;
-        if (pickedObject != null && (dish = pickedObject.GetComponent<Food>()) != null && Input.GetKey("q"))    // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
+        Plate plate;
+        if (pickedObject != null && (plate = pickedObject.GetComponent<Plate>()) != null && Input.GetKey("q"))    // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
         {
-            deliverOrder(table.getTableNumber(), dish.getStateData().getName());
+            deliverOrder(table.getTableNumber(), plate.getCompletedRecipeName());
         }
     }
 

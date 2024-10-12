@@ -19,7 +19,7 @@ public class OrderManager : MonoBehaviour
 
     public bool ServeDish(int tableNumber, string servedDish)
     {
-        if (activeOrders.ContainsKey(tableNumber))
+        if (activeOrders.ContainsKey(tableNumber) && servedDish != null)
         {
             if (activeOrders[tableNumber] == servedDish)
             {
