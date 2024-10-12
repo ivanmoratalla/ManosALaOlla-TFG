@@ -19,6 +19,7 @@ public abstract class KitchenAppliance : MonoBehaviour
         storedFood = food;
         storedFood.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         storedFood.transform.SetParent(this.transform);
+        storedFood.GetComponent<Collider>().enabled = false;        // Con esto evito que se pueda coger como si fuera un objeto del suelo, y que solo se pueda coger si la lógica del electrodoméstico lo permite
 
         Rigidbody rb = storedFood.GetComponent<Rigidbody>();
         if (rb != null)
@@ -35,6 +36,7 @@ public abstract class KitchenAppliance : MonoBehaviour
         if(canPickUpFood())
         {
             foodAux = storedFood;
+            storedFood.GetComponent<Collider>().enabled = true;     // Al coger el objeto se le activa el collider para que se pueda coger del suelo
             storedFood = null;
 
         }
@@ -48,7 +50,6 @@ public abstract class KitchenAppliance : MonoBehaviour
      */
     protected bool CanProcess(GameObject food)
     {
-        Debug.Log("Devuelvo: " + storedFood != null && !isProcessing && food.GetComponent<Food>().canTransition(action));
         return !isProcessing && food.GetComponent<Food>().canTransition(action);
     }
 

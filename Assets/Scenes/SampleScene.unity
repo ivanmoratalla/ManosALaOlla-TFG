@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storedFood: {fileID: 0}
+  timeToCut: 3
 --- !u!65 &451616462
 BoxCollider:
   m_ObjectHideFlags: 0

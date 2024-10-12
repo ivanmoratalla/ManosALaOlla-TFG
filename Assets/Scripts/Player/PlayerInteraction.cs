@@ -105,7 +105,6 @@ public class PlayerInteraction : MonoBehaviour
      */
     private void handleReleaseObject()
     {
-        Debug.Log("LLEGO AL INICIO");
         if(pickedObject.GetComponent<Food>() != null && collidingAppliance != null && collidingAppliance.interactWithAppliance(pickedObject))
         {
             Debug.Log("Se ha interactuado con el electrodoméstico");

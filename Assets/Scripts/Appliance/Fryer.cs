@@ -9,14 +9,13 @@ public class Fryer : KitchenAppliance
         get { return FoodAction.Fry; }
     }
 
-    // En el caso de la olla, se quiere empezar a cocinar automáticamente tras meter la comida en la olla
+    // En el caso de la freidora, se quiere empezar a cocinar automáticamente tras meter la comida en la olla
     public override bool interactWithAppliance(GameObject food)
     {
         if (CanProcess(food))
         {
             placeFood(food);
 
-            Debug.Log("Comida cocinándose en ");
             isProcessing = true;
             StartCoroutine(cookFood());
 
@@ -27,7 +26,6 @@ public class Fryer : KitchenAppliance
 
     private IEnumerator cookFood()
     {
-        storedFood.GetComponent<Collider>().enabled = false;    // Para evitar que se pueda coger mientras se cocina
 
         yield return new WaitForSeconds(3f); // Tiempo de cocción simulado
 
