@@ -33,8 +33,8 @@ public class Plate : MonoBehaviour
             if(validRecipes.Count > 0 )
             {
                 ingredientsInPlate.Add(ingredientToAdd);        // Si se han encontrado recetas, se añade el ingrediente al plato
-                updateCompletedRecipe();
                 addIngredientToPlate(food);
+                updateCompletedRecipe();
                 return true;
             }
             return false;                                       // Si no se han encontrado recetas con el ingrediente, no se añade al plato
@@ -55,8 +55,9 @@ public class Plate : MonoBehaviour
             {
                 validRecipes = newValidRecipes;                 // Se actualizan las recetas válidas con las que tienen al nuevo ingrediente
                 ingredientsInPlate.Add(ingredientToAdd);
-                updateCompletedRecipe();
                 addIngredientToPlate(food);
+                updateCompletedRecipe();
+
                 return true;
             }
             return false;
@@ -87,12 +88,14 @@ public class Plate : MonoBehaviour
                 {
                     completedRecipeName = recipe.getRecipeName();       // Guardamos el nombre de la receta completada
                     Debug.Log($"¡Receta completada: {completedRecipeName}!");
+                    instantiateRecipePrefab(recipe.getRecipePrefab());
                     return;  // Salimos una vez que encontramos una receta completa
                 }
 
             }
         }
     }
+
 
     private void addIngredientToPlate(Food food)
     {
@@ -108,6 +111,22 @@ public class Plate : MonoBehaviour
         food.transform.SetParent(transform);
 
         instantiatedPrefabs.Add(food.gameObject);
+    }
+
+    // Este método será llamado cuando una receta esté complets, con el objetivo de instanciar el prefab de la receta en el mundo, y no tener los ingredientes por separado
+    private void instantiateRecipePrefab(GameObject prefab)
+    {
+        if(prefab != null)
+        {
+            foreach(GameObject ingredients in instantiatedPrefabs)
+            {
+                Destroy(ingredients.gameObject);
+            }
+            instantiatedPrefabs.Clear();
+
+            GameObject instantiatedPrefab = Instantiate(prefab, this.transform.position, Quaternion.identity);
+            instantiatedPrefab.transform.SetParent(this.transform);
+        }
     }
 
     // Este método se encarga de calcular la posición en el plato dónde poner el ingrediente, para que no se quede volando ni atraviese al plato u otros ingredientes
