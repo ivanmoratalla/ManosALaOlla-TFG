@@ -14,7 +14,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        if (pickedObject != null && Input.GetKey("f"))                      // Si el usuario tiene un objeto en la mano y pulsa esta tecla quiere soltar el objeto
+        if (pickedObject != null && Input.GetKey(KeyCode.F))                      // Si el usuario tiene un objeto en la mano y pulsa esta tecla quiere soltar el objeto
         {
             handleReleaseObject();
         }
@@ -42,7 +42,7 @@ public class PlayerInteraction : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         GameObject applianceObject;
-        if(pickedObject == null && Input.GetKey("e"))                       // Se comprueba si se ha pulsado la tecla y si se puede coger un objeto
+        if(pickedObject == null && Input.GetKey(KeyCode.E))                       // Se comprueba si se ha pulsado la tecla y si se puede coger un objeto
         {
             GameObject counterObject;
             if (collidingCounter != null && collidingCounter.pickUpObject(out counterObject))   // Se comprueba si hay cerca una estantería y si tiene un objeto para coger 

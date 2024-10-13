@@ -31,7 +31,7 @@ public class CuttingBoard : KitchenAppliance
     {
         if (storedFood != null && isPlayerNearby)      // Solo se puede cortar si hay un objeto en la tabla y si el jugador está colisionando con la tabla
         {
-            if (Input.GetKey("c"))
+            if (Input.GetKey(KeyCode.C))
             {
                 if (!isProcessing)
                 {
