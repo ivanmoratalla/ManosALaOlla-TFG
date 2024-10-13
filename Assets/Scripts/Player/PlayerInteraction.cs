@@ -114,13 +114,13 @@ public class PlayerInteraction : MonoBehaviour
 
         }
         // INTERACTUAR CON UNA ENCIMERA, TANTO PARA DEJAR OBJETO COMO PARA EMPLATAR
-        else if (collidingCounter != null && collidingCounter.interactWithCounter(pickedObject))      // Si hay una encimera cerca, se deja en ella el objeto
+        else if (collidingCounter != null && collidingCounter.interactWithCounter(pickedObject))                        // Si hay una encimera cerca, se deja en ella el objeto
         {
             pickedObject = null;                                                
         }
         // DEJAR EN EL SUELO
-        else                                                                // Si no hay encimera, se tira el objeto al suelo
-        {
+        else if(collidingAppliance == null && collidingCounter == null && pickedObject.GetComponent<Plate>() == null)   // Se deja en el suelo si no se está cerca de un electrodoméstico o encimera, para evitar colisiones erróneas con lo que hay en ellos.                                                                                            
+        {                                                                                                               // Además, se impide que los platos se puedan dejar en el suelo (no se podrían coger luego porque no se detectaría colisión al ser tan bajos)
             pickedObject.GetComponent<Rigidbody>().useGravity = true;
             pickedObject.GetComponent<Rigidbody>().isKinematic = false;
 
@@ -133,7 +133,7 @@ public class PlayerInteraction : MonoBehaviour
     private void handleTableInteraction(Table table)
     {
         Plate plate;
-        if (pickedObject != null && (plate = pickedObject.GetComponent<Plate>()) != null && Input.GetKey("q"))    // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
+        if (pickedObject != null && (plate = pickedObject.GetComponent<Plate>()) != null && Input.GetKey("q"))          // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
         {
             deliverOrder(table.getTableNumber(), plate.getCompletedRecipeName());
         }
