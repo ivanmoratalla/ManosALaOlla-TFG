@@ -8,7 +8,7 @@ public class Plate : MonoBehaviour
     private List<string> ingredientsInPlate;                    // Esta lista guarda los ingredientes que hay en el plato
     private string completedRecipeName;                         // Variable para guardar si una receta se ha completado (su nombre)
 
-    [SerializeField] private Transform platePoint;              // Punto donde van a aparecer los ingredientes que se añadan al plato
+    //[SerializeField] private Transform platePoint;              // Punto donde van a aparecer los ingredientes que se añadan al plato
     private List<GameObject> instantiatedPrefabs;               // Lista con los ingredientes que se han instanciado (lo utilizaré para luego poder eliminarlos al instanciar el plato final)
     
 
@@ -34,7 +34,7 @@ public class Plate : MonoBehaviour
             {
                 ingredientsInPlate.Add(ingredientToAdd);        // Si se han encontrado recetas, se añade el ingrediente al plato
                 updateCompletedRecipe();
-                Destroy(food.gameObject);
+                addIngredientToPlate(food);
                 return true;
             }
             return false;                                       // Si no se han encontrado recetas con el ingrediente, no se añade al plato
@@ -56,7 +56,7 @@ public class Plate : MonoBehaviour
                 validRecipes = newValidRecipes;                 // Se actualizan las recetas válidas con las que tienen al nuevo ingrediente
                 ingredientsInPlate.Add(ingredientToAdd);
                 updateCompletedRecipe();
-                Destroy(food.gameObject);
+                addIngredientToPlate(food);
                 return true;
             }
             return false;
@@ -87,7 +87,6 @@ public class Plate : MonoBehaviour
                 {
                     completedRecipeName = recipe.getRecipeName();       // Guardamos el nombre de la receta completada
                     Debug.Log($"¡Receta completada: {completedRecipeName}!");
-                    instantiateDish();  // Mostramos el plato final
                     return;  // Salimos una vez que encontramos una receta completa
                 }
 
@@ -95,39 +94,45 @@ public class Plate : MonoBehaviour
         }
     }
 
-    private void instantiatePrefab(string ingredient)
+    private void addIngredientToPlate(Food food)
     {
-        string path = $"Prefabs/Ingredients/{ingredient}";
+        food.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
-        GameObject prefab = Resources.Load<GameObject>(path);
+        // Ajustar la posición del nuevo ingrediente justo encima de los ingredientes previos
+        Vector3 newPosition = this.transform.position;  // Usar la posición del propio objeto Plate
+        newPosition.y += calculatePosition(food);  // Colocar justo encima del último ingrediente o plato
 
-        if (prefab != null)
-        {
-            // Instancia el ingrediente como hijo del objeto del plato
-            GameObject instantiatedIngredient = Instantiate(prefab, platePoint.position, transform.rotation, this.transform);
+        // Aplicar la nueva posición y escalar el ingrediente (por ejemplo, al 50% de su tamaño original)
+        food.transform.position = newPosition;
 
-            instantiatedIngredient.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f); // Ajusta estos valores según sea necesario
+        food.transform.SetParent(transform);
 
-            // Ajusta la posición del ingrediente en el eje Y para apilar los ingredientes
-            Vector3 newPosition = instantiatedIngredient.transform.localPosition;
-            newPosition.y += ingredientsInPlate.Count * 0.1f; // Ajusta el multiplicador según el tamaño del ingrediente
-            instantiatedIngredient.transform.localPosition = newPosition; // Establece la nueva posición local
-
-            instantiatedPrefabs.Add(instantiatedIngredient); // Guarda el ingrediente instanciado
-        }
+        instantiatedPrefabs.Add(food.gameObject);
     }
 
-    private void instantiateDish()
+    // Este método se encarga de calcular la posición en el plato dónde poner el ingrediente, para que no se quede volando ni atraviese al plato u otros ingredientes
+    private float calculatePosition(Food food)
     {
-        foreach(GameObject ingredient in instantiatedPrefabs)
+        float ingredientHeight = 0f;                                    // Altura del ingrediente
+        float accumulatedHeight = 0f;                                   // Altura sumada de todos los ingredientes que haya ya en el plato
+
+        Renderer ingredientRenderer = food.GetComponent<Renderer>();
+        if(ingredientRenderer != null )
         {
-            Destroy(ingredient);
+            ingredientHeight = ingredientRenderer.bounds.size.y;
         }
 
-        instantiatedPrefabs.Clear();
-
-        instantiatePrefab(completedRecipeName);
+        foreach (GameObject prefab in instantiatedPrefabs)
+        {
+            Renderer prefabRenderer = prefab.GetComponent<Renderer>();
+            if (prefabRenderer != null)
+            {
+                accumulatedHeight += prefabRenderer.bounds.size.y;
+            }
+        }
+        return accumulatedHeight /*+ (ingredientHeight / 2)*/;              // Con esto se consigue que el punto en el que se isntancie sea el exacto
     }
+
 
     public string getCompletedRecipeName()
     {
