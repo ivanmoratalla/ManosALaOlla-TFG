@@ -16,8 +16,10 @@ public abstract class KitchenAppliance : MonoBehaviour
     // Método para colocar la comida en el electrodoméstico
     public void placeFood(GameObject food)
     {
+        float newYPosition = calculatePosition(food);
+
         storedFood = food;
-        storedFood.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+        storedFood.transform.position = new Vector3(transform.position.x, newYPosition, transform.position.z);
         storedFood.transform.SetParent(this.transform);
         storedFood.GetComponent<Collider>().enabled = false;        // Con esto evito que se pueda coger como si fuera un objeto del suelo, y que solo se pueda coger si la lógica del electrodoméstico lo permite
 
@@ -36,7 +38,7 @@ public abstract class KitchenAppliance : MonoBehaviour
         if(canPickUpFood())
         {
             foodAux = storedFood;
-            storedFood.GetComponent<Collider>().enabled = true;     // Al coger el objeto se le activa el collider para que se pueda coger del suelo
+            storedFood.GetComponent<Collider>().enabled = true;     // Al coger el objeto se le activa el collider para que se pueda coger del suelo. No se activa la gravedad porque si no se caería
             storedFood = null;
 
         }
@@ -58,9 +60,20 @@ public abstract class KitchenAppliance : MonoBehaviour
         return storedFood != null && !isProcessing;
     }
 
-    // Método para verificar si ya tiene comida
-    public bool HasFood()
+    private float calculatePosition(GameObject obj)
     {
-        return storedFood != null;
+        // Calcula la altura del electrodoméstico
+        float counterHeight = transform.localScale.y; // Obtiene la altura de la encimera
+        float objectHeight = 0f; // Inicializa la altura del objeto
+
+        // Verifica si el objeto tiene un Collider para calcular su altura
+        Collider objCollider = obj.GetComponent<Collider>();
+        if (objCollider != null)
+        {
+            objectHeight = objCollider.bounds.size.y; // Obtiene la altura del objeto basado en su Collider
+        }
+
+        // Calcula la posición Y para colocar el objeto
+        return transform.position.y + (counterHeight / 2) /*+ (objectHeight / 2)*/;
     }
 }

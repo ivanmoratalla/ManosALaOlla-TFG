@@ -56,8 +56,6 @@ public class CuttingBoard : KitchenAppliance
                 isProcessing = false;
                 holdTime = 0f;
 
-                //storedFood.GetComponent<Collider>().enabled = true;         // Se vuelven a activar las colisiones del objeto para poder cogerlo
-
                 Debug.Log("Has soltado la tecla antes de tiempo o no estás cerca. Intenta de nuevo.");
             }
         }
@@ -71,6 +69,10 @@ public class CuttingBoard : KitchenAppliance
         
         isProcessing = false;
         holdTime = 0f;
+
+        storedFood.GetComponent<Collider>().enabled = false;        // Se desactivan las colisiones y la gravedad del nuevo ingrediente instanciado para evitar que se caiga del electrodoméstico
+        storedFood.GetComponent<Rigidbody>().useGravity = false;
+
     }
 
 

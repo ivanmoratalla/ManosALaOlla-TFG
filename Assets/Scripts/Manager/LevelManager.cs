@@ -18,7 +18,15 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        // Aquí podrías instanciar los clientes en la escena basándote en los datos del nivel.
+        tables = new List<Table>();
+
+        Table[] foundTables = FindObjectsOfType<Table>();
+
+        foreach (Table table in foundTables)
+        {
+            tables.Add(table);
+        }
+
         spawnCustomers();
     }
 

@@ -32,5 +32,8 @@ public class Fryer : KitchenAppliance
         storedFood.GetComponent<Food>().changeFoodState(action, out storedFood);
         Debug.Log("Comida cocinada");
         isProcessing = false;
+
+        storedFood.GetComponent<Collider>().enabled = false;        // Se desactivan las colisiones y la gravedad del nuevo ingrediente instanciado para evitar que se caiga del electrodoméstico
+        storedFood.GetComponent<Rigidbody>().useGravity = false;
     }
 }

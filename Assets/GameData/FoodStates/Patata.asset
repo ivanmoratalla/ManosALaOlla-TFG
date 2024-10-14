@@ -15,4 +15,4 @@ MonoBehaviour:
   foodName: Patata
   transitions:
   - action: 0
-    nextStatePrefab: {fileID: 3945143173610407512, guid: 4699d012b901a7b408bc93a26b3234b8, type: 3}
+    nextStatePrefab: {fileID: 919132149155446097, guid: 8f166767e9d3170439c373b476e77abb, type: 3}

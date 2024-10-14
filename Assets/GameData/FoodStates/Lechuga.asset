@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Lechuga
   m_EditorClassIdentifier: 
   foodName: Lechuga
-  foodPrefab: {fileID: 0}
   transitions:
   - action: 0
-    nextStatePrefab: {fileID: 7930398752077528212, guid: 875f9d07a58fad342bcf25a1d5533196, type: 3}
+    nextStatePrefab: {fileID: 919132149155446097, guid: 77453e78dc07bd64d8cd785daa132199, type: 3}
