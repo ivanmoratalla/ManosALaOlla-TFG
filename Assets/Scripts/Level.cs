@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+public class Level : MonoBehaviour
 {
-    public static LevelManager Instance { get; private set; }
+    public static Level Instance { get; private set; }
 
     [SerializeField] private LevelData levelData; // Asignas el ScriptableObject desde el inspector.
     [SerializeField] private List<Table> tables;

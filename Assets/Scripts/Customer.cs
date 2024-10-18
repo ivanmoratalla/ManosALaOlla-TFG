@@ -6,13 +6,13 @@ using UnityEngine;
 public class Customer : MonoBehaviour
 {
     private CustomerData data;
-    private LevelManager levelManager;
+    private Level levelManager;
     private Table assignedTable;
 
 
     void Start()
     {
-        levelManager = FindObjectOfType<LevelManager>();
+        levelManager = FindObjectOfType<Level>();
         StartCoroutine(handleCustomerArrival());
     }
 

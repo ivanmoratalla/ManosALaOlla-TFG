@@ -25,7 +25,7 @@ public class OrderManager : MonoBehaviour
             {
                 Debug.Log("Plato correcto servido en la mesa " + tableNumber);
                 activeOrders.Remove(tableNumber);                           // Elimino la comanda.
-                LevelManager.Instance.freeTable(tableNumber);               // LLamo al manager para liberar la mesa y que se pueda sentar otro cliente que llegue
+                Level.Instance.freeTable(tableNumber);               // LLamo al manager para liberar la mesa y que se pueda sentar otro cliente que llegue
 
                 return true;
             }
