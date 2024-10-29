@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ecb3ceb8e6a8f4c9c965fcc667d1ea, type: 3}
   m_Name: LevelData
   m_EditorClassIdentifier: 
+  levelNumber: 1
   customers:
   - name: Pedro
     dish: Ensalada

@@ -6,39 +6,19 @@ using UnityEngine;
 public class Customer : MonoBehaviour
 {
     private CustomerData data;
-    private Level levelManager;
     private Table assignedTable;
 
 
     void Start()
     {
-        levelManager = FindObjectOfType<Level>();
-        StartCoroutine(handleCustomerArrival());
+        handleCustomerArrival();
     }
 
-    private IEnumerator handleCustomerArrival()
+    private void handleCustomerArrival()
     {
-        Debug.Log("Esperando a que le toque llegar");
-        yield return new WaitForSeconds(data.getArrivalTime());     // Con esto se espera a que le llegue el turno de llegar al restaurante
-
-        Debug.Log("Comienza a buscar mesa disponible");
-        while (assignedTable == null)                               // El cliente espera hasta que tenga una mesa disponible para sentarse
-        {
-            assignedTable = levelManager.getAvailableTable();
-
-            if (assignedTable != null)      
-            {
-                // Mesa libre encontrada
-                assignedTable.seatCustomer(this);
-                goToTable(assignedTable);
-                createOrder();
-            }
-            else
-            {
-                // No hay mesas libres, esperar un segundo antes de volver a comprobar.
-                yield return new WaitForSeconds(1f);
-            }
-        }
+        // AQUI TENDRE QUE HACER LAS ANIMACIONES O LO QUE SEA, EL CAMINO PARA IR A LA MESA Y SENTARSE
+        goToTable(assignedTable);
+        createOrder();
     }
 
     private void goToTable(Table table)
@@ -51,9 +31,10 @@ public class Customer : MonoBehaviour
         OrderManager.Instance.CreateOrder(data.getDish(), assignedTable.getTableNumber());
     }
 
-    public void setData(CustomerData data)
+    public void setData(CustomerData data, Table assignedTable)
     {
         this.data = data;
+        this.assignedTable = assignedTable;
     }
 
     public CustomerData getData()

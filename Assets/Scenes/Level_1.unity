@@ -1683,6 +1683,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8561700848212195243, guid: eea4c57c8a7d759468bb5acc331d0edc, type: 3}
+      propertyPath: inputService
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ec1c35bddb35504e86661ddf6ad1a90, type: 2}
+    - target: {fileID: 8561700848212195243, guid: eea4c57c8a7d759468bb5acc331d0edc, type: 3}
       propertyPath: verticalAxes
       value: Vertical_Arrow
       objectReference: {fileID: 0}
@@ -1972,6 +1976,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8561700848212195243, guid: eea4c57c8a7d759468bb5acc331d0edc, type: 3}
+      propertyPath: inputService
+      value: 
+      objectReference: {fileID: 11400000, guid: ecf2791e4263f744a822f42a17ead1fb, type: 2}
     - target: {fileID: 8561700848212195243, guid: eea4c57c8a7d759468bb5acc331d0edc, type: 3}
       propertyPath: verticalAxes
       value: Vertical_WASD
