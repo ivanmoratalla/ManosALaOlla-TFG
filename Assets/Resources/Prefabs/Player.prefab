@@ -259,6 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b368f359337de48811c0e3a4f1e1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementService: {fileID: 11400000, guid: 00befb9bac22b3446b43fe6abcc5227c, type: 2}
   speed: 7
   rotationSpeed: 50
   horizontalAxes: 

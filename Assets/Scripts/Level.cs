@@ -7,7 +7,7 @@ public class Level : MonoBehaviour
 {
     public static Level Instance { get; private set; }
 
-    [SerializeField] private LevelData levelData; // Asignas el ScriptableObject desde el inspector.
+    [SerializeField] private LevelData levelData; // Asigno el ScriptableObject desde el inspector.
     [SerializeField] private List<Table> tables;
     [SerializeField] private GameObject clientPrefab;
 

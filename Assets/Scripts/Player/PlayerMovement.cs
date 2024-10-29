@@ -8,34 +8,27 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float rotationSpeed = 50f;
-    
-    private Rigidbody rb;
+    // Servicios que utiliza el personaje
+    [SerializeField] private MovementServiceAsset movementService;              // Servicio al que se le llamará para mover al personaje
+    [SerializeField] private InputServiceAsset inputService;                    // Servicio al que se le llamará para recoger la entrada del usuario y conseguir la dirección de movimiento
 
-    [SerializeField] private string horizontalAxes;
-    [SerializeField] private string verticalAxes; 
+    private Rigidbody rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation;                                                   // Congelo la rotación en todos los ejes para evitar que el personaje se caiga hacia los lados y rote solo. La controlaré manualmente después
+        movementService.Initialize(rb);                                                                         // Se inicializa el movimiento (controlo si hay que congelar la rotación para que el personaje no se caiga por las físicas)
     }
 
     private void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis(horizontalAxes);
-        float verticalInput = Input.GetAxis(verticalAxes);
+        Vector3 movementDirection = inputService.Poll();                                                        // Se consigue la dirección de movimiento llamando al servicio encargado de obtenerla
 
-        Vector3 movementDirection = new Vector3(-horizontalInput, 0, -verticalInput);
-        movementDirection.Normalize();                                                                          // Con esto consigo que en diagonal sea la misma velocidad
-
-        rb.MovePosition(transform.position + movementDirection * speed * Time.fixedDeltaTime);
+        movementService.Move(rb, this.transform, movementDirection);                                            // Se llama al método del servicio que maneja el movimiento
 
         if (movementDirection.magnitude >= 0.1f)                                                                // Se rota al personaje solo si hay movimiento. Si no lo hay no se rotará nada.
         {
-            Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));
+            movementService.Rotate(rb,movementDirection);
         }
 
     }

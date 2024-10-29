@@ -23,11 +23,11 @@ public class LevelsManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //if(!PlayerPrefs.HasKey(key))
-        //{
+        if(!PlayerPrefs.HasKey(key))
+        {
             PlayerPrefs.SetInt(key, 1);                     // De manera predeterminada solo está desbloqueado el primer nivel
             PlayerPrefs.Save();
-        //}
+        }
     }
 
     public void levelCompleted(int levelNumber)

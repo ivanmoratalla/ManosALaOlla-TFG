@@ -34,7 +34,6 @@ public class Counter : MonoBehaviour
     // Método que llamaré desde el jugador para colocar un objeto
     public void placeObject(GameObject obj)
     {
-        
         float placePosition = calculatePosition(obj);
         obj.transform.position = new Vector3(transform.position.x, placePosition, transform.position.z);    // Se coloca el objeto encima de la encimera
         obj.transform.SetParent(this.transform);                                                                        // Se establece la encimera como padre del objeto
