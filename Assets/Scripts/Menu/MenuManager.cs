@@ -7,8 +7,6 @@ using Unity.Services.Core;
 
 public class MenuManager : MonoBehaviour
 {
-    
-    private bool initialized = false;
     private bool eventsInitialized = false;
     
     private static MenuManager singleton = null;
@@ -20,16 +18,9 @@ public class MenuManager : MonoBehaviour
             if (singleton == null)
             {
                 singleton = FindFirstObjectByType<MenuManager>();
-                singleton.Initialize();
             }
             return singleton; 
         }
-    }
-
-    private void Initialize()
-    {
-        if (initialized) { return; }
-        initialized = true;
     }
     
     private void OnDestroy()
@@ -132,7 +123,10 @@ public class MenuManager : MonoBehaviour
     
     public void SignOut()
     {
-        AuthenticationService.Instance.SignOut();
+        AuthenticationService.Instance.SignOut();               
+        AuthenticationService.Instance.ClearSessionToken();     // Al cerrar la sesión se elimina el token, para que al volver a iniciar la aplicación no se inicie sesión automáticamente
+
+
         PanelManager.CloseAll();
         PanelManager.Open("auth");
     }

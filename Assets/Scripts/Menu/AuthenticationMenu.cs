@@ -59,7 +59,7 @@ public class AuthenticationMenu : Panel
             else
             {
                 ErrorMenu panel = (ErrorMenu)PanelManager.GetSingleton("error");
-                panel.Open(ErrorMenu.Action.None, "Password does not match requirements. Insert at least 1 uppercase, 1 lowercase, 1 digit and 1 symbol. With minimum 8 and a maximum of 30 characters.", "OK");
+                panel.Open(ErrorMenu.Action.None, "La contraseña debe contener al menos una mayúscula, una minúscula, un dígito y un símbolo. Mínimo de 8 caracteres y maximo de 30.", "OK");
             }
         }
     }
