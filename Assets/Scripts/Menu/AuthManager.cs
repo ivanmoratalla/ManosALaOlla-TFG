@@ -43,76 +43,81 @@ public class AuthManager: IAuthManager
             }
             catch (AuthenticationException e)
             {
-                Debug.LogError($"Auto-login failed: {e.Message}");
+                Debug.LogError($"Fallo al hacer login automático: {e.Message}");
             }
         }
 
         return false;                                                               // Se devuelve fals si no se ha podido iniciar sesión automáticamente
     }
 
-    public async Task<bool> SignInWithUsernamePasswordAsync(string username, string password)
+    // Método para el inicio de sesión con usuario y contraseña
+    public async Task SignInWithUsernamePasswordAsync(string username, string password)
     {
         try
         {
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
             Debug.Log("Inicio de sesión correcto");
-            return true;
         }
-        catch (AuthenticationException e)
+        catch (System.Exception e)
         {
-            Debug.LogError($"Inicio de sesión incorrecto: {e.Message}");
-            return false;
-        }
-        catch (RequestFailedException e)
-        {
-            Debug.LogError($"Inicio de sesión incorrecto: {e.Message}");
-            return false;
+            HandleExceptionError(e);
         }
     }
 
-    public async Task<bool> SignUpWithUsernamePasswordAsync(string username, string password)
+    // Método para el registro con usuario y contraseña
+    public async Task SignUpWithUsernamePasswordAsync(string username, string password)
     {
         try
         {
             await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
             Debug.Log("Registro correcto.");
-            return true;
         }
-        catch (AuthenticationException e)
+        catch (System.Exception e)
         {
+            HandleExceptionError(e);
             Debug.LogError($"Registro incorrecto: {e.Message}");
-            return false;
         }
-        catch (RequestFailedException e)
-        {
-            Debug.LogError($"Registro incorrecto: {e.Message}");
-            return false;
-        }
+        
     }
 
-    public async Task<bool> SignInAnonymouslyAsync()
+    // Método para el inicio de sesión como invitado
+    public async Task SignInAnonymouslyAsync()
     {
         try
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log("Inicio de sesión anónimo correcto");
-            return true;
         }
-        catch (AuthenticationException ex)
+        catch (System.Exception e)
         {
-            Debug.LogException(ex);
-            return false;
-        }
-        catch (RequestFailedException ex)
-        {
-            Debug.LogException(ex);
-            return false;
+            Debug.LogError($"Error al iniciar sesión de manera anónima: {e.Message}");
+            throw new SignInAnonymouslyException();
         }
     }
 
+    // Método para cerrar la sesión
     public void SignOut()
     {
         AuthenticationService.Instance.SignOut();
-        AuthenticationService.Instance.ClearSessionToken();     // Al cerrar la sesión se elimina el token, para que al volver a iniciar la aplicación no se inicie sesión automáticamente
+        AuthenticationService.Instance.ClearSessionToken();                         // Al cerrar la sesión se elimina el token, para que al volver a iniciar la aplicación no se inicie sesión automáticamente
+    }
+
+    // Método para comprobar algunas excepciones concretas. Si no, se lanza una excepción genérica
+    private void HandleExceptionError(System.Exception e)
+    {
+        if (e.Message.Contains("username already exists")) {                        // Comprobación de si es una excepción de que ya existe el nombre de usuario
+            Debug.LogError($"El usuario ya existe: {e.Message}");
+            throw new UserAlreadyExistsException();
+        }
+        else if(e.Message.Contains("Invalid username or password"))                 // Comprobación de si es una excepción de que el usuario o contraseña introducidos son incorrectos
+        {
+            Debug.LogError($"Usuario y/o contraseña incorrectos: {e.Message}");
+            throw new InvalidCredentialsException();
+        }
+        else                                                                        // Excepción genérica que se lanza
+        {
+            Debug.Log($"Se ha producido un error: {e.Message}");
+            throw new GenericException();
+        }
     }
 }

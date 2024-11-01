@@ -33,9 +33,17 @@ public class AuthMenu : MonoBehaviour
     }
 
     // Método para el botón de iniciar sesión como invitado
-    private void AnonymousSignIn()
+    private async void AnonymousSignIn()
     {
-        authManager.SignInAnonymouslyAsync();
+        try
+        {
+            await authManager.SignInAnonymouslyAsync();
+            menuHandler.ShowMainMenu();
+        }
+        catch (SignInAnonymouslyException e)
+        {
+            menuHandler.ShowError(e.Message);
+        }
     }
 
     // Método para el botón de inicio de sesión
@@ -45,12 +53,22 @@ public class AuthMenu : MonoBehaviour
         string pass = passwordInput.text.Trim();
         if (string.IsNullOrEmpty(user) == false && string.IsNullOrEmpty(pass) == false)
         {
-            if(await authManager.SignInWithUsernamePasswordAsync(user, pass)) {
+            try
+            {
+                await authManager.SignInWithUsernamePasswordAsync(user, pass);
                 menuHandler.ShowMainMenu();
             }
-            else
+            catch (UserAlreadyExistsException e)
             {
-                menuHandler.ShowError("No se ha podido iniciar sesión");
+                menuHandler.ShowError(e.Message);
+            }
+            catch (InvalidCredentialsException e)
+            {
+                menuHandler.ShowError(e.Message);
+            }
+            catch (GenericException e)
+            {
+                menuHandler.ShowError(e.Message);
             }
         }
     }
@@ -64,20 +82,24 @@ public class AuthMenu : MonoBehaviour
         {
             if (IsPasswordValid(pass))
             {
-                if(await authManager.SignUpWithUsernamePasswordAsync(user, pass))
+                try
                 {
+                    await authManager.SignUpWithUsernamePasswordAsync(user, pass);
                     menuHandler.ShowMainMenu();
                 }
-                else
+                catch (UserAlreadyExistsException e)
                 {
-                    menuHandler.ShowError("No se ha podido registrar el usuario");
+                    menuHandler.ShowError(e.Message);
                 }
+                catch (GenericException e)
+                {
+                    menuHandler.ShowError(e.Message);
+                }  
             }
             else
             {
-                Debug.Log("La contraseña no es válida");
-                //ErrorMenu panel = (ErrorMenu)PanelManager.GetSingleton("error");
-                //panel.Open(ErrorMenu.Action.None, "La contraseña debe contener al menos una mayúscula, una minúscula, un dígito y un símbolo. Mínimo de 8 caracteres y maximo de 30.", "OK");
+                Debug.LogWarning("La contraseña no es válida");
+                
                 menuHandler.ShowError("La contraseña debe contener al menos una mayúscula, una minúscula, un dígito y un símbolo. Mínimo de 8 caracteres y maximo de 30.");
             }
         }

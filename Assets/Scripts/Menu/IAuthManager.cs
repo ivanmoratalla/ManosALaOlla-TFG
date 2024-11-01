@@ -9,11 +9,11 @@ public interface IAuthManager
 {
     public Task<bool> TryAutoLogin();
 
-    public Task<bool> SignInWithUsernamePasswordAsync(string username, string password);
+    public Task SignInWithUsernamePasswordAsync(string username, string password);
 
-    public Task<bool> SignUpWithUsernamePasswordAsync(string username, string password);
+    public Task SignUpWithUsernamePasswordAsync(string username, string password);
 
-    public Task<bool> SignInAnonymouslyAsync();
+    public Task SignInAnonymouslyAsync();
 
     public void SignOut();
 }
