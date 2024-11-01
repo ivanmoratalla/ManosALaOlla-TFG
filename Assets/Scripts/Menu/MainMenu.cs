@@ -1,39 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Services.Authentication;
 using UnityEngine.UI;
 
-public class MainMenu : Panel
+public class MainMenu : MonoBehaviour
 {
-
     [SerializeField] public Text nameText = null;
     [SerializeField] private Button logoutButton = null;
 
-    public override void Initialize()
+
+    private IAuthManager authManager;
+    [SerializeField] private MenuHandler menuHandler;
+
+
+    private void Awake()
     {
-        if (IsInitialized)
-        {
-            return;
-        }
-        logoutButton.onClick.AddListener(SignOut);
-        base.Initialize();
+        authManager = new AuthManager();                        // Instancia de la clase encargada de los métodos de autenticación
+
+        logoutButton.onClick.AddListener(SignOut);                     //Inicializar el botón
+
     }
-    
-    public override void Open()
-    {
-        UpdatePlayerNameUI();
-        base.Open();
-    }
-    
+
     private void SignOut()
     {
-        MenuManager.Singleton.SignOut();
+        authManager.SignOut();
+        menuHandler.ShowAuthMenu();
     }
-    
-    private void UpdatePlayerNameUI()
-    {
-        nameText.text = AuthenticationService.Instance.PlayerName;
-    }
-    
 }
