@@ -25,6 +25,11 @@ public class Level : MonoBehaviour
         initializeLevel();
     }
 
+    private void Update()
+    {
+        orderManager.UpdateOrderTimes(Time.deltaTime);
+    }
+
     public void freeTable(int tableNumber)
     {
         Debug.Log("Liberando mesa " + tableNumber);
@@ -70,19 +75,16 @@ public class Level : MonoBehaviour
 
             while (assignedTable == null)
             {
-                Debug.Log("Buscando mesa");
+                //Debug.Log("Buscando mesa");
                 assignedTable = getAvailableTable();
 
-                if (assignedTable != null)
+                if (assignedTable != null)                                              // Mesa libre encontrada
                 {
-                    // Mesa libre encontrada
                     Debug.Log("Se ha encontrado una mesa libre para el cliente");
                 }
                 else
                 {
-                    // No hay mesas libres, esperar un segundo antes de volver a comprobar.
-                    Debug.Log("No hay ninguna mesa disponible para el cliente");
-                    yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1f);                                // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
                 }
             }
             // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sienta

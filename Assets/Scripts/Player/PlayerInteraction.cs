@@ -12,7 +12,7 @@ public class PlayerInteraction : MonoBehaviour
     private KitchenAppliance collidingAppliance = null;                     // Esta variable índica si tengo un electrodoméstico con el que el personaje está colisionando, para poder interactuar o no con él
     private OrderManager orderManager;                                      // Manejador de pedidos con el que el jugador debe interactuar al completar uno
 
-    public static event Action<int, string, Action<bool>> OnServeDish;         // Evento para notificar cuando se quiere servir un pedido
+    public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
 
     void Update()
     {
@@ -142,7 +142,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void deliverOrder(int tableNumber, string dish)
     {
-        OnServeDish?.Invoke(tableNumber, dish, res =>
+        OnTryToServeDish?.Invoke(tableNumber, dish, res =>
         {
             if (res)
             {
