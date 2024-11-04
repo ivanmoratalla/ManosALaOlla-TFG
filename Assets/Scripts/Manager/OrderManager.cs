@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OrderManager
 {
-    //public static OrderManager Instance { get; private set; }
+    public static EventHandler<int> OnServedDish;                                       // Evento que se va a invocar para notificar a la UI que tiene que actualizar la puntuación
 
     private Level level;                                                                // Nivel sobre el que maneja las órdenes    
     private Dictionary<int, string> activeOrders;                                       // Pedidos por mesa activos
@@ -14,8 +14,6 @@ public class OrderManager
 
     private float orderTimeLimit = 40f;                                                 // Duración máxima que puede esperar un cliente
     private const int maxStars = 5;                                                     // Puntos máximos que se pueden obtener por un pedido (5 estrellas)
-
-
 
     public OrderManager(Level level)
     {
@@ -47,6 +45,8 @@ public class OrderManager
             {
                 float orderTime = orderTimers[tableNumber];                         // Tomamos el tiempo acumulado en el pedido.
                 score += CalculateStars(orderTime);                                 // Sumar los puntos al total del nivel.
+
+                OnServedDish?.Invoke(this, score);        // Se invoca el evento al servir correctamente el plato para actualizar la UI con la nueva puntuación del nivel
 
                 Debug.Log("Plato correcto servido en la mesa " + tableNumber);
                 Debug.Log("Total de puntos del nivel: " + score);

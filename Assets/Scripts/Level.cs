@@ -6,11 +6,25 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    //public static Level Instance { get; private set; }
+    private enum GameState
+    {
+        PreGame,
+        InGame,
+        GameOver
+    }
+
+    public static EventHandler<float> OnTimeChange;                 // Evento que se va a invocar para notificar a la UI del cambio en el tiempo restante del nivel
 
     [SerializeField] private LevelData levelData;                   // Datos del nivel (clientes junto a los platos que piden)
     [SerializeField] private List<Table> tables;                    // Lista con las distintas mesas que tiene el nivel
     [SerializeField] private GameObject clientPrefab;               // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
+
+    private GameState gameState;                                    // Estado del nivel (Antes de comenzar el nivel, en el nivel o tras finalizar el nivel)
+    [SerializeField] private float preGameTime;                     // Tiempo desde que se carga el nivel hasta que se inicia (para que el usuario pueda visualizar un poco el nivel)
+    [SerializeField] private float gameTime;                        // Tiempo de juego
+    private float actualTimer;                                      // El temporizador que se está utilizando en el momento actual de la partida, tanto para previo al inicio como para el juego en si
+    private float uiTimer;                                          // Temporizador para saber cuando llamar a que se actualice el tiempo de la UI (para evitar notificar el evento muchas veces y solo cada segundo aprox)
+
 
     private OrderManager orderManager;                              // Variable para la clase encargada de manejar las comandas de este nivel
 
@@ -25,34 +39,51 @@ public class Level : MonoBehaviour
         initializeLevel();
     }
 
-    private void Update()
-    {
-        orderManager.UpdateOrderTimes(Time.deltaTime);
-    }
-
-    public void freeTable(int tableNumber)
-    {
-        Debug.Log("Liberando mesa " + tableNumber);
-
-        foreach (Table table in tables)
-        {
-            if (table.getTableNumber() == tableNumber)
-            {
-                table.removeCustomer();
-                Debug.Log("Se ha liberado la mesa " + tableNumber);
-                return;
-            }
-        }
-        Debug.LogWarning("No existe la mesa " + tableNumber);
-    }
 
     // Método para la inicialización de un nivel. Hay que encontrar las mesas que haya en el nivel y comenzar a sentar a los clientes en las mesas cuando les sea posible
     private void initializeLevel()
     {
-        setTables();
+        setTables();                                                // Encontrar las mesas del nivel
+        
+        gameState = GameState.PreGame;                              // Se establece que el estado del nivel sea el previo al comienzo
+        actualTimer = preGameTime;                                  // Se comienza a contar el tiempo previo al comienzo del nivel
 
-        StartCoroutine(seatCustomers());
+        OnTimeChange?.Invoke(this, gameTime);                       // Se notifica que se actualice la UI con el tiempo total del nivel
+
     }
+
+    private void Update()
+    {
+        actualTimer -= Time.deltaTime;
+        uiTimer -= Time.deltaTime;
+
+        switch (gameState)
+        {
+            case GameState.PreGame:
+                if (actualTimer <= 0)                               // Se comprueba si estando en el estado previo, ya se ha pasado su tiempo correspondiente
+                {
+                    actualTimer = gameTime;                         // En ese caso, se comienza a contar el tiempo de juego normal
+                    gameState = GameState.InGame;                   // Se cambia el estdo a "En partida"
+
+                    StartCoroutine(seatCustomers());                // Comenzar a sentar a los clientes
+                }
+                break;
+            case GameState.InGame:          
+                if (uiTimer <= 0)
+                {
+                    OnTimeChange?.Invoke(this, actualTimer);        // Se invoca el evento para actualizar el tiempo restante en el UI
+                    uiTimer = 1;                                    // Se resetea el temporizador de actualización de la UI
+                }
+                if (actualTimer <= 0)
+                {
+                    SetGameOver();
+                }
+                break;
+        }
+
+        orderManager.UpdateOrderTimes(Time.deltaTime);
+    }
+
 
     private void setTables()
     {
@@ -98,6 +129,27 @@ public class Level : MonoBehaviour
             Debug.Log("Cliente creado");
         }
         Debug.Log("Todos los clientes se han sentado en alguna mesa");
+    }
+
+    public void SetGameOver()
+    {
+        gameState = GameState.GameOver;
+    }
+
+    public void freeTable(int tableNumber)
+    {
+        Debug.Log("Liberando mesa " + tableNumber);
+
+        foreach (Table table in tables)
+        {
+            if (table.getTableNumber() == tableNumber)
+            {
+                table.removeCustomer();
+                Debug.Log("Se ha liberado la mesa " + tableNumber);
+                return;
+            }
+        }
+        Debug.LogWarning("No existe la mesa " + tableNumber);
     }
 
     private Table getAvailableTable()

@@ -6,17 +6,17 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
 
-    public GameObject hand;                                                 // Punto donde el objeto que el jugador tiene en la mano va a estar (posición)
-    private GameObject pickedObject = null;                                 // Objeto que el jugador tiene en la mano
-    private Counter collidingCounter = null;                                // Esta variable índica si tengo una encimera con la que el personaje está colisionando, para poder coger/soltar objetos en ella
-    private KitchenAppliance collidingAppliance = null;                     // Esta variable índica si tengo un electrodoméstico con el que el personaje está colisionando, para poder interactuar o no con él
-    private OrderManager orderManager;                                      // Manejador de pedidos con el que el jugador debe interactuar al completar uno
+    public GameObject hand;                                                         // Punto donde el objeto que el jugador tiene en la mano va a estar (posición)
+    private GameObject pickedObject = null;                                         // Objeto que el jugador tiene en la mano
+    private Counter collidingCounter = null;                                        // Esta variable índica si tengo una encimera con la que el personaje está colisionando, para poder coger/soltar objetos en ella
+    private KitchenAppliance collidingAppliance = null;                             // Esta variable índica si tengo un electrodoméstico con el que el personaje está colisionando, para poder interactuar o no con él
+    private OrderManager orderManager;                                              // Manejador de pedidos con el que el jugador debe interactuar al completar uno
 
     public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
 
     void Update()
     {
-        if (pickedObject != null && Input.GetKey(KeyCode.F))                      // Si el usuario tiene un objeto en la mano y pulsa esta tecla quiere soltar el objeto
+        if (pickedObject != null && Input.GetKey(KeyCode.F))                        // Si el usuario tiene un objeto en la mano y pulsa esta tecla quiere soltar el objeto
         {
             handleReleaseObject();
         }
@@ -29,7 +29,7 @@ public class PlayerInteraction : MonoBehaviour
         Counter counter = other.GetComponent<Counter>();
         if (counter != null)                                
         {
-            collidingCounter = counter;                                     // Si se ha entrado en contacto con una encimera, la indico en la variable
+            collidingCounter = counter;                                             // Si se ha entrado en contacto con una encimera, la indico en la variable
         }
 
         // Se comprueba si se ha entrado en contacto con un electrodoméstico
@@ -55,14 +55,14 @@ public class PlayerInteraction : MonoBehaviour
             {
                 handlePickObject(applianceObject);
             }
-            else if (other.gameObject.CompareTag("Objeto"))                 // Se comprueba si se tiene un objeto en el suelo
+            else if (other.gameObject.CompareTag("Objeto"))                     // Se comprueba si se tiene un objeto en el suelo
             {
                 handlePickObject(other.gameObject);
             }
         }
         else
         {
-            Table table = other.GetComponent<Table>();                      // Se comprueba si la colisión es con una mesa
+            Table table = other.GetComponent<Table>();                          // Se comprueba si la colisión es con una mesa
             if (table != null)
             {
                 handleTableInteraction(table);
