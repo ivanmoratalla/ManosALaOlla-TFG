@@ -10,7 +10,9 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject pickedObject = null;                                 // Objeto que el jugador tiene en la mano
     private Counter collidingCounter = null;                                // Esta variable índica si tengo una encimera con la que el personaje está colisionando, para poder coger/soltar objetos en ella
     private KitchenAppliance collidingAppliance = null;                     // Esta variable índica si tengo un electrodoméstico con el que el personaje está colisionando, para poder interactuar o no con él
+    private OrderManager orderManager;                                      // Manejador de pedidos con el que el jugador debe interactuar al completar uno
 
+    public static event Action<int, string, Action<bool>> OnServeDish;         // Evento para notificar cuando se quiere servir un pedido
 
     void Update()
     {
@@ -19,7 +21,6 @@ public class PlayerInteraction : MonoBehaviour
             handleReleaseObject();
         }
     }
-
 
     // Este metodo es llamado cuando el jugador entra en contacto con otro objeto
     private void OnTriggerEnter(Collider other)
@@ -141,17 +142,17 @@ public class PlayerInteraction : MonoBehaviour
 
     private void deliverOrder(int tableNumber, string dish)
     {
-        bool res = OrderManager.Instance.ServeDish(tableNumber, dish);
-
-        if (res)
+        OnServeDish?.Invoke(tableNumber, dish, res =>
         {
-            Destroy(pickedObject);
-            pickedObject = null;
-        }
-        else
-        {
-            // Aquí incluiré las penalizaciones que sean 
-        }
-
+            if (res)
+            {
+                Destroy(pickedObject);
+                pickedObject = null;
+            }
+            else
+            {
+                // Aquí incluiré las penalizaciones que sean 
+            }
+        });
     }
 }

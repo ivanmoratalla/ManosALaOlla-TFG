@@ -1,14 +1,20 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrderManager : MonoBehaviour
+public class OrderManager
 {
-    public static OrderManager Instance { get; private set; }
-    private Dictionary<int, string> activeOrders = new Dictionary<int, string>(); // Mesa y plato pedido.
+    //public static OrderManager Instance { get; private set; }
 
-    void Awake()
+    private Level level;                                                                // Nivel sobre el que maneja las órdenes    
+    private Dictionary<int, string> activeOrders;                                       // Pedidos por mesa activos
+
+    public OrderManager(Level level)
     {
-        Instance = this;
+        activeOrders = new Dictionary<int, string>();
+        this.level = level;
+        PlayerInteraction.OnServeDish += ServeDish; // Suscribirse al evento
+
     }
 
     public void CreateOrder(string dishRequest, int tableNumber)
@@ -17,28 +23,30 @@ public class OrderManager : MonoBehaviour
         Debug.Log("Comanda creada para la mesa " + tableNumber + ": " + dishRequest);
     }
 
-    public bool ServeDish(int tableNumber, string servedDish)
+    private void ServeDish(int tableNumber, string servedDish, Action<bool> callback)
     {
+        bool res = false;
+
         if (activeOrders.ContainsKey(tableNumber) && servedDish != null)
         {
             if (activeOrders[tableNumber] == servedDish)
             {
                 Debug.Log("Plato correcto servido en la mesa " + tableNumber);
-                activeOrders.Remove(tableNumber);                           // Elimino la comanda.
-                Level.Instance.freeTable(tableNumber);               // LLamo al manager para liberar la mesa y que se pueda sentar otro cliente que llegue
+                activeOrders.Remove(tableNumber);                                   // Elimino la comanda.
+                level.freeTable(tableNumber);                                       // LLamo al manager para liberar la mesa y que se pueda sentar otro cliente que llegue
 
-                return true;
+                res = true;
             }
             else
             {
                 Debug.Log("Plato incorrecto servido en la mesa " + tableNumber);
-                return false;
             }
         }
         else
         {
             Debug.Log("No hay comanda para la mesa " + tableNumber);
-            return false;
         }
+
+        callback?.Invoke(res);
     }
 }

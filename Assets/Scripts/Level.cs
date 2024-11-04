@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
@@ -5,15 +6,18 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    public static Level Instance { get; private set; }
+    //public static Level Instance { get; private set; }
 
-    [SerializeField] private LevelData levelData; // Asigno el ScriptableObject desde el inspector.
-    [SerializeField] private List<Table> tables;
-    [SerializeField] private GameObject clientPrefab;
+    [SerializeField] private LevelData levelData;                   // Datos del nivel (clientes junto a los platos que piden)
+    [SerializeField] private List<Table> tables;                    // Lista con las distintas mesas que tiene el nivel
+    [SerializeField] private GameObject clientPrefab;               // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
+
+    private OrderManager orderManager;                              // Variable para la clase encargada de manejar las comandas de este nivel
+
 
     void Awake()
     {
-        Instance = this;
+        orderManager = new OrderManager(this);
     }
 
     void Start()
@@ -84,7 +88,7 @@ public class Level : MonoBehaviour
             // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sienta
             // Instancia y posiciona los clientes en la escena
             Customer newCustomer = Instantiate(clientPrefab).GetComponent<Customer>();  // clientPrefab es el prefab de un cliente.
-            newCustomer.setData(customerData, assignedTable);                           // Asigna los datos de cliente
+            newCustomer.setData(customerData, assignedTable, orderManager);                           // Asigna los datos de cliente
 
             yield return null;                                                          // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
             assignedTable.seatCustomer(newCustomer);

@@ -7,6 +7,7 @@ public class Customer : MonoBehaviour
 {
     private CustomerData data;
     private Table assignedTable;
+    private OrderManager orderManager;
 
 
     void Start()
@@ -28,13 +29,14 @@ public class Customer : MonoBehaviour
 
     private void createOrder()
     {
-        OrderManager.Instance.CreateOrder(data.getDish(), assignedTable.getTableNumber());
+        orderManager.CreateOrder(data.getDish(), assignedTable.getTableNumber());
     }
 
-    public void setData(CustomerData data, Table assignedTable)
+    public void setData(CustomerData data, Table assignedTable, OrderManager od)
     {
         this.data = data;
         this.assignedTable = assignedTable;
+        this.orderManager = od; 
     }
 
     public CustomerData getData()
