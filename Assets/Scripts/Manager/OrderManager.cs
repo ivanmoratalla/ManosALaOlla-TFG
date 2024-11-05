@@ -108,4 +108,9 @@ public class OrderManager
             level.freeTable(tableNumber);
         }
     }
+
+    public int getScore()
+    {
+        return score;
+    }
 }

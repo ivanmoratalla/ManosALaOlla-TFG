@@ -8,11 +8,11 @@ public class MenuHandler : MonoBehaviour
     [SerializeField] private GameObject errorMenu;
     [SerializeField] private GameObject authMenu;
 
-    private IAuthManager authManager;
+    private IAuthService authManager;
 
     private void Start()
     {
-        authManager = new AuthManager();                // Instancia de la clase encargada de los métodos de autenticación
+        authManager = new AuthService();                // Instancia de la clase encargada de los métodos de autenticación
 
         InitializeMenus();
     }

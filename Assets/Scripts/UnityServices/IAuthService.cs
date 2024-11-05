@@ -5,7 +5,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
 
-public interface IAuthManager
+public interface IAuthService
 {
     public Task<bool> TryAutoLogin();
 

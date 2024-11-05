@@ -109,21 +109,21 @@ public class Level : MonoBehaviour
                 //Debug.Log("Buscando mesa");
                 assignedTable = getAvailableTable();
 
-                if (assignedTable != null)                                              // Mesa libre encontrada
+                if (assignedTable != null)                                                      // Mesa libre encontrada
                 {
                     Debug.Log("Se ha encontrado una mesa libre para el cliente");
                 }
                 else
                 {
-                    yield return new WaitForSeconds(1f);                                // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
+                    yield return new WaitForSeconds(1f);                                        // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
                 }
             }
             // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sienta
             // Instancia y posiciona los clientes en la escena
-            Customer newCustomer = Instantiate(clientPrefab).GetComponent<Customer>();  // clientPrefab es el prefab de un cliente.
-            newCustomer.setData(customerData, assignedTable, orderManager);                           // Asigna los datos de cliente
+            Customer newCustomer = Instantiate(clientPrefab).GetComponent<Customer>();          // clientPrefab es el prefab de un cliente.
+            newCustomer.setData(customerData, assignedTable, orderManager);                     // Asigna los datos de cliente
 
-            yield return null;                                                          // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
+            yield return null;                                                                  // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
             assignedTable.seatCustomer(newCustomer);
 
             Debug.Log("Cliente creado");
@@ -131,9 +131,25 @@ public class Level : MonoBehaviour
         Debug.Log("Todos los clientes se han sentado en alguna mesa");
     }
 
-    public void SetGameOver()
+    private void SetGameOver()
     {
         gameState = GameState.GameOver;
+
+        ISaveDataService saveDataService = new SaveDataService();
+
+        saveDataService.SaveStarsForLevel(levelData.getLevelNumber(), orderManager.getScore()); // Se guarda en la base de datos la puntuación obtenida (solo si es mayor que la previa)
+    }
+
+    private Table getAvailableTable()
+    {
+        foreach (Table table in tables)
+        {
+            if (table.IsAvailable())
+            {
+                return table;
+            }
+        }
+        return null; // Si no hay mesas disponibles.
     }
 
     public void freeTable(int tableNumber)
@@ -150,17 +166,5 @@ public class Level : MonoBehaviour
             }
         }
         Debug.LogWarning("No existe la mesa " + tableNumber);
-    }
-
-    private Table getAvailableTable()
-    {
-        foreach (Table table in tables)
-        {
-            if (table.IsAvailable())
-            {
-                return table;
-            }
-        }
-        return null; // Si no hay mesas disponibles.
     }
 }

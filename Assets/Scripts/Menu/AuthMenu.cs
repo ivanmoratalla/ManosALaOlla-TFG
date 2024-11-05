@@ -13,12 +13,12 @@ public class AuthMenu : MonoBehaviour
     [SerializeField] private Button signupButton = null;        // Botón para registrarse
     [SerializeField] private Button anonymousButton = null;     // Botón para inicio de sesión como invitado
 
-    private IAuthManager authManager;
+    private IAuthService authManager;
     [SerializeField] private MenuHandler menuHandler;
 
     private void Awake()
     {
-        authManager = new AuthManager();                        // Instancia de la clase encargada de los métodos de autenticación
+        authManager = new AuthService();                        // Instancia de la clase encargada de los métodos de autenticación
         
         //Inicializar los botones con las acciones que deben de hacer
         signinButton.onClick.AddListener(SignIn);

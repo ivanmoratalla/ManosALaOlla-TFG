@@ -5,9 +5,9 @@ using Unity.Services.Core;
 using Unity.Services.Authentication;
 using UnityEngine;
 
-public class AuthManager: IAuthManager
+public class AuthService: IAuthService
 {
-    public AuthManager()
+    public AuthService()
     {
         InitializeUnityServices();
     }
