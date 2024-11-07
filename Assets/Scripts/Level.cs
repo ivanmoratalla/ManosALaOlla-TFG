@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
@@ -20,8 +22,7 @@ public class Level : MonoBehaviour
     [SerializeField] private GameObject clientPrefab;               // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
 
     private GameState gameState;                                    // Estado del nivel (Antes de comenzar el nivel, en el nivel o tras finalizar el nivel)
-    [SerializeField] private float preGameTime;                     // Tiempo desde que se carga el nivel hasta que se inicia (para que el usuario pueda visualizar un poco el nivel)
-    [SerializeField] private float gameTime;                        // Tiempo de juego
+    
     private float actualTimer;                                      // El temporizador que se está utilizando en el momento actual de la partida, tanto para previo al inicio como para el juego en si
     private float uiTimer;                                          // Temporizador para saber cuando llamar a que se actualice el tiempo de la UI (para evitar notificar el evento muchas veces y solo cada segundo aprox)
 
@@ -46,9 +47,9 @@ public class Level : MonoBehaviour
         setTables();                                                // Encontrar las mesas del nivel
         
         gameState = GameState.PreGame;                              // Se establece que el estado del nivel sea el previo al comienzo
-        actualTimer = preGameTime;                                  // Se comienza a contar el tiempo previo al comienzo del nivel
+        actualTimer = levelData.getPreGameTime();                   // Se comienza a contar el tiempo previo al comienzo del nivel
 
-        OnTimeChange?.Invoke(this, gameTime);                       // Se notifica que se actualice la UI con el tiempo total del nivel
+        OnTimeChange?.Invoke(this, levelData.getGameTime());        // Se notifica que se actualice la UI con el tiempo total del nivel
 
     }
 
@@ -62,7 +63,7 @@ public class Level : MonoBehaviour
             case GameState.PreGame:
                 if (actualTimer <= 0)                               // Se comprueba si estando en el estado previo, ya se ha pasado su tiempo correspondiente
                 {
-                    actualTimer = gameTime;                         // En ese caso, se comienza a contar el tiempo de juego normal
+                    actualTimer = levelData.getGameTime();          // En ese caso, se comienza a contar el tiempo de juego normal
                     gameState = GameState.InGame;                   // Se cambia el estdo a "En partida"
 
                     StartCoroutine(seatCustomers());                // Comenzar a sentar a los clientes
@@ -131,13 +132,21 @@ public class Level : MonoBehaviour
         Debug.Log("Todos los clientes se han sentado en alguna mesa");
     }
 
-    private void SetGameOver()
+    private async void SetGameOver()
     {
         gameState = GameState.GameOver;
+        int finalStars = orderManager.getScore();
 
-        ISaveDataService saveDataService = new SaveDataService();
+        ICloudDataService saveDataService = new CloudDataService();
 
-        saveDataService.SaveStarsForLevel(levelData.getLevelNumber(), orderManager.getScore()); // Se guarda en la base de datos la puntuación obtenida (solo si es mayor que la previa)
+        await saveDataService.SaveStarsForLevelIfHigher(levelData.getLevelNumber(), finalStars);      // Se guarda en la base de datos la puntuación obtenida (solo si es mayor que la previa)
+        
+        if(finalStars >= levelData.getNeededScore())
+        {
+            await saveDataService.UpdateMaxLevelIfNeeded(levelData.getLevelNumber());                 // Si el nivel se ha completado, se comprueba si hay que actualizar el nivel máximo desbloqueado
+            SceneManager.LoadScene("LevelsMenu");
+        }
+        
     }
 
     private Table getAvailableTable()

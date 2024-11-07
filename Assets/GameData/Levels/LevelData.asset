@@ -23,3 +23,6 @@ MonoBehaviour:
   - name: Jesusito
     dish: PatatasFritas
     arrivalTime: 7
+  preGameTime: 3
+  gameTime: 25
+  neededScore: 2

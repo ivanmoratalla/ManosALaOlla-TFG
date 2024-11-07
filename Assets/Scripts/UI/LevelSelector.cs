@@ -9,14 +9,17 @@ public class LevelSelector : MonoBehaviour
     [SerializeField] private GameObject buttonPrefab;                                   // Variable que indica cómo es el botón (forma, tamaño, color etc)
     public RectTransform container;                                                     // Variable que es el contenedor dónde van a estar los botones que se creen
     private int totalLevels = 0;                                                        // Variable que incluirá el total de niveles que tiene mi juego
+    private CloudDataService saveDataService;
     
     // Start is called before the first frame update
     void Start()
     {
+        saveDataService = new CloudDataService();                                        // Clase para cargar datos de la nube de Unity
+
         generateLevelButtons();
     }
 
-    private void generateLevelButtons()
+    private async void generateLevelButtons()
     {
 
         foreach (Transform child in container)                                          // Si hubiera algún botón creado, se elimian                               
@@ -25,7 +28,10 @@ public class LevelSelector : MonoBehaviour
         }
 
         totalLevels = calculateNumberOfLevels();                                        // Se calcula el número de niveles que tiene mi juego
-        Debug.Log(totalLevels);
+        int maxUnlockedLevel = await saveDataService.LoadMaxUnlockedLevel();            // Se obtiene el máximo nivel desbloqueado
+
+        Debug.Log("Total de niveles: " + totalLevels);
+        Debug.Log("Máximo nivel desbloqueado: " + maxUnlockedLevel);
 
         for (int i = 1; i <= totalLevels; i++)
         {
@@ -42,7 +48,7 @@ public class LevelSelector : MonoBehaviour
             button.onClick.AddListener(() => loadLevel(levelNumber));
 
             // Comprobar si el nivel está desbloqueado
-            button.interactable = LevelsManager.Instance.isLevelUnlocked(i);
+            button.interactable = i <= maxUnlockedLevel;
             Debug.Log("Nivel " + i + " " + button.interactable);
         }
     }
