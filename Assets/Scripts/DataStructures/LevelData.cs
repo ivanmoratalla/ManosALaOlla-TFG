@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
-
 
 [CreateAssetMenu(fileName = "NewLevelData", menuName = "LevelData")]
 public class LevelData : ScriptableObject

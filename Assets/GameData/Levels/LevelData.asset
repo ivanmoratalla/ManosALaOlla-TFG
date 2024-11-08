@@ -21,5 +21,5 @@ MonoBehaviour:
   - name: Tico
     dish: {fileID: 11400000, guid: 9036c0facbd5d1b4f95bf5cf51cb05fe, type: 2}
   preGameTime: 3
-  gameTime: 60
+  gameTime: 30
   neededScore: 2

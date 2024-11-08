@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -136,6 +134,7 @@ public class Level : MonoBehaviour
     {
         gameState = GameState.GameOver;
         int finalStars = orderManager.getScore();
+        Debug.Log("Final stars: " + finalStars);
 
         ICloudDataService saveDataService = new CloudDataService();
 

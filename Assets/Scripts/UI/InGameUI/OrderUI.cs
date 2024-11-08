@@ -7,9 +7,6 @@ public class OrderUI : MonoBehaviour
 {
     [SerializeField] private Image timerBar;
 
-    private bool _started;
-
-
     [SerializeField] private Text recipeName;
     [SerializeField] private Text assignedTable;
 
@@ -25,9 +22,6 @@ public class OrderUI : MonoBehaviour
     // Public Methods
     public void SetOrder(KeyValuePair<int, Recipe> orderData)
     {
-        _started = true;
-
-
         recipeName.text = orderData.Value.getRecipeName();
         assignedTable.text = "Mesa: " + orderData.Key.ToString();
     }
@@ -39,7 +33,6 @@ public class OrderUI : MonoBehaviour
         if (newTime <= 0)
         {
             LeanTween.color(gameObject.GetComponent<RectTransform>(), Color.red, 0.5f).setDestroyOnComplete(true);
-            _started = false;
         }
 
     }
