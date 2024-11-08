@@ -6,21 +6,15 @@ using UnityEngine;
 public class CustomerData
 {
     [SerializeField] private string name;           // Nombre del cliente.
-    [SerializeField] private string dish;           // Plato que va a pedir.
-    [SerializeField] private float arrivalTime;  // Tiempo que tarda en llegar al restaurante (para que se vayan uniendo progresivamente)
+    [SerializeField] private Recipe dish;           // Plato que va a pedir.
 
     public string getName()
     {
         return name;
     }
 
-    public string getDish()
+    public Recipe getDish()
     {
         return dish;
-    }
-
-    public float getArrivalTime()
-    {
-        return arrivalTime;
     }
 }

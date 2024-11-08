@@ -15,14 +15,11 @@ MonoBehaviour:
   levelNumber: 1
   customers:
   - name: Pedro
-    dish: Ensalada
-    arrivalTime: 0
+    dish: {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
   - name: Tico
-    dish: Ensalada
-    arrivalTime: 5
-  - name: Jesusito
-    dish: PatatasFritas
-    arrivalTime: 7
+    dish: {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
+  - name: Tico
+    dish: {fileID: 11400000, guid: 9036c0facbd5d1b4f95bf5cf51cb05fe, type: 2}
   preGameTime: 3
-  gameTime: 25
+  gameTime: 60
   neededScore: 2
