@@ -10,6 +10,7 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject pickedObject = null;                                         // Objeto que el jugador tiene en la mano
     private Counter collidingCounter = null;                                        // Esta variable índica si tengo una encimera con la que el personaje está colisionando, para poder coger/soltar objetos en ella
     private KitchenAppliance collidingAppliance = null;                             // Esta variable índica si tengo un electrodoméstico con el que el personaje está colisionando, para poder interactuar o no con él
+
     private OrderManager orderManager;                                              // Manejador de pedidos con el que el jugador debe interactuar al completar uno
 
     public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
@@ -42,7 +43,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        GameObject applianceObject;
+        GameObject objectToPick;
         if(pickedObject == null && Input.GetKey(KeyCode.E))                       // Se comprueba si se ha pulsado la tecla y si se puede coger un objeto
         {
             GameObject counterObject;
@@ -51,9 +52,13 @@ public class PlayerInteraction : MonoBehaviour
 
                 handlePickObject(counterObject);
             }
-            else if(collidingAppliance != null && (applianceObject = collidingAppliance.pickUpFood()) != null)
+            else if (collidingAppliance != null && (objectToPick = collidingAppliance.pickUpFood()) != null)
             {
-                handlePickObject(applianceObject);
+                handlePickObject(objectToPick);
+            }
+            else if (other.GetComponent<Crate>() != null && (objectToPick = other.GetComponent<Crate>().pickUpFood()))
+            {
+                handlePickObject(objectToPick);
             }
             else if (other.gameObject.CompareTag("Objeto"))                     // Se comprueba si se tiene un objeto en el suelo
             {
