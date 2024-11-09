@@ -100,6 +100,7 @@ public class Plate : MonoBehaviour
     private void addIngredientToPlate(Food food)
     {
         food.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        food.GetComponent<Collider>().enabled = false;
 
         // Ajustar la posición del nuevo ingrediente justo encima de los ingredientes previos
         Vector3 newPosition = this.transform.position;  // Usar la posición del propio objeto Plate
