@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7123527636620469296}
   - component: {fileID: 8268672346769504901}
   - component: {fileID: 7186776470718169995}
+  - component: {fileID: -9033050878110502182}
   m_Layer: 0
   m_Name: Donut Choco
   m_TagString: Objeto
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -10.305641, y: 0.99999976, z: -3.3374429}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -134,3 +135,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &-9033050878110502182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8780654592860833253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2858de717e207a4eb9f4fc169216696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateData: {fileID: 11400000, guid: 0df853700f56ced4d94709207bb25e64, type: 2}

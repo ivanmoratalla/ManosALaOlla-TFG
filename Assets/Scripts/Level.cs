@@ -14,6 +14,7 @@ public class Level : MonoBehaviour
     }
 
     public static EventHandler<float> OnTimeChange;                 // Evento que se va a invocar para notificar a la UI del cambio en el tiempo restante del nivel
+    public static EventHandler<Boolean> OnGameOver;                 // Evento para notificar que aparezca la UI de finalizar nivel. El booleano indica si se debe activar o no el botón de siguiente nivel
 
     [SerializeField] private LevelData levelData;                   // Datos del nivel (clientes junto a los platos que piden)
     [SerializeField] private List<Table> tables;                    // Lista con las distintas mesas que tiene el nivel
@@ -108,21 +109,21 @@ public class Level : MonoBehaviour
                 //Debug.Log("Buscando mesa");
                 assignedTable = getAvailableTable();
 
-                if (assignedTable != null)                                                      // Mesa libre encontrada
+                if (assignedTable != null)                                                          // Mesa libre encontrada
                 {
                     Debug.Log("Se ha encontrado una mesa libre para el cliente");
                 }
                 else
                 {
-                    yield return new WaitForSeconds(1f);                                        // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
+                    yield return new WaitForSeconds(1f);                                            // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
                 }
             }
             // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sienta
             // Instancia y posiciona los clientes en la escena
-            Customer newCustomer = Instantiate(clientPrefab).GetComponent<Customer>();          // clientPrefab es el prefab de un cliente.
-            newCustomer.setData(customerData, assignedTable, orderManager);                     // Asigna los datos de cliente
+            Customer newCustomer = Instantiate(clientPrefab).GetComponent<Customer>();              // clientPrefab es el prefab de un cliente.
+            newCustomer.setData(customerData, assignedTable, orderManager);                         // Asigna los datos de cliente
 
-            yield return null;                                                                  // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
+            yield return null;                                                                      // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
             assignedTable.seatCustomer(newCustomer);
 
             Debug.Log("Cliente creado");
@@ -138,14 +139,16 @@ public class Level : MonoBehaviour
 
         ICloudDataService saveDataService = new CloudDataService();
 
-        await saveDataService.SaveStarsForLevelIfHigher(levelData.getLevelNumber(), finalStars);      // Se guarda en la base de datos la puntuación obtenida (solo si es mayor que la previa)
-        
-        if(finalStars >= levelData.getNeededScore())
+        await saveDataService.SaveStarsForLevelIfHigher(levelData.getLevelNumber(), finalStars);    // Se guarda en la base de datos la puntuación obtenida (solo si es mayor que la previa)
+
+        Boolean levelPassed = finalStars >= levelData.getNeededScore();
+
+        if (levelPassed)
         {
-            await saveDataService.UpdateMaxLevelIfNeeded(levelData.getLevelNumber());                 // Si el nivel se ha completado, se comprueba si hay que actualizar el nivel máximo desbloqueado
-            SceneManager.LoadScene("LevelsMenu");
+            await saveDataService.UpdateMaxLevelIfNeeded(levelData.getLevelNumber());               // Si el nivel se ha completado, se comprueba si hay que actualizar el nivel máximo desbloqueado
         }
-        
+
+        OnGameOver?.Invoke(this, levelPassed);                                                      // Se notifica el evento para que aparezca la UI de fin de nivel                                                          
     }
 
     private Table getAvailableTable()

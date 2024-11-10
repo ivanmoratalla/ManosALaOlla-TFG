@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5ecb3ceb8e6a8f4c9c965fcc667d1ea, type: 3}
-  m_Name: LevelData
+  m_Name: LevelData_1
   m_EditorClassIdentifier: 
   levelNumber: 1
   customers:
   - name: Pedro
     dish: {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
   - name: Tico
-    dish: {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
   - name: Tico
-    dish: {fileID: 11400000, guid: 9036c0facbd5d1b4f95bf5cf51cb05fe, type: 2}
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
   preGameTime: 3
   gameTime: 30
   neededScore: 2
