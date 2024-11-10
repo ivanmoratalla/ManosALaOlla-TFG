@@ -100,13 +100,16 @@ public class OrderManager
 
             // Acumulamos el tiempo que ha pasado desde que se creó el pedido
             orderTimers[tableNumber] += deltaTime;
-            OnOrderTimeChange?.Invoke(this, new KeyValuePair<int, float>(tableNumber, (orderTimeLimit - orderTimers[tableNumber])/orderTimeLimit));
 
             if (orderTimers[tableNumber] >= orderTimeLimit)
             {
                 Debug.Log("El pedido en la mesa " + tableNumber + " ha expirado y se ha perdido.");
                 expiredOrders.Add(tableNumber);
                 score -= 2; // Restamos 2 puntos por pedido perdido.
+            }
+            else
+            {
+                OnOrderTimeChange?.Invoke(this, new KeyValuePair<int, float>(tableNumber, (orderTimeLimit - orderTimers[tableNumber]) / orderTimeLimit));
             }
         }
 
