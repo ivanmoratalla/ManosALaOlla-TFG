@@ -81,9 +81,29 @@ public class OrderManager
     // Método para calcular los puntos en función del tiempo que se ha tardado
     private int CalculateStars(float timeTaken)
     {
-        float percentage = (timeTaken / orderTimeLimit);
+        float percentage = timeTaken / orderTimeLimit;
 
-        int stars = maxStars - Mathf.Clamp(Mathf.FloorToInt(percentage * maxStars), 0, maxStars);
+        int stars;
+        if (percentage < 0.4f)                
+        {
+            stars = 5;
+        }
+        else if (percentage < 0.5)          
+        {
+            stars = 4;
+        }
+        else if (percentage < 0.6f)           
+        {
+            stars = 3;
+        }
+        else if (percentage < 0.8f)           
+        {
+            stars = 2;
+        }
+        else                                  
+        {
+            stars = 1;
+        }
         Debug.Log("Puntos del pedido: " + stars);
 
         return stars;
