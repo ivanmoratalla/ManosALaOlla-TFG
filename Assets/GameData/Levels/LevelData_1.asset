@@ -22,4 +22,5 @@ MonoBehaviour:
     dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
   preGameTime: 3
   gameTime: 30
+  timeBetweenCustomers: 5
   neededScore: 2

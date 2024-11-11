@@ -7840,6 +7840,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   clientPrefab: {fileID: 6286286897283448021, guid: 128e8161a49b88246bd2a6e00d6bd572, type: 3}
+  timeBetweenCustomers: 5
 --- !u!4 &1681365509
 Transform:
   m_ObjectHideFlags: 0

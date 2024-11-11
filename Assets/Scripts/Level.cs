@@ -13,20 +13,22 @@ public class Level : MonoBehaviour
         GameOver
     }
 
-    public static EventHandler<float> OnTimeChange;                 // Evento que se va a invocar para notificar a la UI del cambio en el tiempo restante del nivel
-    public static EventHandler<Boolean> OnGameOver;                 // Evento para notificar que aparezca la UI de finalizar nivel. El booleano indica si se debe activar o no el botón de siguiente nivel
+    public static EventHandler<float> OnTimeChange;                         // Evento que se va a invocar para notificar a la UI del cambio en el tiempo restante del nivel
+    public static EventHandler<Boolean> OnGameOver;                         // Evento para notificar que aparezca la UI de finalizar nivel. El booleano indica si se debe activar o no el botón de siguiente nivel
 
-    [SerializeField] private LevelData levelData;                   // Datos del nivel (clientes junto a los platos que piden)
-    [SerializeField] private List<Table> tables;                    // Lista con las distintas mesas que tiene el nivel
-    [SerializeField] private GameObject clientPrefab;               // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
+    [SerializeField] private LevelData levelData;                           // Datos del nivel (clientes junto a los platos que piden)
+    [SerializeField] private List<Table> tables;                            // Lista con las distintas mesas que tiene el nivel
+    [SerializeField] private GameObject clientPrefab;                       // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
 
-    private GameState gameState;                                    // Estado del nivel (Antes de comenzar el nivel, en el nivel o tras finalizar el nivel)
+
+    private GameState gameState;                                            // Estado del nivel (Antes de comenzar el nivel, en el nivel o tras finalizar el nivel)
     
-    private float actualTimer;                                      // El temporizador que se está utilizando en el momento actual de la partida, tanto para previo al inicio como para el juego en si
-    private float uiTimer;                                          // Temporizador para saber cuando llamar a que se actualice el tiempo de la UI (para evitar notificar el evento muchas veces y solo cada segundo aprox)
+    private float actualTimer;                                              // El temporizador que se está utilizando en el momento actual de la partida, tanto para previo al inicio como para el juego en si
+    private float uiTimer;                                                  // Temporizador para saber cuando llamar a que se actualice el tiempo de la UI (para evitar notificar el evento muchas veces y solo cada segundo aprox)
+    private float customersTimer;                                           // Temporizador para que los clientes lleguen de manera intercalada. 
 
-
-    private OrderManager orderManager;                              // Variable para la clase encargada de manejar las comandas de este nivel
+    private Queue<CustomerData> customersQueue;                             // Cola de clientes que quieren llegar al restaurante
+    private OrderManager orderManager;                                      // Variable para la clase encargada de manejar las comandas de este nivel
 
 
     void Awake()
@@ -43,12 +45,14 @@ public class Level : MonoBehaviour
     // Método para la inicialización de un nivel. Hay que encontrar las mesas que haya en el nivel y comenzar a sentar a los clientes en las mesas cuando les sea posible
     private void initializeLevel()
     {
-        setTables();                                                // Encontrar las mesas del nivel
+        setTables();                                                        // Encontrar las mesas del nivel
         
-        gameState = GameState.PreGame;                              // Se establece que el estado del nivel sea el previo al comienzo
-        actualTimer = levelData.getPreGameTime();                   // Se comienza a contar el tiempo previo al comienzo del nivel
+        gameState = GameState.PreGame;                                      // Se establece que el estado del nivel sea el previo al comienzo
+        actualTimer = levelData.getPreGameTime();                           // Se comienza a contar el tiempo previo al comienzo del nivel
+        customersTimer = 0;                                                 // Se inicializa a 0 para que el primer cliente llegue instantaneamente
+        customersQueue = new Queue<CustomerData>(levelData.getCustomers()); // Se obtienen los datos de los clientes del nivel
 
-        OnTimeChange?.Invoke(this, levelData.getGameTime());        // Se notifica que se actualice la UI con el tiempo total del nivel
+        OnTimeChange?.Invoke(this, levelData.getGameTime());                // Se notifica que se actualice la UI con el tiempo total del nivel
 
     }
 
@@ -56,23 +60,27 @@ public class Level : MonoBehaviour
     {
         actualTimer -= Time.deltaTime;
         uiTimer -= Time.deltaTime;
+        customersTimer -= Time.deltaTime;
 
         switch (gameState)
         {
             case GameState.PreGame:
-                if (actualTimer <= 0)                               // Se comprueba si estando en el estado previo, ya se ha pasado su tiempo correspondiente
+                if (actualTimer <= 0)                                       // Se comprueba si estando en el estado previo, ya se ha pasado su tiempo correspondiente
                 {
-                    actualTimer = levelData.getGameTime();          // En ese caso, se comienza a contar el tiempo de juego normal
-                    gameState = GameState.InGame;                   // Se cambia el estdo a "En partida"
-
-                    StartCoroutine(seatCustomers());                // Comenzar a sentar a los clientes
+                    actualTimer = levelData.getGameTime();                  // En ese caso, se comienza a contar el tiempo de juego normal
+                    gameState = GameState.InGame;                           // Se cambia el estdo a "En partida"
                 }
                 break;
-            case GameState.InGame:          
+            case GameState.InGame:
+                if(customersQueue.Count > 0 && customersTimer <= 0)
+                {
+                    StartCoroutine(seatCustomer());
+                    customersTimer = levelData.getTimeBetweenCustomers();   // Se reinicia el tiempo para que llegue otro cliente
+                }
                 if (uiTimer <= 0)
                 {
-                    OnTimeChange?.Invoke(this, actualTimer);        // Se invoca el evento para actualizar el tiempo restante en el UI
-                    uiTimer = 1;                                    // Se resetea el temporizador de actualización de la UI
+                    OnTimeChange?.Invoke(this, actualTimer);                // Se invoca el evento para actualizar el tiempo restante en el UI
+                    uiTimer = 1;                                            // Se resetea el temporizador de actualización de la UI
                 }
                 if (actualTimer <= 0)
                 {
@@ -97,38 +105,35 @@ public class Level : MonoBehaviour
         }
     }
 
-    private IEnumerator seatCustomers()
+    private IEnumerator seatCustomer()
     {
-        Debug.Log("Comienzo de sentar");
-        foreach (var customerData in levelData.getCustomers())
+        Debug.Log("Se intenta sentar a un cliente");
+        Table assignedTable = null;
+
+        while (assignedTable == null)
         {
-            Table assignedTable = null;
+            assignedTable = getAvailableTable();
 
-            while (assignedTable == null)
+            if (assignedTable != null)                                                          // Mesa libre encontrada
             {
-                //Debug.Log("Buscando mesa");
-                assignedTable = getAvailableTable();
-
-                if (assignedTable != null)                                                          // Mesa libre encontrada
-                {
-                    Debug.Log("Se ha encontrado una mesa libre para el cliente");
-                }
-                else
-                {
-                    yield return new WaitForSeconds(1f);                                            // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
-                }
+                Debug.Log("Se ha encontrado una mesa libre para el cliente");
             }
-            // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sienta
-            // Instancia y posiciona los clientes en la escena
-            Customer newCustomer = Instantiate(clientPrefab).GetComponent<Customer>();              // clientPrefab es el prefab de un cliente.
-            newCustomer.setData(customerData, assignedTable, orderManager);                         // Asigna los datos de cliente
-
-            yield return null;                                                                      // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
-            assignedTable.seatCustomer(newCustomer);
-
-            Debug.Log("Cliente creado");
+            else
+            {
+                yield return new WaitForSeconds(1f);                                            // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
+            }
         }
-        Debug.Log("Todos los clientes se han sentado en alguna mesa");
+
+        // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sien0ta
+        var customerData = customersQueue.Dequeue();
+        Customer newCustomer = Instantiate(clientPrefab).GetComponent<Customer>();              // clientPrefab es el prefab de un cliente.
+        newCustomer.setData(customerData, assignedTable, orderManager);             // Asigna los datos de cliente
+
+        yield return null;                                                                      // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
+        
+        assignedTable.seatCustomer(newCustomer);
+
+        Debug.Log("Cliente creado"); 
     }
 
     private async void SetGameOver()

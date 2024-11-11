@@ -9,6 +9,7 @@ public class LevelData : ScriptableObject
 
     [SerializeField] private float preGameTime;             // Tiempo desde que se carga el nivel hasta que se inicia (para que el usuario pueda visualizar un poco el nivel)
     [SerializeField] private float gameTime;                // Tiempo de juego
+    [SerializeField] private float timeBetweenCustomers;    // Tiempo que tiene que pasar entre clientes 
 
     [SerializeField] private int neededScore;               // Puntuación necesaria para conseguir completar un nivel
 
@@ -35,5 +36,10 @@ public class LevelData : ScriptableObject
     public int getNeededScore()
     {
         return neededScore;
+    }
+
+    public float getTimeBetweenCustomers()
+    {
+        return timeBetweenCustomers;
     }
 }
