@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tableNumber: 0
-  isAvailable: 0
+  isAvailable: 1
 --- !u!65 &5322126859368770735
 BoxCollider:
   m_ObjectHideFlags: 0

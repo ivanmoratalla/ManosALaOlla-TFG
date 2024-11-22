@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a533bfdbb55dc634bab4c45a4661cf22, type: 3}
-  m_Name: Ensalada
+  m_Name: PatatasFritas
   m_EditorClassIdentifier: 
-  recipeName: Ensalada
+  recipeName: Patatas Fritas
   ingredients:
-  - Lechuga Cortada
-  - Tomate Cortado
-  - Zanahoria Cortada
-  recipePrefab: {fileID: 7958012078242019654, guid: c2a298af0a12906419656c6ba69a636c, type: 3}
+  - PatatasFritas
+  recipePrefab: {fileID: 2499435473945485442, guid: 60d02036d7b7f6d4a9a7787a49435707, type: 3}

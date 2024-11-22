@@ -17,7 +17,7 @@ public class Level : MonoBehaviour
     public static EventHandler<Boolean> OnGameOver;                         // Evento para notificar que aparezca la UI de finalizar nivel. El booleano indica si se debe activar o no el botón de siguiente nivel
 
     [SerializeField] private LevelData levelData;                           // Datos del nivel (clientes junto a los platos que piden)
-    [SerializeField] private List<Table> tables;                            // Lista con las distintas mesas que tiene el nivel
+    private List<Table> tables;                                             // Lista con las distintas mesas que tiene el nivel
     [SerializeField] private GameObject clientPrefab;                       // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
 
 
