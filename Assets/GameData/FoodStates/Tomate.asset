@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Tomate
   m_EditorClassIdentifier: 
   foodName: Tomate
-  foodType: 0
-  foodPrefab: {fileID: 0}
+  transitions:
+  - action: 0
+    nextStatePrefab: {fileID: 919132149155446097, guid: ce44db4677bdb5747bc224b7ebb1eafd, type: 3}

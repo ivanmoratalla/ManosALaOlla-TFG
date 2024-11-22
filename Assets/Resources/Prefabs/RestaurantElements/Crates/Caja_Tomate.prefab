@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: -8679921383154817045}
   - component: {fileID: -5754084199372789682}
   - component: {fileID: -7511558181221131132}
-  - component: {fileID: 3815848684655216687}
-  - component: {fileID: 7443844701427808598}
-  - component: {fileID: 2261001993230327732}
+  - component: {fileID: -6664875394366540503}
+  - component: {fileID: 7559713788822317924}
   m_Layer: 0
-  m_Name: Tomate
-  m_TagString: Objeto
+  m_Name: Caja_Tomate
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149155446097}
-  m_Mesh: {fileID: -5321038836818693795, guid: ad8904e6de5742745a6fedc42fbfa649, type: 3}
+  m_Mesh: {fileID: 3740409364956900546, guid: 6ebb3d2b6376b5c468cd317a321ff47e, type: 3}
 --- !u!23 &-7511558181221131132
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -86,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3815848684655216687
-MeshCollider:
+--- !u!65 &-6664875394366540503
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,38 +103,10 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5321038836818693795, guid: ad8904e6de5742745a6fedc42fbfa649, type: 3}
---- !u!54 &7443844701427808598
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149155446097}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!114 &2261001993230327732
+  serializedVersion: 3
+  m_Size: {x: 2.0000002, y: 0.9233165, z: 2.0000048}
+  m_Center: {x: 0.00000011920929, y: 0.46165627, z: -0.00000017881393}
+--- !u!114 &7559713788822317924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 919132149155446097}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2858de717e207a4eb9f4fc169216696, type: 3}
+  m_Script: {fileID: 11500000, guid: d90d92377ed50474ab1da79890d40f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateData: {fileID: 11400000, guid: ff7234a2b591297409fd000d2cd42dbd, type: 2}
+  ingredientInCrate: {fileID: 919132149155446097, guid: 1e244a620a6d9b64a9c0cce122a74dfe, type: 3}

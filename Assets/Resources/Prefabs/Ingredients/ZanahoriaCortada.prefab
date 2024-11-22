@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: -8679921383154817045}
   - component: {fileID: -5754084199372789682}
   - component: {fileID: -7511558181221131132}
-  - component: {fileID: 3815848684655216687}
-  - component: {fileID: 7443844701427808598}
-  - component: {fileID: 2261001993230327732}
+  - component: {fileID: 2805471356785464214}
+  - component: {fileID: -4323460914877125370}
+  - component: {fileID: 5270045455197869870}
   m_Layer: 0
-  m_Name: Tomate
-  m_TagString: Objeto
+  m_Name: ZanahoriaCortada
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149155446097}
-  m_Mesh: {fileID: -5321038836818693795, guid: ad8904e6de5742745a6fedc42fbfa649, type: 3}
+  m_Mesh: {fileID: -4029429226494746330, guid: 64b24201b861ecd419b129a5226727bc, type: 3}
 --- !u!23 &-7511558181221131132
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -86,7 +86,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3815848684655216687
+--- !u!64 &2805471356785464214
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,8 +107,8 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -5321038836818693795, guid: ad8904e6de5742745a6fedc42fbfa649, type: 3}
---- !u!54 &7443844701427808598
+  m_Mesh: {fileID: -4029429226494746330, guid: 64b24201b861ecd419b129a5226727bc, type: 3}
+--- !u!54 &-4323460914877125370
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,9 +133,9 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2261001993230327732
+--- !u!114 &5270045455197869870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,4 +147,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2858de717e207a4eb9f4fc169216696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateData: {fileID: 11400000, guid: ff7234a2b591297409fd000d2cd42dbd, type: 2}
+  stateData: {fileID: 11400000, guid: 83231a2c01abd3449a5f517ce7486889, type: 2}

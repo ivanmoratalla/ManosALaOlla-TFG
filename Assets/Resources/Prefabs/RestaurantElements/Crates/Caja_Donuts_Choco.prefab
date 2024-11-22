@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -5754084199372789682}
   - component: {fileID: -7511558181221131132}
   - component: {fileID: -17632454499831141}
+  - component: {fileID: -1485340961251734206}
   m_Layer: 0
   m_Name: Caja_Donuts_Choco
   m_TagString: Untagged
@@ -109,6 +110,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0000002, y: 0.80000013, z: 2.0000048}
   m_Center: {x: 0.00000011920929, y: 0.3999981, z: -0.00000017881393}
+--- !u!114 &-1485340961251734206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149155446097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d90d92377ed50474ab1da79890d40f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientInCrate: {fileID: 8780654592860833253, guid: 535aa8d6b38946542a0f98fc0d745f61, type: 3}
 --- !u!1001 &5295647421290278490
 PrefabInstance:
   m_ObjectHideFlags: 0

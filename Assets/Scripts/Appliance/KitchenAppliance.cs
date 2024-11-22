@@ -74,6 +74,6 @@ public abstract class KitchenAppliance : MonoBehaviour
         }
 
         // Calcula la posición Y para colocar el objeto
-        return transform.position.y + (counterHeight / 2) /*+ (objectHeight / 2)*/;
+        return transform.position.y + (counterHeight) /*/ 2) + (objectHeight / 2)*/;
     }
 }

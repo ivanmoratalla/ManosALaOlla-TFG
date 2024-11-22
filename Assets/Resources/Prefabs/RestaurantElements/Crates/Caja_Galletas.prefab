@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -5754084199372789682}
   - component: {fileID: -7511558181221131132}
   - component: {fileID: 2567017134690222856}
+  - component: {fileID: 5485925899599513643}
   m_Layer: 0
   m_Name: Caja_Galletas
   m_TagString: Untagged
@@ -110,6 +111,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0000002, y: 0.80000013, z: 2.0000048}
   m_Center: {x: 0.00000011920929, y: 0.3999981, z: -0.00000017881393}
+--- !u!114 &5485925899599513643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149155446097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d90d92377ed50474ab1da79890d40f74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientInCrate: {fileID: 7968877002816994076, guid: aca1bc03c0c42e24cba57976a2c4b7f2, type: 3}
 --- !u!1001 &77452289487562583
 PrefabInstance:
   m_ObjectHideFlags: 0

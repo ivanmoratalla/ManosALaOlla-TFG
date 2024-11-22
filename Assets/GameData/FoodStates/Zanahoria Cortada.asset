@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61784639648383748b8415a28d3a4b34, type: 3}
-  m_Name: Zanahoria
+  m_Name: Zanahoria Cortada
   m_EditorClassIdentifier: 
-  foodName: Zanahoria
-  transitions:
-  - action: 0
-    nextStatePrefab: {fileID: 919132149155446097, guid: c9ef84e10bc4cce4e889131e84e9cbcd, type: 3}
+  foodName: Zanahoria Cortada
+  transitions: []

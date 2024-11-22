@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5ecb3ceb8e6a8f4c9c965fcc667d1ea, type: 3}
-  m_Name: LevelData_1
+  m_Name: Level_1_Data
   m_EditorClassIdentifier: 
   levelNumber: 1
   customers:
   - name: Pedro
-    dish: {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
+    dish: {fileID: 11400000, guid: 72b769a984499a749bab3719e9ae656e, type: 2}
   - name: Tico
     dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
   - name: Tico
