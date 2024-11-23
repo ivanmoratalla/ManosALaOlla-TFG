@@ -6337,7 +6337,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: kitchencounter_straight_B_backsplash_styleB (6)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5989959661473807187, guid: 11f9273b151a6664ea204fa78c307c8b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
