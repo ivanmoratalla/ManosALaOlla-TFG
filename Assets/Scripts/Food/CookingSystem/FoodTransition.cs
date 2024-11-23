@@ -5,7 +5,9 @@ using UnityEngine;
 public enum FoodAction
 {
     Cut,
-    Fry
+    Fry,
+    Cook,
+    Burn
 }
 
 [System.Serializable]
