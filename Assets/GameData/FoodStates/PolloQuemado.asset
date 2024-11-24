@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61784639648383748b8415a28d3a4b34, type: 3}
-  m_Name: PatatasFritas
+  m_Name: PolloQuemado
   m_EditorClassIdentifier: 
-  foodName: PatatasFritas
-  transitions:
-  - action: 3
-    nextStatePrefab: {fileID: 2499435473945485442, guid: 5535ee991bf9f924ea7adec22f1ee905, type: 3}
+  foodName: Pollo Quemado
+  transitions: []

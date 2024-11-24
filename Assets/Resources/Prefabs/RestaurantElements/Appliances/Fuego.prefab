@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: -8679921383154817045}
   - component: {fileID: -5754084199372789682}
   - component: {fileID: -7511558181221131132}
-  - component: {fileID: 7981002180958816309}
   - component: {fileID: 3602636101522280520}
+  - component: {fileID: 31869283023034240}
   m_Layer: 0
   m_Name: Fuego
   m_TagString: Untagged
@@ -86,21 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7981002180958816309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149155446097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7c8a38dab4559c488f56d11f5b7e495, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  storedFood: {fileID: 0}
-  cookTime: 7
-  burnTime: 15
 --- !u!65 &3602636101522280520
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -122,6 +107,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1.3263384, z: 2.2878556}
   m_Center: {x: 0, y: 0.6631692, z: 0.1139276}
+--- !u!114 &31869283023034240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132149155446097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee4f0106f02421429bd86fd8bd1b777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storedFood: {fileID: 0}
+  actionType: 2
+  cookTime: 7
+  burnTime: 15
 --- !u!1001 &8940521841906403034
 PrefabInstance:
   m_ObjectHideFlags: 0

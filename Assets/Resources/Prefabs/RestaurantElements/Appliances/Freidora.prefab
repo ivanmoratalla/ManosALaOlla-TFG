@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3437446245428939271}
   - component: {fileID: 2693320698991466199}
   - component: {fileID: 7221255557408291288}
-  - component: {fileID: 5378692048277906694}
+  - component: {fileID: -842239105576844254}
   m_Layer: 0
   m_Name: Freidora
   m_TagString: Untagged
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5378692048277906694
+--- !u!114 &-842239105576844254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8359495311612056768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4edb7410b6bb44a40a7225081ee6733b, type: 3}
+  m_Script: {fileID: 11500000, guid: fee4f0106f02421429bd86fd8bd1b777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   storedFood: {fileID: 0}
+  actionType: 1
+  cookTime: 7
+  burnTime: 15

@@ -7,7 +7,8 @@ public enum FoodAction
     Cut,
     Fry,
     Cook,
-    Burn
+    Burn,
+    Roast
 }
 
 [System.Serializable]

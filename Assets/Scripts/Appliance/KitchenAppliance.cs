@@ -63,7 +63,7 @@ public abstract class KitchenAppliance : MonoBehaviour
     private float calculatePosition(GameObject obj)
     {
         // Calcula la altura del electrodoméstico
-        float counterHeight = transform.localScale.y; // Obtiene la altura de la encimera
+        float counterHeight = this.GetComponent<Collider>().bounds.size.y; // Obtiene la altura de la encimera
         float objectHeight = 0f; // Inicializa la altura del objeto
 
         // Verifica si el objeto tiene un Collider para calcular su altura
