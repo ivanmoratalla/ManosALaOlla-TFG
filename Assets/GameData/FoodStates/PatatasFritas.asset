@@ -15,4 +15,4 @@ MonoBehaviour:
   foodName: PatatasFritas
   transitions:
   - action: 3
-    nextStatePrefab: {fileID: 2499435473945485442, guid: 5535ee991bf9f924ea7adec22f1ee905, type: 3}
+    nextStatePrefab: {fileID: 3073998201402504569, guid: 6ce34313fd2d45f4085c7adadc70933d, type: 3}
