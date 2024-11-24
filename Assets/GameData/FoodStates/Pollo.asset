@@ -15,4 +15,4 @@ MonoBehaviour:
   foodName: Pollo
   transitions:
   - action: 4
-    nextStatePrefab: {fileID: 919132149155446097, guid: 31cc3a3f42c256b4e9d3e8159374548f, type: 3}
+    nextStatePrefab: {fileID: 7383575721077782560, guid: 50fdb22f8a4392847a69bc86dc3e1ff4, type: 3}

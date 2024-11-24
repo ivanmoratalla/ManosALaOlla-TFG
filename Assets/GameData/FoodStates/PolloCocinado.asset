@@ -15,4 +15,4 @@ MonoBehaviour:
   foodName: Pollo Cocinado
   transitions:
   - action: 3
-    nextStatePrefab: {fileID: 919132149155446097, guid: a411a7f63de74044aaf94a4e5e4ff640, type: 3}
+    nextStatePrefab: {fileID: 7383575721077782560, guid: b5cd0d8f10096404697393bca254f389, type: 3}
