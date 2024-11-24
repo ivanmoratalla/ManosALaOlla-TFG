@@ -7,6 +7,7 @@ public class Plate : MonoBehaviour
     private List<Recipe> validRecipes;                          // Esta lista guardara las recetas que se pueden hacer en función de los ingredientes que haya en el plato
     private List<string> ingredientsInPlate;                    // Esta lista guarda los ingredientes que hay en el plato
     private string completedRecipeName;                         // Variable para guardar si una receta se ha completado (su nombre)
+    private GameObject completedRecipePrefab;                   // Variable para guardar el prefab de una receta completada
 
     //[SerializeField] private Transform platePoint;              // Punto donde van a aparecer los ingredientes que se añadan al plato
     private List<GameObject> instantiatedPrefabs;               // Lista con los ingredientes que se han instanciado (lo utilizaré para luego poder eliminarlos al instanciar el plato final)
@@ -18,6 +19,7 @@ public class Plate : MonoBehaviour
         validRecipes = new List<Recipe>();
         ingredientsInPlate = new List<string>();
         completedRecipeName = null;
+        completedRecipePrefab = null;
         instantiatedPrefabs = new List<GameObject>();
     }
 
@@ -125,8 +127,10 @@ public class Plate : MonoBehaviour
             }
             instantiatedPrefabs.Clear();
 
-            GameObject instantiatedPrefab = Instantiate(prefab, this.transform.position, Quaternion.identity);
-            instantiatedPrefab.transform.SetParent(this.transform);
+            Destroy(completedRecipePrefab);
+
+            completedRecipePrefab = Instantiate(prefab, this.transform.position, Quaternion.identity);
+            completedRecipePrefab.transform.SetParent(this.transform);
         }
     }
 
