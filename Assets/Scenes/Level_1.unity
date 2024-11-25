@@ -3255,7 +3255,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -3374,6 +3374,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinsText: {fileID: 464367788}
   timeText: {fileID: 1370847894}
+  countdownToReappearText: {fileID: 0}
+  reappearInfoArea: {fileID: 0}
 --- !u!222 &715150109
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7722,9 +7724,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: a3fd2299b6a6ace4d8205d7db60ae30c, type: 2}
-  tables:
-  - {fileID: 0}
-  - {fileID: 0}
   clientPrefab: {fileID: 6286286897283448021, guid: 128e8161a49b88246bd2a6e00d6bd572, type: 3}
 --- !u!4 &1681365509
 Transform:
