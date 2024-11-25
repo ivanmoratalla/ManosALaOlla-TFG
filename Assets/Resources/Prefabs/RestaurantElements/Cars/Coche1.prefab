@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7912313471219028599}
   - component: {fileID: -4032117881100457240}
   m_Layer: 0
-  m_Name: Coche
+  m_Name: Coche1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,11 +100,11 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1475240030611887508, guid: b0034cacfe8872c4190c1cd859e223e0, type: 3}
 --- !u!114 &-4032117881100457240
@@ -119,4 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de30c37af471014788453934865d89f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5

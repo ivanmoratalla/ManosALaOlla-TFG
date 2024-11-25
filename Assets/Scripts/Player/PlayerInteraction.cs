@@ -11,9 +11,13 @@ public class PlayerInteraction : MonoBehaviour
     private Counter collidingCounter = null;                                        // Esta variable índica si tengo una encimera con la que el personaje está colisionando, para poder coger/soltar objetos en ella
     private KitchenAppliance collidingAppliance = null;                             // Esta variable índica si tengo un electrodoméstico con el que el personaje está colisionando, para poder interactuar o no con él
 
+    [SerializeField] private GameObject respawnPoint = null;                        // Punto donde reaparece el jugador (solo si hay coches en los niveles)
+    private bool isPlayerInteractingWithCar = false;                                // Para evitar interaccion repetida con el coche mientras esté desactivado
+
     private OrderManager orderManager;                                              // Manejador de pedidos con el que el jugador debe interactuar al completar uno
 
     public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
+    public static event Action<float, Vector3> OnPlayerDisappear;                            // Evento para notificar que el jugador ha colisionado con un coche
 
     void Update()
     {
@@ -38,6 +42,13 @@ public class PlayerInteraction : MonoBehaviour
         if (appliance != null)
         {
             collidingAppliance = appliance;
+        }
+
+        if(other.GetComponent<CarMovement>() != null && !isPlayerInteractingWithCar)
+        {
+            Debug.Log("Jugador atropellado");
+            Vector3 collisionPoint = other.ClosestPoint(transform.position);
+            HandleCarInteraction(collisionPoint);
         }
     }
 
@@ -144,6 +155,27 @@ public class PlayerInteraction : MonoBehaviour
             deliverOrder(table.getTableNumber(), plate.getCompletedRecipeName());
         }
     }
+
+    private void HandleCarInteraction(Vector3 collisionPoint)
+    {
+        isPlayerInteractingWithCar = true;
+
+        OnPlayerDisappear?.Invoke(3f, collisionPoint);
+
+        // Desactivar el objeto padre
+        this.transform.parent.gameObject.SetActive(false);
+
+        // Programar la reaparición
+        Invoke(nameof(ReappearPlayer), 3f);
+    }
+
+    private void ReappearPlayer()
+    {
+        this.transform.parent.gameObject.SetActive(true);
+        this.transform.parent.transform.position = respawnPoint.transform.position;
+        isPlayerInteractingWithCar = false;
+    }
+
 
     private void deliverOrder(int tableNumber, string dish)
     {

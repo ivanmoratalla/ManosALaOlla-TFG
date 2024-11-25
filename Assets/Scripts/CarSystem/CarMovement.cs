@@ -28,12 +28,4 @@ public class CarMovement : MonoBehaviour
             }
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Jugador atropellado!");
-        }
-    }
 }
