@@ -754,6 +754,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 80322d9abf083ca458040486508943a0, type: 2}
   - {fileID: 11400000, guid: bd6ac4f611a95d24d854590097263f9d, type: 2}
   - {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
+  - {fileID: 11400000, guid: 649f172097dbc014babdb30bda038013, type: 2}
+  - {fileID: 11400000, guid: 6b7013ffe19a5f54cb78dc431db1494c, type: 2}
 --- !u!4 &177313756
 Transform:
   m_ObjectHideFlags: 0
@@ -6570,7 +6572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f560a276b2b732b4fba7dd4ee221d160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelData: {fileID: 11400000, guid: 65b5be0eba3b3b54f9efaadc1649aab5, type: 2}
+  levelData: {fileID: 11400000, guid: 6b7e41056d5970b4aad69673a41a260e, type: 2}
   clientPrefab: {fileID: 6286286897283448021, guid: 128e8161a49b88246bd2a6e00d6bd572, type: 3}
 --- !u!4 &1681365509
 Transform:
