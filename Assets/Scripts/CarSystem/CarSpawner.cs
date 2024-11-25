@@ -20,7 +20,7 @@ public class CarSpawner : MonoBehaviour
         if(car != null)
         {
             car.transform.position = spawnPoint.transform.position;
-            car.transform.rotation = transform.rotation;
+            
 
             car.GetComponent<CarMovement>().Initialize(destinationPoint.transform.position);
         }
