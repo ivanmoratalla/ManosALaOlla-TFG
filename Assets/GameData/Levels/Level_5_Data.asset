@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ecb3ceb8e6a8f4c9c965fcc667d1ea, type: 3}
+  m_Name: Level_5_Data
+  m_EditorClassIdentifier: 
+  levelNumber: 4
+  customers:
+  - name: Teo
+    dish: {fileID: 11400000, guid: 649f172097dbc014babdb30bda038013, type: 2}
+  - name: Leo
+    dish: {fileID: 11400000, guid: 80322d9abf083ca458040486508943a0, type: 2}
+  - name: Alberto
+    dish: {fileID: 11400000, guid: 649f172097dbc014babdb30bda038013, type: 2}
+  - name: Josefina
+    dish: {fileID: 11400000, guid: 80322d9abf083ca458040486508943a0, type: 2}
+  - name: Pepe
+    dish: {fileID: 11400000, guid: bd6ac4f611a95d24d854590097263f9d, type: 2}
+  - name: Laura
+    dish: {fileID: 11400000, guid: 6b7013ffe19a5f54cb78dc431db1494c, type: 2}
+  - name: Julia
+    dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
+  - name: Antoine
+    dish: {fileID: 11400000, guid: 6b7013ffe19a5f54cb78dc431db1494c, type: 2}
+  - name: Silvia
+    dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
+  - name: Candela
+    dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
+  - name: Candela
+    dish: {fileID: 11400000, guid: bd6ac4f611a95d24d854590097263f9d, type: 2}
+  - name: Candela
+    dish: {fileID: 11400000, guid: 6b7013ffe19a5f54cb78dc431db1494c, type: 2}
+  preGameTime: 3
+  gameTime: 90
+  timeBetweenCustomers: 5
+  neededScore: 5
