@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4844026308860856854}
   m_Layer: 0
   m_Name: Carne
-  m_TagString: Objeto
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
