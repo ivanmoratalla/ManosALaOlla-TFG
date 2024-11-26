@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1869210799813071218}
   - component: {fileID: 534766633128417914}
   - component: {fileID: -6954882880830983746}
+  - component: {fileID: -2989069007094034856}
   m_Layer: 0
   m_Name: Cliente
   m_TagString: Untagged
@@ -118,3 +119,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3973f7e99952714da7f08baac9d9021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!195 &-2989069007094034856
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286286897283448021}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

@@ -19,6 +19,7 @@ public class Level : MonoBehaviour
     [SerializeField] private LevelData levelData;                           // Datos del nivel (clientes junto a los platos que piden)
     private List<Table> tables;                                             // Lista con las distintas mesas que tiene el nivel
     [SerializeField] private GameObject clientPrefab;                       // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
+    [SerializeField] private Transform clientSpawnPoint;                    // Punto donde se instancian los clientes (fuera de lo visible por el jugador)
 
 
     private GameState gameState;                                            // Estado del nivel (Antes de comenzar el nivel, en el nivel o tras finalizar el nivel)
@@ -114,22 +115,22 @@ public class Level : MonoBehaviour
         {
             assignedTable = getAvailableTable();
 
-            if (assignedTable != null)                                                          // Mesa libre encontrada
+            if (assignedTable != null)                                                                                              // Mesa libre encontrada
             {
                 Debug.Log("Se ha encontrado una mesa libre para el cliente");
             }
             else
             {
-                yield return new WaitForSeconds(1f);                                            // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
+                yield return new WaitForSeconds(1f);                                                                                // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
             }
         }
 
         // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sien0ta
         var customerData = customersQueue.Dequeue();
-        Customer newCustomer = Instantiate(clientPrefab).GetComponent<Customer>();              // clientPrefab es el prefab de un cliente.
-        newCustomer.setData(customerData, assignedTable, orderManager);             // Asigna los datos de cliente
+        Customer newCustomer = Instantiate(clientPrefab, clientSpawnPoint.position, Quaternion.identity).GetComponent<Customer>();  // clientPrefab es el prefab de un cliente.
+        newCustomer.setData(customerData, assignedTable, orderManager);                                                             // Asigna los datos de cliente
 
-        yield return null;                                                                      // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
+        yield return null;                                                                                                          // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
         
         assignedTable.seatCustomer(newCustomer);
 

@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 3518388344002579020}
   - component: {fileID: 8561700848212195243}
   - component: {fileID: 7834244500607123564}
+  - component: {fileID: 8859646972040922900}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -260,10 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementService: {fileID: 11400000, guid: 00befb9bac22b3446b43fe6abcc5227c, type: 2}
-  speed: 7
-  rotationSpeed: 50
-  horizontalAxes: 
-  verticalAxes: 
+  inputService: {fileID: 0}
 --- !u!54 &7834244500607123564
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -291,6 +289,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!208 &8859646972040922900
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812744522379660487}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &3746167601819074671
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,3 +511,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 789540005180560793}
+  respawnPoint: {fileID: 0}

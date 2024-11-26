@@ -1,30 +1,54 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI; // Necesario para NavMeshAgent
 
 public class Customer : MonoBehaviour
 {
     private CustomerData data;
     private Table assignedTable;
     private OrderManager orderManager;
-
+    private NavMeshAgent navMeshAgent; // Referencia al NavMeshAgent
 
     void Start()
     {
+        navMeshAgent = GetComponent<NavMeshAgent>(); // Obtener el NavMeshAgent
         handleCustomerArrival();
     }
 
     private void handleCustomerArrival()
     {
-        // AQUI TENDRE QUE HACER LAS ANIMACIONES O LO QUE SEA, EL CAMINO PARA IR A LA MESA Y SENTARSE
+        // Moverse hacia la mesa asignada
         goToTable(assignedTable);
-        createOrder();
     }
 
     private void goToTable(Table table)
     {
-        transform.position = table.transform.position;
+        if (navMeshAgent != null)
+        {
+            // Establecer el destino del NavMeshAgent a la posición de la mesa
+            navMeshAgent.SetDestination(table.transform.position);
+
+            // Opcional: Llamar a createOrder() cuando llegue a la mesa
+            StartCoroutine(WaitUntilArrives(table));
+        }
+        else
+        {
+            Debug.LogError("NavMeshAgent no encontrado en el cliente.");
+        }
+    }
+
+    private IEnumerator WaitUntilArrives(Table table)
+    {
+        yield return new WaitForSeconds(1f);                                        // Espero al principio 1s para evitar que detecte velocidad 0 de cuando justo se instancia y empieza a moverse
+
+        while (navMeshAgent.velocity.sqrMagnitude > 0.01f)                          // Se comprueba si el cliente ha dejado de moverse (ha llegado a su destino)
+        {
+            yield return null;                                                      // Se espera al siguiente frame para volver a hacer la comprobacon
+        }
+
+        createOrder();                                                              // Se crea la orden cuando llega a la mesa
+        navMeshAgent.enabled = false;                                               // Con esto evito que se mueva de su sitio una vez llegue a la mesa
+
     }
 
     private void createOrder()
@@ -36,7 +60,7 @@ public class Customer : MonoBehaviour
     {
         this.data = data;
         this.assignedTable = assignedTable;
-        this.orderManager = od; 
+        this.orderManager = od;
     }
 
     public CustomerData getData()
