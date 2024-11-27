@@ -42,4 +42,24 @@ public class InputServiceAsset : ScriptableObject
 
         return movementDirection;
     }
+
+    public KeyCode getPickObjectKey()
+    {
+        return pickObject;
+    }
+
+    public KeyCode getReleaseObjectKey()
+    {
+        return releaseObject;
+    }
+
+    public KeyCode getCutFoodKey()
+    {
+        return cutFood;
+    }
+
+    public KeyCode getServeDishKey()
+    {
+        return serveDish;
+    }
 }

@@ -16,12 +16,14 @@ public class PlayerInteraction : MonoBehaviour
 
     private OrderManager orderManager;                                              // Manejador de pedidos con el que el jugador debe interactuar al completar uno
 
+    [SerializeField] private InputServiceAsset inputService;                        // Servicio al que se le llamará para saber qué tecla corresponde a cada acción
+
     public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
     public static event Action<float, Vector3> OnPlayerDisappear;                            // Evento para notificar que el jugador ha colisionado con un coche
 
     void Update()
     {
-        if (pickedObject != null && Input.GetKey(KeyCode.F))                        // Si el usuario tiene un objeto en la mano y pulsa esta tecla quiere soltar el objeto
+        if (pickedObject != null && Input.GetKey(inputService.getReleaseObjectKey()))                        // Si el usuario tiene un objeto en la mano y pulsa esta tecla quiere soltar el objeto
         {
             handleReleaseObject();
         }
@@ -55,7 +57,7 @@ public class PlayerInteraction : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         GameObject objectToPick;
-        if(pickedObject == null && Input.GetKey(KeyCode.E))                       // Se comprueba si se ha pulsado la tecla y si se puede coger un objeto
+        if(pickedObject == null && Input.GetKey(inputService.getPickObjectKey()))                       // Se comprueba si se ha pulsado la tecla y si se puede coger un objeto
         {
             GameObject counterObject;
             if (collidingCounter != null && collidingCounter.pickUpObject(out counterObject))   // Se comprueba si hay cerca una estantería y si tiene un objeto para coger 
@@ -150,7 +152,8 @@ public class PlayerInteraction : MonoBehaviour
     private void handleTableInteraction(Table table)
     {
         Plate plate;
-        if (pickedObject != null && (plate = pickedObject.GetComponent<Plate>()) != null && Input.GetKey("q"))          // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
+        Debug.Log(inputService.getServeDishKey());
+        if (pickedObject != null && (plate = pickedObject.GetComponent<Plate>()) != null && Input.GetKey(inputService.getServeDishKey()))          // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
         {
             deliverOrder(table.getTableNumber(), plate.getCompletedRecipeName());
         }
