@@ -16,6 +16,11 @@ public class InputServiceAsset : ScriptableObject
     [SerializeField] private string horizontalAxes;
     [SerializeField] private string verticalAxes;
 
+    [SerializeField] private KeyCode pickObject;
+    [SerializeField] private KeyCode releaseObject;
+    [SerializeField] private KeyCode cutFood;
+    [SerializeField] private KeyCode serveDish;
+
     public Vector3 Poll()
     {
         /*

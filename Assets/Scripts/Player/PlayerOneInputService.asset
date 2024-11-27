@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalAxes: Horizontal_WASD
   verticalAxes: Vertical_WASD
+  pickObject: 101
+  releaseObject: 102
+  cutFood: 99
+  serveDish: 113

@@ -18,9 +18,23 @@ MonoBehaviour:
     dish: {fileID: 11400000, guid: 72b769a984499a749bab3719e9ae656e, type: 2}
   - name: Tico
     dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
-  - name: Tico
+  - name: Maria
     dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
+  - name: Juana
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
+  - name: Pepe
+    dish: {fileID: 11400000, guid: 72b769a984499a749bab3719e9ae656e, type: 2}
+  - name: Ivan
+    dish: {fileID: 11400000, guid: 72b769a984499a749bab3719e9ae656e, type: 2}
+  - name: Alberto
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
+  - name: Josefina
+    dish: {fileID: 11400000, guid: 72b769a984499a749bab3719e9ae656e, type: 2}
+  - name: Esther
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
+  - name: Sofia
+    dish: {fileID: 11400000, guid: 72b769a984499a749bab3719e9ae656e, type: 2}
   preGameTime: 3
-  gameTime: 30
+  gameTime: 90
   timeBetweenCustomers: 5
   neededScore: 2
