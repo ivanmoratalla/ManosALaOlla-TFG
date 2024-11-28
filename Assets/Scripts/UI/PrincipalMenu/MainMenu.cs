@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] public Text nameText = null;
     [SerializeField] private Button logoutButton = null;
     [SerializeField] private Button playButton = null;
-
+    [SerializeField] private Button optionsButton = null;
 
     private IAuthService authManager;
     [SerializeField] private MenuHandler menuHandler;
@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour
 
         logoutButton.onClick.AddListener(SignOut);                     //Inicializar el botón
         playButton.onClick.AddListener(Play);
+        optionsButton.onClick.AddListener(OpenOptionsMenu);
 
     }
 
@@ -34,5 +35,10 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("LevelsMenu");
         Debug.Log("Cargando escena de selección de niveles");
+    }
+
+    private void OpenOptionsMenu()
+    {
+        menuHandler.ShowOptionsMenu();
     }
 }
