@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
+    public static OptionsMenu Instance { get; private set; }            // Singleton para que se pueda acceder al menú de opciones desde todas las escenas
+
     [SerializeField] private Button goBackButton = null;
     
     [SerializeField] private Slider volumeSlider = null;
@@ -28,6 +30,16 @@ public class OptionsMenu : MonoBehaviour
 
     private void Awake()
     {
+        // Configuración Singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        // Configuración de listeners de todos los elemento de la UI
         goBackButton.onClick.AddListener(GoBack);
         volumeSlider.onValueChanged.AddListener(SetVolume);
         brightnessSlider.onValueChanged.AddListener(SetBrightness);
@@ -36,6 +48,11 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
 
         LoadSettings();
+    }
+
+    public void OpenOptionsMenu()
+    {
+        this.gameObject.SetActive(true);
     }
 
     private void GoBack()
