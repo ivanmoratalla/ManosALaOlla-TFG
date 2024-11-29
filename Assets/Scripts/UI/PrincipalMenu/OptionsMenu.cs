@@ -38,11 +38,6 @@ public class OptionsMenu : MonoBehaviour
         LoadSettings();
     }
 
-    private void Start()
-    {
-        InitializeResolutions();
-    }
-
     private void GoBack()
     {
         string currentScene = SceneManager.GetActiveScene().name;
@@ -78,14 +73,17 @@ public class OptionsMenu : MonoBehaviour
         qualityDropdown.value = calidad;
 
         // Carga la resolución
-        if (PlayerPrefs.HasKey("Resolution"))
+        /*if (PlayerPrefs.HasKey("Resolution"))
         {
             int resolution = PlayerPrefs.GetInt("Resolution");
 
             SetResolution(resolution);
             resolutionDropdown.value = resolution;
 
-        }
+        }*/
+        //resolutionDropdown.value = PlayerPrefs.GetInt("Resolution", 0);
+
+        InitializeResolutions();
     }
 
     public void SetVolume(float volumeValue)
@@ -138,8 +136,7 @@ public class OptionsMenu : MonoBehaviour
             options.Add(option);
 
             // Se compreba si es la resolución actual
-            if (resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height)
+            if (Screen.fullScreen && resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = i;
             }
@@ -148,5 +145,7 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        resolutionDropdown.value = PlayerPrefs.GetInt("Resolution", resolutions.Length-1);
     }
 }
