@@ -19,6 +19,10 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private PostProcessVolume postProcessVolume;
     private ColorGrading colorGrading;
 
+    // Atributos para la resolución
+    [SerializeField] private Dropdown resolutionDropdown = null;
+    private Resolution[] resolutions;
+
 
     [SerializeField] private MenuHandler menuHandler;
 
@@ -29,8 +33,14 @@ public class OptionsMenu : MonoBehaviour
         brightnessSlider.onValueChanged.AddListener(SetBrightness);
         fullScreenToggle.onValueChanged.AddListener(SetFullScreen);
         qualityDropdown.onValueChanged.AddListener(SetQuality);
+        resolutionDropdown.onValueChanged.AddListener(SetResolution);
 
         LoadSettings();
+    }
+
+    private void Start()
+    {
+        InitializeResolutions();
     }
 
     private void GoBack()
@@ -66,6 +76,16 @@ public class OptionsMenu : MonoBehaviour
         int calidad = PlayerPrefs.GetInt("QualityLevel", 4);
         QualitySettings.SetQualityLevel(calidad);
         qualityDropdown.value = calidad;
+
+        // Carga la resolución
+        if (PlayerPrefs.HasKey("Resolution"))
+        {
+            int resolution = PlayerPrefs.GetInt("Resolution");
+
+            SetResolution(resolution);
+            resolutionDropdown.value = resolution;
+
+        }
     }
 
     public void SetVolume(float volumeValue)
@@ -94,5 +114,39 @@ public class OptionsMenu : MonoBehaviour
         QualitySettings.SetQualityLevel(qualityIndex);
         PlayerPrefs.SetInt("QualityLevel", qualityIndex);
         PlayerPrefs.Save();
+    }
+
+    private void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        PlayerPrefs.SetInt("Resolution", resolutionIndex);
+        PlayerPrefs.Save();
+    }
+
+    private void InitializeResolutions()
+    {
+        resolutions = Screen.resolutions;
+        resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
+        int currentResolutionIndex = 0;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(option);
+
+            // Se compreba si es la resolución actual
+            if (resolutions[i].width == Screen.currentResolution.width &&
+                resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
 }
