@@ -26,6 +26,7 @@ public class OptionsMenu : MonoBehaviour
         goBackButton.onClick.AddListener(GoBack);
         volumeSlider.onValueChanged.AddListener(SetVolume);
         brightnessSlider.onValueChanged.AddListener(SetBrightness);
+        fullScreenToggle.onValueChanged.AddListener(SetFullScreen);
 
         LoadSettings();
     }
