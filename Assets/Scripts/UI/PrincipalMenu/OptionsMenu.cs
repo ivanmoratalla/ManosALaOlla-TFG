@@ -12,6 +12,7 @@ public class OptionsMenu : MonoBehaviour
     
     [SerializeField] private Slider volumeSlider = null;
     [SerializeField] private Toggle fullScreenToggle = null;
+    [SerializeField] private Dropdown qualityDropdown = null;
 
     // Atributos para el brillo
     [SerializeField] private Slider brightnessSlider = null;
@@ -27,6 +28,7 @@ public class OptionsMenu : MonoBehaviour
         volumeSlider.onValueChanged.AddListener(SetVolume);
         brightnessSlider.onValueChanged.AddListener(SetBrightness);
         fullScreenToggle.onValueChanged.AddListener(SetFullScreen);
+        qualityDropdown.onValueChanged.AddListener(SetQuality);
 
         LoadSettings();
     }
@@ -59,6 +61,11 @@ public class OptionsMenu : MonoBehaviour
 
         // Carga de pantalla completa
         fullScreenToggle.isOn = Screen.fullScreen;
+
+        // Carga la calidad
+        int calidad = PlayerPrefs.GetInt("QualityLevel", 4);
+        QualitySettings.SetQualityLevel(calidad);
+        qualityDropdown.value = calidad;
     }
 
     public void SetVolume(float volumeValue)
@@ -80,5 +87,12 @@ public class OptionsMenu : MonoBehaviour
     private void SetFullScreen(bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;
+    }
+
+    private void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+        PlayerPrefs.SetInt("QualityLevel", qualityIndex);
+        PlayerPrefs.Save();
     }
 }
