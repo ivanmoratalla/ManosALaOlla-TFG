@@ -8,8 +8,6 @@ using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
-    public static OptionsMenu Instance { get; private set; }            // Singleton para que se pueda acceder al menú de opciones desde todas las escenas
-
     [SerializeField] private Button goBackButton = null;
     
     [SerializeField] private Slider volumeSlider = null;
@@ -18,7 +16,7 @@ public class OptionsMenu : MonoBehaviour
 
     // Atributos para el brillo
     [SerializeField] private Slider brightnessSlider = null;
-    [SerializeField] private PostProcessVolume postProcessVolume;
+    private PostProcessVolume postProcessVolume;
     private ColorGrading colorGrading;
 
     // Atributos para la resolución
@@ -28,17 +26,10 @@ public class OptionsMenu : MonoBehaviour
 
     [SerializeField] private MenuHandler menuHandler;
 
+    private GameObject previousUI;
+
     private void Awake()
     {
-        // Configuración Singleton
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
         // Configuración de listeners de todos los elemento de la UI
         goBackButton.onClick.AddListener(GoBack);
         volumeSlider.onValueChanged.AddListener(SetVolume);
@@ -48,10 +39,19 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
 
         LoadSettings();
+
+        this.gameObject.SetActive(false);
     }
 
     public void OpenOptionsMenu()
     {
+        this.gameObject.SetActive(true);
+    }
+
+    public void OpenOptionsMenu(GameObject previousUI)
+    {
+       this.previousUI = previousUI;
+        this.previousUI.SetActive(false);
         this.gameObject.SetActive(true);
     }
 
@@ -66,18 +66,23 @@ public class OptionsMenu : MonoBehaviour
         else
         {
             this.gameObject.SetActive(false);
+            previousUI.SetActive(true);
+            previousUI = null;
         }
     }
 
     private void LoadSettings()
     {
+        postProcessVolume = FindObjectOfType<PostProcessVolume>();
+
+
         // Carga del volumen
         volumeSlider.value = PlayerPrefs.GetFloat("Volume", 0.5f);
         AudioListener.volume = volumeSlider.value;
 
         // Carga el brillo
         float savedBrightness = PlayerPrefs.GetFloat("Brightness", 0.5f);
-        postProcessVolume.profile.TryGetSettings(out colorGrading);
+        Debug.Log(postProcessVolume.profile.TryGetSettings(out colorGrading));
         colorGrading.postExposure.value = Mathf.Lerp(-2f, 2f, savedBrightness);
         brightnessSlider.value = savedBrightness;
 
@@ -89,21 +94,10 @@ public class OptionsMenu : MonoBehaviour
         QualitySettings.SetQualityLevel(calidad);
         qualityDropdown.value = calidad;
 
-        // Carga la resolución
-        /*if (PlayerPrefs.HasKey("Resolution"))
-        {
-            int resolution = PlayerPrefs.GetInt("Resolution");
-
-            SetResolution(resolution);
-            resolutionDropdown.value = resolution;
-
-        }*/
-        //resolutionDropdown.value = PlayerPrefs.GetInt("Resolution", 0);
-
         InitializeResolutions();
     }
 
-    public void SetVolume(float volumeValue)
+    private void SetVolume(float volumeValue)
     {
         PlayerPrefs.SetFloat("Volume", volumeValue);
         AudioListener.volume = volumeValue;
@@ -113,10 +107,12 @@ public class OptionsMenu : MonoBehaviour
     private void SetBrightness(float value)
     {
         colorGrading.postExposure.value = Mathf.Lerp(-2f, 2f, value);               // Como trabaja con un rango de -2 a 2, tengo que convertir el valor del slider (que va de 0 a 1) a uno en escala -2 - 2
-
+        Debug.Log("Nuevo valor " + colorGrading.postExposure.value);
         // Guardar el valor ajustado.
         PlayerPrefs.SetFloat("Brightness", value);
         PlayerPrefs.Save();
+
+        postProcessVolume.profile.settings.ForEach(setting => setting.SetAllOverridesTo(true));
     }
 
     private void SetFullScreen(bool isFullScreen)

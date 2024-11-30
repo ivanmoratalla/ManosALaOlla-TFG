@@ -14,6 +14,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button reloadButton;
 
+    [SerializeField] private OptionsMenu optionsMenu;
+
 
     private void Awake()
     {
@@ -21,11 +23,6 @@ public class PauseMenu : MonoBehaviour
         goBackButton.onClick.AddListener(GoToMainMenu);
         resumeButton.onClick.AddListener(ResumeGame);
         reloadButton.onClick.AddListener(RestartLevel);
-    }
-
-    private void Start()
-    {
-        this.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -65,7 +62,7 @@ public class PauseMenu : MonoBehaviour
 
     private void OpenOptionsMenu()
     {
-        OptionsMenu.Instance.OpenOptionsMenu();
+        optionsMenu.OpenOptionsMenu(this.gameObject);
     }
 
     private void RestartLevel()
