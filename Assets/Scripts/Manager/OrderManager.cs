@@ -126,6 +126,7 @@ public class OrderManager
                 Debug.Log("El pedido en la mesa " + tableNumber + " ha expirado y se ha perdido.");
                 expiredOrders.Add(tableNumber);
                 score -= 2; // Restamos 2 puntos por pedido perdido.
+                OnServedDish?.Invoke(this, score);
             }
             else
             {

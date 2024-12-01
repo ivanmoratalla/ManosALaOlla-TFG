@@ -107,12 +107,10 @@ public class OptionsMenu : MonoBehaviour
     private void SetBrightness(float value)
     {
         colorGrading.postExposure.value = Mathf.Lerp(-2f, 2f, value);               // Como trabaja con un rango de -2 a 2, tengo que convertir el valor del slider (que va de 0 a 1) a uno en escala -2 - 2
-        Debug.Log("Nuevo valor " + colorGrading.postExposure.value);
+        
         // Guardar el valor ajustado.
         PlayerPrefs.SetFloat("Brightness", value);
         PlayerPrefs.Save();
-
-        postProcessVolume.profile.settings.ForEach(setting => setting.SetAllOverridesTo(true));
     }
 
     private void SetFullScreen(bool isFullScreen)
