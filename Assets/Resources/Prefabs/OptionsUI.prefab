@@ -701,7 +701,6 @@ MonoBehaviour:
   fullScreenToggle: {fileID: 6515423499978796416}
   qualityDropdown: {fileID: 8298768327042561637}
   brightnessSlider: {fileID: 858388939916475315}
-  postProcessVolume: {fileID: 0}
   resolutionDropdown: {fileID: 2381410209470919575}
   menuHandler: {fileID: 0}
 --- !u!1 &1816990670058436687
