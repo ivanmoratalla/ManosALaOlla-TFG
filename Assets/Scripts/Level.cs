@@ -14,7 +14,7 @@ public class Level : MonoBehaviour
     }
 
     public static EventHandler<float> OnTimeChange;                         // Evento que se va a invocar para notificar a la UI del cambio en el tiempo restante del nivel
-    public static EventHandler<Boolean> OnGameOver;                         // Evento para notificar que aparezca la UI de finalizar nivel. El booleano indica si se debe activar o no el botón de siguiente nivel
+    public static EventHandler<KeyValuePair<int,int>> OnGameOver;           // Evento para notificar que aparezca la UI de finalizar nivel. El booleano indica si se debe activar o no el botón de siguiente nivel
 
     [SerializeField] private LevelData levelData;                           // Datos del nivel (clientes junto a los platos que piden)
     private List<Table> tables;                                             // Lista con las distintas mesas que tiene el nivel
@@ -147,14 +147,14 @@ public class Level : MonoBehaviour
 
         await saveDataService.SaveStarsForLevelIfHigher(levelData.getLevelNumber(), finalStars);    // Se guarda en la base de datos la puntuación obtenida (solo si es mayor que la previa)
 
-        Boolean levelPassed = finalStars >= levelData.getNeededScore();
+        bool levelPassed = finalStars >= levelData.getNeededScore();
 
         if (levelPassed)
         {
             await saveDataService.UpdateMaxLevelIfNeeded(levelData.getLevelNumber());               // Si el nivel se ha completado, se comprueba si hay que actualizar el nivel máximo desbloqueado
         }
 
-        OnGameOver?.Invoke(this, levelPassed);                                                      // Se notifica el evento para que aparezca la UI de fin de nivel                                                          
+        OnGameOver?.Invoke(this, new KeyValuePair<int, int>(finalStars, levelData.getNeededScore()));                                                      // Se notifica el evento para que aparezca la UI de fin de nivel                                                          
     }
 
     private Table getAvailableTable()

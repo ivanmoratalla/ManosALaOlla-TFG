@@ -12,6 +12,9 @@ public class EndLevelUI : MonoBehaviour
     [SerializeField] private Button levelSelectionButton;
     [SerializeField] private Button replayButton;
     [SerializeField] private Button nextLevelButton;
+    [SerializeField] private Text scoreText;
+    [SerializeField] private Text neededScoreText;
+    [SerializeField] private Text levelPassedText;
 
     private void OnEnable()
     {
@@ -33,11 +36,25 @@ public class EndLevelUI : MonoBehaviour
         nextLevelButton.onClick.AddListener(() => LoadNextLevel());
     }
 
-    private void ShowEndLevelPanel(object sender, Boolean isNextLevelAvailable)
+    private void ShowEndLevelPanel(object sender, KeyValuePair<int, int> values)
     {
-        endLevelPanel.SetActive(true);
+        int finalStars = values.Key;
+        int neededStars = values.Value;
 
-        nextLevelButton.interactable = isNextLevelAvailable;                            // Se habilita o deshabilita el botón de siguiente nivel en función de lo recibido
+        if(finalStars >= neededStars)
+        {
+            nextLevelButton.interactable = true;
+            levelPassedText.gameObject.SetActive(true);
+        }
+        else
+        {
+            nextLevelButton.interactable = false;
+            levelPassedText.gameObject.SetActive(false);
+        }
+
+        endLevelPanel.SetActive(true);
+        scoreText.text = "Puntuación obtenida: " + finalStars;
+        neededScoreText.text = "Puntuación necesaria: " + neededStars;
     }
 
     private void LoadNextLevel()
