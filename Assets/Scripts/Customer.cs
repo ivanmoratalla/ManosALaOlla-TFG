@@ -8,6 +8,7 @@ public class Customer : MonoBehaviour
     private Table assignedTable;
     private OrderManager orderManager;
     private NavMeshAgent navMeshAgent; // Referencia al NavMeshAgent
+    private Transform spawnAndDestroyPoint;
 
     void Start()
     {
@@ -25,11 +26,9 @@ public class Customer : MonoBehaviour
     {
         if (navMeshAgent != null)
         {
-            // Establecer el destino del NavMeshAgent a la posición de la mesa
             navMeshAgent.SetDestination(table.transform.position);
 
-            // Opcional: Llamar a createOrder() cuando llegue a la mesa
-            StartCoroutine(WaitUntilArrives(table));
+            StartCoroutine(WaitUntilArrives());
         }
         else
         {
@@ -37,7 +36,7 @@ public class Customer : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitUntilArrives(Table table)
+    private IEnumerator WaitUntilArrives()
     {
         yield return new WaitForSeconds(1f);                                        // Espero al principio 1s para evitar que detecte velocidad 0 de cuando justo se instancia y empieza a moverse
 
@@ -56,15 +55,38 @@ public class Customer : MonoBehaviour
         orderManager.CreateOrder(data.getDish(), assignedTable.getTableNumber());
     }
 
-    public void setData(CustomerData data, Table assignedTable, OrderManager od)
+    public void setData(CustomerData data, Table assignedTable, OrderManager od, Transform spawnAndDestroyPoint)
     {
         this.data = data;
         this.assignedTable = assignedTable;
         this.orderManager = od;
+        this.spawnAndDestroyPoint = spawnAndDestroyPoint;
     }
 
     public CustomerData getData()
     {
         return this.data;
+    }
+
+    public void LeaveRestaurant()
+    {
+        navMeshAgent.enabled = true;
+
+        navMeshAgent.SetDestination(spawnAndDestroyPoint.position);
+
+        StartCoroutine(WaitToDestroy());
+    }
+
+    private IEnumerator WaitToDestroy()
+    {
+        yield return new WaitForSeconds(1f);                                        // Espero al principio 1s para evitar que detecte velocidad 0 de cuando justo se instancia y empieza a moverse
+
+        while (navMeshAgent.velocity.sqrMagnitude > 0.01f)                          // Se comprueba si el cliente ha dejado de moverse (ha llegado a su destino)
+        {
+            yield return null;                                                      // Se espera al siguiente frame para volver a hacer la comprobacon
+        }
+
+        Destroy(this.gameObject);
+
     }
 }

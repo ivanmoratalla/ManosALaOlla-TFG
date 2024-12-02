@@ -32,7 +32,7 @@ public class Table : MonoBehaviour
         if (!isAvailable)
         {
             isAvailable = true;
-            Destroy(currentCustomer.gameObject);
+            currentCustomer.LeaveRestaurant();
             currentCustomer = null;
         }
         else

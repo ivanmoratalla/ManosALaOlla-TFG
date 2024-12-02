@@ -128,7 +128,7 @@ public class Level : MonoBehaviour
         // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sien0ta
         var customerData = customersQueue.Dequeue();
         Customer newCustomer = Instantiate(clientPrefab, clientSpawnPoint.position, Quaternion.identity).GetComponent<Customer>();  // clientPrefab es el prefab de un cliente.
-        newCustomer.setData(customerData, assignedTable, orderManager);                                                             // Asigna los datos de cliente
+        newCustomer.setData(customerData, assignedTable, orderManager, clientSpawnPoint);                                                             // Asigna los datos de cliente
 
         yield return null;                                                                                                          // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
         
