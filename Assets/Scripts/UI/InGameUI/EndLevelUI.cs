@@ -30,14 +30,16 @@ public class EndLevelUI : MonoBehaviour
     {
         endLevelPanel.SetActive(false);
 
-        mainMenuButton.onClick.AddListener(() => SceneManager.LoadScene("Menu"));
-        levelSelectionButton.onClick.AddListener(() => SceneManager.LoadScene("LevelsMenu"));
-        replayButton.onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
+        mainMenuButton.onClick.AddListener(() => LoadMainMenu());
+        levelSelectionButton.onClick.AddListener(() => LoadLevelsMenu());
+        replayButton.onClick.AddListener(() => ReplayLevel());
         nextLevelButton.onClick.AddListener(() => LoadNextLevel());
     }
 
     private void ShowEndLevelPanel(object sender, KeyValuePair<int, int> values)
     {
+        Time.timeScale = 0f;
+
         int finalStars = values.Key;
         int neededStars = values.Value;
 
@@ -57,8 +59,31 @@ public class EndLevelUI : MonoBehaviour
         neededScoreText.text = "Puntuación necesaria: " + neededStars;
     }
 
+    private void LoadMainMenu()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("Menu");
+    }
+
+    private void LoadLevelsMenu()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("LevelsMenu");
+    }
+
+    private void ReplayLevel()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     private void LoadNextLevel()
     {
+        Time.timeScale = 1f;
+
         int nextLevelIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextLevelIndex < SceneManager.sceneCountInBuildSettings)
         {
@@ -70,5 +95,7 @@ public class EndLevelUI : MonoBehaviour
             SceneManager.LoadScene("LevelsMenu");
         }
     }
+
+    
 
 }
