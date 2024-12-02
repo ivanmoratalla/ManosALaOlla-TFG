@@ -152,7 +152,6 @@ public class PlayerInteraction : MonoBehaviour
     private void handleTableInteraction(Table table)
     {
         Plate plate;
-        Debug.Log(inputService.getServeDishKey());
         if (pickedObject != null && (plate = pickedObject.GetComponent<Plate>()) != null && Input.GetKey(inputService.getServeDishKey()))          // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
         {
             deliverOrder(table.getTableNumber(), plate.getCompletedRecipeName());

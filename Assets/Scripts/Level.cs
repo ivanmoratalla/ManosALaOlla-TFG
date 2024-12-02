@@ -109,6 +109,8 @@ public class Level : MonoBehaviour
     private IEnumerator seatCustomer()
     {
         Debug.Log("Se intenta sentar a un cliente");
+
+        var customerData = customersQueue.Dequeue();                                                                                // Datos del cliente a instanciar cuando haya una mesa libre
         Table assignedTable = null;
 
         while (assignedTable == null)
@@ -126,7 +128,6 @@ public class Level : MonoBehaviour
         }
 
         // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sien0ta
-        var customerData = customersQueue.Dequeue();
         Customer newCustomer = Instantiate(clientPrefab, clientSpawnPoint.position, Quaternion.identity).GetComponent<Customer>();  // clientPrefab es el prefab de un cliente.
         newCustomer.setData(customerData, assignedTable, orderManager, clientSpawnPoint);                                                             // Asigna los datos de cliente
 
