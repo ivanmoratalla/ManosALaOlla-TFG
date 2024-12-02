@@ -20,6 +20,7 @@ public class Recipe : ScriptableObject
     {
         return recipeName;
     }
+
     public List<string> getIngredients()
     {
         return ingredients;
