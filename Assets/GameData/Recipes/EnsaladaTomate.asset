@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a533bfdbb55dc634bab4c45a4661cf22, type: 3}
-  m_Name: Ensalada
+  m_Name: EnsaladaTomate
   m_EditorClassIdentifier: 
-  recipeName: Ensalada
+  recipeName: Ensalada Con Tomate
   ingredients:
   - Lechuga Cortada
-  recipePrefab: {fileID: 7958012078242019654, guid: b6e03c7969853d64e92eb85e30f49182, type: 3}
+  - Tomate Cortado
+  recipePrefab: {fileID: 7958012078242019654, guid: c6a0ec2386b2f97479c3a07311a50c79, type: 3}

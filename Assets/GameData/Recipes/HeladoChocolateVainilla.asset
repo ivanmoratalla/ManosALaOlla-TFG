@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a533bfdbb55dc634bab4c45a4661cf22, type: 3}
-  m_Name: Ensalada
+  m_Name: HeladoChocolateVainilla
   m_EditorClassIdentifier: 
-  recipeName: Ensalada
+  recipeName: Helado Chocolate y Vainilla
   ingredients:
-  - Lechuga Cortada
-  recipePrefab: {fileID: 7958012078242019654, guid: b6e03c7969853d64e92eb85e30f49182, type: 3}
+  - Cucurucho
+  - Bola Chocolate
+  - Bola Vainilla
+  recipePrefab: {fileID: 919132149155446097, guid: 0f6b1a75d8433b24cb5eaaf6478c30cd, type: 3}

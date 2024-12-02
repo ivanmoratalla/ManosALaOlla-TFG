@@ -14,10 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 4
   customers:
-  - name: 
-    dish: {fileID: 0}
-  - name: 
-    dish: {fileID: 0}
+  - name: Juan
+    dish: {fileID: 11400000, guid: 4bc2708573bd3e441b8a896f39e59fc0, type: 2}
+  - name: Pepe
+    dish: {fileID: 11400000, guid: 2712daa2dc716b04292ef09488e8c051, type: 2}
+  - name: Alberto
+    dish: {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
+  - name: Reina
+    dish: {fileID: 11400000, guid: 201e74a664ecedb4faba292f669997c0, type: 2}
+  - name: Paca
+    dish: {fileID: 11400000, guid: ca3f0f1d566d4ff4fb16de451ad6d361, type: 2}
+  - name: Julia
+    dish: {fileID: 11400000, guid: bbbbddf49141d2f4c89084760a903499, type: 2}
+  - name: Alessandra
+    dish: {fileID: 11400000, guid: a941d737b41f48844b7d494f539b9062, type: 2}
   preGameTime: 3
   gameTime: 90
   timeBetweenCustomers: 5

@@ -8,6 +8,7 @@ public class OrderUI : MonoBehaviour
     [SerializeField] private Image timerBar;
 
     [SerializeField] private Text recipeName;
+    [SerializeField] private Image recipeImage;
     [SerializeField] private Text assignedTable;
 
 

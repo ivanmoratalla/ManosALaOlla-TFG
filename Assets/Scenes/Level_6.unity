@@ -984,9 +984,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recipes:
+  - {fileID: 11400000, guid: 2712daa2dc716b04292ef09488e8c051, type: 2}
+  - {fileID: 11400000, guid: 6745718c86a4cd244a427d028d153883, type: 2}
   - {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
+  - {fileID: 11400000, guid: 9fa0c044ea3295048b2e5292b03779e6, type: 2}
   - {fileID: 11400000, guid: da70c9bf12a6edd4280beb8cdcda0e60, type: 2}
+  - {fileID: 11400000, guid: ca3f0f1d566d4ff4fb16de451ad6d361, type: 2}
+  - {fileID: 11400000, guid: 9fa0c044ea3295048b2e5292b03779e6, type: 2}
+  - {fileID: 11400000, guid: 4bc2708573bd3e441b8a896f39e59fc0, type: 2}
   - {fileID: 11400000, guid: bbbbddf49141d2f4c89084760a903499, type: 2}
+  - {fileID: 11400000, guid: 201e74a664ecedb4faba292f669997c0, type: 2}
   - {fileID: 11400000, guid: a941d737b41f48844b7d494f539b9062, type: 2}
 --- !u!4 &177313756
 Transform:
