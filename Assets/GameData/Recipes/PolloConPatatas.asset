@@ -17,3 +17,4 @@ MonoBehaviour:
   - Pollo Cocinado
   - PatatasFritas
   recipePrefab: {fileID: 7383575721077782560, guid: 51be676649f1c754b9c4138a1bb3e5dd, type: 3}
+  recipeSprite: {fileID: 21300000, guid: 7236371c695aa0748a9c48b812f120a4, type: 3}

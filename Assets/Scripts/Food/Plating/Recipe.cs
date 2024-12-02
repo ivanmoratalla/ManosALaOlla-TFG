@@ -8,6 +8,7 @@ public class Recipe : ScriptableObject
     [SerializeField] private string recipeName;             // Variable para el nombre de la receta (ensalada, hamburguesa...)
     [SerializeField] private List<string> ingredients;      // Variable para guardar la lista de ingredientes de la receta
     [SerializeField] private GameObject recipePrefab;       // Variable que guarda el prefab de la receta
+    [SerializeField] private Sprite recipeSprite;
 
 
     public bool containsIngredient(string ingredient)
@@ -27,5 +28,10 @@ public class Recipe : ScriptableObject
     public GameObject getRecipePrefab()
     {
         return recipePrefab;
+    }
+
+    public Sprite getRecipeSprite()
+    {
+        return recipeSprite;
     }
 }

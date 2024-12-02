@@ -18,3 +18,4 @@ MonoBehaviour:
   - Bola Chocolate
   - Bola Vainilla
   recipePrefab: {fileID: 919132149155446097, guid: 0f6b1a75d8433b24cb5eaaf6478c30cd, type: 3}
+  recipeSprite: {fileID: 21300000, guid: 9c9253b0d766c7548b4a20f97454d1c1, type: 3}

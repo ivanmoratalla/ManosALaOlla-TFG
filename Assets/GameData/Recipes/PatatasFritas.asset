@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredients:
   - PatatasFritas
   recipePrefab: {fileID: 2499435473945485442, guid: 60d02036d7b7f6d4a9a7787a49435707, type: 3}
+  recipeSprite: {fileID: 21300000, guid: d97e093054e5c694caa2cb20f5b1ecde, type: 3}

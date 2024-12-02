@@ -18,3 +18,4 @@ MonoBehaviour:
   - Tomate Cortado
   - Zanahoria Cortada
   recipePrefab: {fileID: 7958012078242019654, guid: c2a298af0a12906419656c6ba69a636c, type: 3}
+  recipeSprite: {fileID: 21300000, guid: acd897b1c13f7e648893ca7576a25bec, type: 3}

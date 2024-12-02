@@ -17,3 +17,4 @@ MonoBehaviour:
   - Lechuga Cortada
   - Tomate Cortado
   recipePrefab: {fileID: 7958012078242019654, guid: c6a0ec2386b2f97479c3a07311a50c79, type: 3}
+  recipeSprite: {fileID: 21300000, guid: 5b2d6ce0457b0bc428c4213231150e61, type: 3}

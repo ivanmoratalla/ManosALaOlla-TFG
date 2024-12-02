@@ -18,3 +18,4 @@ MonoBehaviour:
   - Bola Chocolate
   - Bola Fresa
   recipePrefab: {fileID: 919132149155446097, guid: 3ebbef2854c4fa6469da847f187efd6c, type: 3}
+  recipeSprite: {fileID: 21300000, guid: 65eeff8bb84073e44aae004fe12f08a2, type: 3}

@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredients:
   - Carne Cocinada
   recipePrefab: {fileID: 6357266501441153987, guid: 5e110ad2fb0b1de4d81eb5bb774c48ab, type: 3}
+  recipeSprite: {fileID: 21300000, guid: c6586f15eebcd204690853663b54ba23, type: 3}

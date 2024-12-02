@@ -17,3 +17,4 @@ MonoBehaviour:
   - Carne Cocinada
   - PatatasFritas
   recipePrefab: {fileID: 6357266501441153987, guid: a6956acac51f42541a8e52049e85b4eb, type: 3}
+  recipeSprite: {fileID: 21300000, guid: 8fec29c6f6e6c97439dd02abee2d0abb, type: 3}

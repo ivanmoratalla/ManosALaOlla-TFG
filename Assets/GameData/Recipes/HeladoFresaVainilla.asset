@@ -18,3 +18,4 @@ MonoBehaviour:
   - Bola Fresa
   - Bola Vainilla
   recipePrefab: {fileID: 919132149155446097, guid: 709add05791a47c439a1a57491a4f7dc, type: 3}
+  recipeSprite: {fileID: 21300000, guid: d9b9e943b70f47a41a9d576cc9d48e4b, type: 3}

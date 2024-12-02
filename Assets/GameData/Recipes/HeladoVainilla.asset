@@ -17,3 +17,4 @@ MonoBehaviour:
   - Cucurucho
   - Bola Vainilla
   recipePrefab: {fileID: 919132149155446097, guid: 0484d809fe60f234ba57e4fd8b55b44e, type: 3}
+  recipeSprite: {fileID: 21300000, guid: 563433d792f35e949a3158041c24397a, type: 3}

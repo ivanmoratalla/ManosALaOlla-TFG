@@ -40,7 +40,7 @@ public class Customer : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);                                        // Espero al principio 1s para evitar que detecte velocidad 0 de cuando justo se instancia y empieza a moverse
 
-        while (navMeshAgent.velocity.sqrMagnitude > 0.01f)                          // Se comprueba si el cliente ha dejado de moverse (ha llegado a su destino)
+        while (navMeshAgent.velocity.sqrMagnitude > 0.0001f)                        // Se comprueba si el cliente ha dejado de moverse (ha llegado a su destino)
         {
             yield return null;                                                      // Se espera al siguiente frame para volver a hacer la comprobacon
         }
@@ -81,7 +81,7 @@ public class Customer : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);                                        // Espero al principio 1s para evitar que detecte velocidad 0 de cuando justo se instancia y empieza a moverse
 
-        while (navMeshAgent.velocity.sqrMagnitude > 0.01f)                          // Se comprueba si el cliente ha dejado de moverse (ha llegado a su destino)
+        while (navMeshAgent.velocity.sqrMagnitude > 0.0001f)                        // Se comprueba si el cliente ha dejado de moverse (ha llegado a su destino)
         {
             yield return null;                                                      // Se espera al siguiente frame para volver a hacer la comprobacon
         }

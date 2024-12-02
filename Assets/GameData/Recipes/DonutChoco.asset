@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredients:
   - DonutChoco
   recipePrefab: {fileID: 8780654592860833253, guid: ceb4600e2f4874244932ff66697cad11, type: 3}
+  recipeSprite: {fileID: 21300000, guid: d053f48e8e44b7a40bd9b0de6a8efed0, type: 3}

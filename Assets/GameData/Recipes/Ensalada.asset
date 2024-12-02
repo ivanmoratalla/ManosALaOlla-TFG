@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredients:
   - Lechuga Cortada
   recipePrefab: {fileID: 7958012078242019654, guid: b6e03c7969853d64e92eb85e30f49182, type: 3}
+  recipeSprite: {fileID: 21300000, guid: 27b7d18b295aa3a4da14b6722d28b7a1, type: 3}

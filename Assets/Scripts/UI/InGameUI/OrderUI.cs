@@ -7,7 +7,6 @@ public class OrderUI : MonoBehaviour
 {
     [SerializeField] private Image timerBar;
 
-    [SerializeField] private Text recipeName;
     [SerializeField] private Image recipeImage;
     [SerializeField] private Text assignedTable;
 
@@ -23,7 +22,7 @@ public class OrderUI : MonoBehaviour
     // Public Methods
     public void SetOrder(KeyValuePair<int, Recipe> orderData)
     {
-        recipeName.text = orderData.Value.getRecipeName();
+        recipeImage.sprite = orderData.Value.getRecipeSprite(); // Método para obtener el sprite desde la receta
         assignedTable.text = "Mesa: " + orderData.Key.ToString();
     }
 
