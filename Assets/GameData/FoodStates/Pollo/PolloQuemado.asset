@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodName: Pollo Quemado
   transitions: []
+  ingredientSpriteForUI: {fileID: 21300000, guid: 340ef9aba9870f54f85ca9519aa25e8d, type: 3}

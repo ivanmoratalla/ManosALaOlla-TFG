@@ -17,5 +17,9 @@ MonoBehaviour:
   - Cucurucho
   - Bola Chocolate
   - Bola Vainilla
+  ingredientsList:
+  - {fileID: 11400000, guid: ae474384614d09943bb818aa71bce558, type: 2}
+  - {fileID: 11400000, guid: 1f768a2160f6e3348805f6f7fd4e55ed, type: 2}
+  - {fileID: 11400000, guid: f169fcf1f335fd34ebd8c6d1cee82a7d, type: 2}
   recipePrefab: {fileID: 919132149155446097, guid: 0f6b1a75d8433b24cb5eaaf6478c30cd, type: 3}
   recipeSprite: {fileID: 21300000, guid: 9c9253b0d766c7548b4a20f97454d1c1, type: 3}

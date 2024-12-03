@@ -15,5 +15,7 @@ MonoBehaviour:
   recipeName: Carne
   ingredients:
   - Carne Cocinada
+  ingredientsList:
+  - {fileID: 11400000, guid: 796b12fb14bc20c429380ff3d6c6d31c, type: 2}
   recipePrefab: {fileID: 6357266501441153987, guid: 5e110ad2fb0b1de4d81eb5bb774c48ab, type: 3}
   recipeSprite: {fileID: 21300000, guid: c6586f15eebcd204690853663b54ba23, type: 3}

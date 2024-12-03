@@ -16,5 +16,8 @@ MonoBehaviour:
   ingredients:
   - Cucurucho
   - Bola Fresa
+  ingredientsList:
+  - {fileID: 11400000, guid: ae474384614d09943bb818aa71bce558, type: 2}
+  - {fileID: 11400000, guid: a64ab56704eed25438268eab77b3723c, type: 2}
   recipePrefab: {fileID: 919132149155446097, guid: 6daa3ec013cdc4d4ebc88bab867bb8fc, type: 3}
   recipeSprite: {fileID: 21300000, guid: 75dfbd4ca0f42aa4482f8cbf9d81cded, type: 3}

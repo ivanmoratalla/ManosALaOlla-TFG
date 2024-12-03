@@ -16,5 +16,8 @@ MonoBehaviour:
   ingredients:
   - Cucurucho
   - Bola Chocolate
+  ingredientsList:
+  - {fileID: 11400000, guid: ae474384614d09943bb818aa71bce558, type: 2}
+  - {fileID: 11400000, guid: 1f768a2160f6e3348805f6f7fd4e55ed, type: 2}
   recipePrefab: {fileID: 919132149155446097, guid: 39177310d68a6d947b552b21543d100a, type: 3}
   recipeSprite: {fileID: 21300000, guid: 993ce486c9252a2488382b5486e637a3, type: 3}

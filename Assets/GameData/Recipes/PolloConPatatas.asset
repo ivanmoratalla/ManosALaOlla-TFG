@@ -16,5 +16,8 @@ MonoBehaviour:
   ingredients:
   - Pollo Cocinado
   - PatatasFritas
+  ingredientsList:
+  - {fileID: 11400000, guid: 1b3932e8116fc004794340d6cfe4b34d, type: 2}
+  - {fileID: 11400000, guid: 606e4b3bc1f04b14784c0af580b26566, type: 2}
   recipePrefab: {fileID: 7383575721077782560, guid: 51be676649f1c754b9c4138a1bb3e5dd, type: 3}
   recipeSprite: {fileID: 21300000, guid: 7236371c695aa0748a9c48b812f120a4, type: 3}

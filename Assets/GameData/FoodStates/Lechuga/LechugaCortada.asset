@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: LechugaCortada
   m_EditorClassIdentifier: 
   foodName: Lechuga Cortada
-  foodPrefab: {fileID: 0}
+  transitions: []
+  ingredientSpriteForUI: {fileID: 21300000, guid: a187e86e3083c5f418504869a13142af, type: 3}

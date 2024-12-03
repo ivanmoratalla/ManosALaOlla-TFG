@@ -71,15 +71,15 @@ public class Plate : MonoBehaviour
     {
         foreach (Recipe recipe in validRecipes)
         {
-            List<string> recipeIngredients = recipe.getIngredients();
+            List<FoodStateData> recipeIngredients = recipe.getIngredients();
             
             if(ingredientsInPlate.Count == recipeIngredients.Count)
             {
                 bool match = true;
 
-                foreach (string ingredient in recipeIngredients)
+                foreach (FoodStateData ingredient in recipeIngredients)
                 {
-                    if (!ingredientsInPlate.Contains(ingredient))      // Verificamos si el plato contiene todos los ingredientes de la receta
+                    if (!ingredientsInPlate.Contains(ingredient.getName()))      // Verificamos si el plato contiene todos los ingredientes de la receta
                     {
                         match = false;
                         break;

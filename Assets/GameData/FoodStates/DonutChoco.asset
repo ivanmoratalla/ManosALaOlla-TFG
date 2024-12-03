@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodName: DonutChoco
   transitions: []
+  ingredientSpriteForUI: {fileID: 21300000, guid: 544a23b2483b27045b3fd7e414e55678, type: 3}

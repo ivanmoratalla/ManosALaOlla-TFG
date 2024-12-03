@@ -16,5 +16,8 @@ MonoBehaviour:
   ingredients:
   - Lechuga Cortada
   - Tomate Cortado
+  ingredientsList:
+  - {fileID: 11400000, guid: 3566f45bd9a4d8c48bae354a756334f1, type: 2}
+  - {fileID: 11400000, guid: 45e193942dea31a40965808971218216, type: 2}
   recipePrefab: {fileID: 7958012078242019654, guid: c6a0ec2386b2f97479c3a07311a50c79, type: 3}
   recipeSprite: {fileID: 21300000, guid: 5b2d6ce0457b0bc428c4213231150e61, type: 3}

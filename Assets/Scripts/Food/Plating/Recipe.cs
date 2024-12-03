@@ -5,15 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewRecipe", menuName = "Recipe")]
 public class Recipe : ScriptableObject
 {
-    [SerializeField] private string recipeName;             // Variable para el nombre de la receta (ensalada, hamburguesa...)
-    [SerializeField] private List<string> ingredients;      // Variable para guardar la lista de ingredientes de la receta
-    [SerializeField] private GameObject recipePrefab;       // Variable que guarda el prefab de la receta
+    [SerializeField] private string recipeName;                         // Variable para el nombre de la receta (ensalada, hamburguesa...)
+    [SerializeField] private List<FoodStateData> ingredientsList;       // Variable para guardar la lista de ingredientes de la receta
+
+    [SerializeField] private GameObject recipePrefab;                   // Variable que guarda el prefab de la receta
     [SerializeField] private Sprite recipeSprite;
 
 
     public bool containsIngredient(string ingredient)
     {
-        return ingredients.Contains(ingredient);
+        foreach(FoodStateData foodData in ingredientsList)
+        {
+            if(foodData.getName() == ingredient)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public string getRecipeName()
@@ -21,9 +29,9 @@ public class Recipe : ScriptableObject
         return recipeName;
     }
 
-    public List<string> getIngredients()
+    public List<FoodStateData> getIngredients()
     {
-        return ingredients;
+        return ingredientsList;
     }
 
     public GameObject getRecipePrefab()

@@ -16,3 +16,4 @@ MonoBehaviour:
   transitions:
   - action: 4
     nextStatePrefab: {fileID: 7383575721077782560, guid: 50fdb22f8a4392847a69bc86dc3e1ff4, type: 3}
+  ingredientSpriteForUI: {fileID: 21300000, guid: 340ef9aba9870f54f85ca9519aa25e8d, type: 3}

@@ -17,5 +17,9 @@ MonoBehaviour:
   - Lechuga Cortada
   - Tomate Cortado
   - Zanahoria Cortada
+  ingredientsList:
+  - {fileID: 11400000, guid: 3566f45bd9a4d8c48bae354a756334f1, type: 2}
+  - {fileID: 11400000, guid: 45e193942dea31a40965808971218216, type: 2}
+  - {fileID: 11400000, guid: 83231a2c01abd3449a5f517ce7486889, type: 2}
   recipePrefab: {fileID: 7958012078242019654, guid: c2a298af0a12906419656c6ba69a636c, type: 3}
   recipeSprite: {fileID: 21300000, guid: acd897b1c13f7e648893ca7576a25bec, type: 3}

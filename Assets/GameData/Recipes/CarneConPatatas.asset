@@ -16,5 +16,8 @@ MonoBehaviour:
   ingredients:
   - Carne Cocinada
   - PatatasFritas
+  ingredientsList:
+  - {fileID: 11400000, guid: 796b12fb14bc20c429380ff3d6c6d31c, type: 2}
+  - {fileID: 11400000, guid: 606e4b3bc1f04b14784c0af580b26566, type: 2}
   recipePrefab: {fileID: 6357266501441153987, guid: a6956acac51f42541a8e52049e85b4eb, type: 3}
   recipeSprite: {fileID: 21300000, guid: 8fec29c6f6e6c97439dd02abee2d0abb, type: 3}

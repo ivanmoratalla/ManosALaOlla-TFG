@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodName: Carne Quemada
   transitions: []
+  ingredientSpriteForUI: {fileID: 21300000, guid: 428dbb09ab2321544824b77ea5cca8e4, type: 3}

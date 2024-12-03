@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodName: Bola Chocolate
   transitions: []
+  ingredientSpriteForUI: {fileID: 21300000, guid: 3b08a2df80094a741860f6c10097aa01, type: 3}

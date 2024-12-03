@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodName: Patatas Quemadas
   transitions: []
+  ingredientSpriteForUI: {fileID: 21300000, guid: 176d2fd9751069c47a968d3a2bc6f001, type: 3}

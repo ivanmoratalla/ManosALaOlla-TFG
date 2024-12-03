@@ -15,5 +15,7 @@ MonoBehaviour:
   recipeName: Pollo
   ingredients:
   - Pollo Cocinado
+  ingredientsList:
+  - {fileID: 11400000, guid: 1b3932e8116fc004794340d6cfe4b34d, type: 2}
   recipePrefab: {fileID: 7383575721077782560, guid: 3bcac3b7745a2f540ab618e8e5fbd37e, type: 3}
   recipeSprite: {fileID: 21300000, guid: d542d1252701d5c40934c647d43a5abe, type: 3}

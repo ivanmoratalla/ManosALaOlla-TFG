@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foodName: Zanahoria Cortada
   transitions: []
+  ingredientSpriteForUI: {fileID: 21300000, guid: 528dae5c912d99b42b561a0470a182da, type: 3}
