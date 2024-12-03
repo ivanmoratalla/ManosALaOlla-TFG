@@ -88,10 +88,10 @@ public class Plate : MonoBehaviour
 
                 if (match)
                 {
-                    completedRecipeName = recipe.getRecipeName();       // Guardamos el nombre de la receta completada
+                    completedRecipeName = recipe.getRecipeName();               // Guardamos el nombre de la receta completada
                     Debug.Log($"¡Receta completada: {completedRecipeName}!");
                     instantiateRecipePrefab(recipe.getRecipePrefab());
-                    return;  // Salimos una vez que encontramos una receta completa
+                    return;                                                     // Salimos una vez que encontramos una receta completa
                 }
 
             }
