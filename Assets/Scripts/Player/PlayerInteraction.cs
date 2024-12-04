@@ -8,8 +8,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public GameObject hand;                                                         // Punto donde el objeto que el jugador tiene en la mano va a estar (posición)
     private GameObject pickedObject = null;                                         // Objeto que el jugador tiene en la mano
-    private Counter collidingCounter = null;                                        // Esta variable índica si tengo una encimera con la que el personaje está colisionando, para poder coger/soltar objetos en ella
-    private KitchenAppliance collidingAppliance = null;                             // Esta variable índica si tengo un electrodoméstico con el que el personaje está colisionando, para poder interactuar o no con él
+    //private Counter collidingCounter = null;                                        // Esta variable índica si tengo una encimera con la que el personaje está colisionando, para poder coger/soltar objetos en ella
+    //private KitchenAppliance collidingAppliance = null;                             // Esta variable índica si tengo un electrodoméstico con el que el personaje está colisionando, para poder interactuar o no con él
 
     [SerializeField] private GameObject respawnPoint = null;                        // Punto donde reaparece el jugador (solo si hay coches en los niveles)
     private bool isPlayerInteractingWithCar = false;                                // Para evitar interaccion repetida con el coche mientras esté desactivado
@@ -19,34 +19,193 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private InputServiceAsset inputService;                        // Servicio al que se le llamará para saber qué tecla corresponde a cada acción
 
     public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
-    public static event Action<float, Vector3> OnPlayerDisappear;                            // Evento para notificar que el jugador ha colisionado con un coche
+    public static event Action<float, Vector3> OnPlayerDisappear;                   // Evento para notificar que el jugador ha colisionado con un coche
+
+    [SerializeField] public List<GameObject> nearbyInteractables = new List<GameObject>();
+    private GameObject closestInteractable = null;
 
     void Update()
     {
-        if (pickedObject != null && Input.GetKey(inputService.getReleaseObjectKey()))                        // Si el usuario tiene un objeto en la mano y pulsa esta tecla quiere soltar el objeto
+        UpdateClosestInteractable();
+        HandleInput();
+    }
+    
+    private void UpdateClosestInteractable()
+    {
+        if (nearbyInteractables.Count <= 0)
         {
-            handleReleaseObject();
+            closestInteractable = null;
+            return;
+        } 
+
+        float minDistance = Mathf.Infinity;
+        GameObject closest = null;
+
+        foreach (var interactable in nearbyInteractables)
+        {
+            if(interactable != null && interactable != pickedObject)                                                        // El objeto en la mano no se considera, ya que si no sería siempre el más cercano
+            {
+                if (interactable.transform.parent != null && interactable.transform.parent.GetComponent<Counter>() != null) // Si un objeto está sobre una encimera no se considera para ser el closest tile, ya que para quitarlo de la encimera
+                {                                                                                                           // quiero usar el método de la misma, ya que si no seguiría apareciendo que hay un objeto cuando no
+                    continue; // Saltar objetos que están en una encimera
+                }
+
+                float distance = Vector3.Distance(transform.position, interactable.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closest = interactable;
+                }
+            }
         }
+
+        if(closestInteractable != closest)
+        {
+            closestInteractable = closest;
+        }
+    }
+
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(inputService.getPickObjectKey()))
+        {
+            HandlePickUpObject();
+        }
+        else if (Input.GetKeyDown(inputService.getReleaseObjectKey()))
+        {
+            HandleReleaseObject();
+        }
+        else if (Input.GetKeyDown(inputService.getServeDishKey()))
+        {
+            HandleServeDish();
+        }
+    }
+
+    private void HandlePickUpObject()
+    {
+        if (pickedObject != null || closestInteractable == null) 
+        {
+            return;
+        }
+
+        GameObject objectToPick = null;
+        if (closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.pickUpObject(out objectToPick))
+        {
+            handlePickObject(objectToPick);
+        }
+        else if (closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && (objectToPick = appliance.pickUpFood()) != null)
+        {
+            handlePickObject(objectToPick);
+        }
+        else if (closestInteractable.TryGetComponent<Crate>(out Crate crate) && (objectToPick = crate.pickUpFood()) != null)
+        {
+            handlePickObject(objectToPick);
+        }
+        else if (closestInteractable.gameObject.CompareTag("Objeto"))
+        {
+            handlePickObject(closestInteractable.gameObject);
+        }
+    }
+
+    /* Este método es el encargado de manejar cuando el usuario quiere soltar un objeto. Lo puede hacer por cuatro motivos:
+     * - Dejar un objeto en una encimera
+     * - Dejar un ingrediente en un plato
+     * - Dejar un objeto en el suelo
+     * - Dejar un objeto, tipo comida, en un electrodoméstico para cocinarlo (el electrodoméstico se encargará de mirar si se puede)
+     */
+    private void HandleReleaseObject()
+    {
+        Debug.Log("Intentando soltar");
+        if(pickedObject != null && closestInteractable != null)
+        {
+            // INTERACTUAR CON UN ELECTRODOMÉSTICO
+            if (pickedObject.GetComponent<Food>() != null && closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance)  && appliance.interactWithAppliance(pickedObject))
+            {
+                Debug.Log("Se ha interactuado con el electrodoméstico");
+                pickedObject = null;
+
+            }
+            // INTERACTUAR CON UNA ENCIMERA, TANTO PARA DEJAR OBJETO COMO PARA EMPLATAR
+            else if (closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.interactWithCounter(pickedObject))                        
+            {
+                Debug.Log("Se ha interactuado con una encimera");
+                pickedObject = null;
+            }
+        }
+        // DEJAR EN EL SUELO
+        else if (pickedObject.GetComponent<Plate>() == null)   // Se deja en el suelo si no se está cerca de un electrodoméstico o encimera, para evitar colisiones erróneas con lo que hay en ellos.                                                                                            
+        {                                                                                                               // Además, se impide que los platos se puedan dejar en el suelo (no se podrían coger luego porque no se detectaría colisión al ser tan bajos)
+            DropObjectOnGround();
+        }
+    }
+
+    private void HandleServeDish()
+    {
+        if(pickedObject != null && closestInteractable != null && closestInteractable.TryGetComponent<Table>(out Table table))
+        {
+            Plate plate;
+            if ((plate = pickedObject.GetComponent<Plate>()) != null)          // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
+            {
+                deliverOrder(table.getTableNumber(), plate.getCompletedRecipeName());
+            }
+        }
+    }
+
+
+    private void DropObjectOnGround()
+    {
+        Debug.Log("Se deja en el suelo");
+
+        var rb = pickedObject.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.useGravity = true;
+            rb.isKinematic = false;
+        }
+
+        pickedObject.transform.SetParent(null);
+        pickedObject = null;
     }
 
     // Este metodo es llamado cuando el jugador entra en contacto con otro objeto
     private void OnTriggerEnter(Collider other)
     {
-        // Se comprueba si se ha entrado en contacto con una encimera
-        Counter counter = other.GetComponent<Counter>();
-        if (counter != null)                                
+        if (other.GetComponent<Counter>() != null && !nearbyInteractables.Contains(other.gameObject))
         {
-            collidingCounter = counter;                                             // Si se ha entrado en contacto con una encimera, la indico en la variable
+            if (!nearbyInteractables.Contains(other.gameObject))
+            {
+                nearbyInteractables.Add(other.gameObject);
+            }
         }
-
-        // Se comprueba si se ha entrado en contacto con un electrodoméstico
-        KitchenAppliance appliance = other.GetComponent<KitchenAppliance>();
-        if (appliance != null)
+        else if (other.GetComponent<KitchenAppliance>() != null && !nearbyInteractables.Contains(other.gameObject))
         {
-            collidingAppliance = appliance;
+            if (!nearbyInteractables.Contains(other.gameObject))
+            {
+                nearbyInteractables.Add(other.gameObject);
+            }
         }
-
-        if(other.GetComponent<CarMovement>() != null && !isPlayerInteractingWithCar)
+        else if (other.GetComponent<Crate>() != null && !nearbyInteractables.Contains(other.gameObject))
+        {
+            if (!nearbyInteractables.Contains(other.gameObject))
+            {
+                nearbyInteractables.Add(other.gameObject);
+            }
+        }
+        else if (other.GetComponent<Table>() != null && !nearbyInteractables.Contains(other.gameObject))
+        {
+            if (!nearbyInteractables.Contains(other.gameObject))
+            {
+                nearbyInteractables.Add(other.gameObject);
+            }
+        }
+        else if (other.CompareTag("Objeto"))
+        {
+            if (!nearbyInteractables.Contains(other.gameObject))
+            {
+                nearbyInteractables.Add(other.gameObject);
+            }
+        }
+        else if(other.GetComponent<CarMovement>() != null && !isPlayerInteractingWithCar)
         {
             Debug.Log("Jugador atropellado");
             Vector3 collisionPoint = other.ClosestPoint(transform.position);
@@ -54,56 +213,18 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        GameObject objectToPick;
-        if(pickedObject == null && Input.GetKey(inputService.getPickObjectKey()))                       // Se comprueba si se ha pulsado la tecla y si se puede coger un objeto
-        {
-            GameObject counterObject;
-            if (collidingCounter != null && collidingCounter.pickUpObject(out counterObject))   // Se comprueba si hay cerca una estantería y si tiene un objeto para coger 
-            {
-
-                handlePickObject(counterObject);
-            }
-            else if (collidingAppliance != null && (objectToPick = collidingAppliance.pickUpFood()) != null)
-            {
-                handlePickObject(objectToPick);
-            }
-            else if (other.GetComponent<Crate>() != null && (objectToPick = other.GetComponent<Crate>().pickUpFood()))
-            {
-                handlePickObject(objectToPick);
-            }
-            else if (other.gameObject.CompareTag("Objeto"))                     // Se comprueba si se tiene un objeto en el suelo
-            {
-                handlePickObject(other.gameObject);
-            }
-        }
-        else
-        {
-            Table table = other.GetComponent<Table>();                          // Se comprueba si la colisión es con una mesa
-            if (table != null)
-            {
-                handleTableInteraction(table);
-            }
-        }
-    }
-
     // Este metodo es llamado cuando el jugador deja de estar en contacto con otro objeto
     private void OnTriggerExit(Collider other)
     {
-        Counter counter = other.GetComponent<Counter>();
-        if (counter != null)                                
+        if (nearbyInteractables.Contains(other.gameObject))
         {
-            collidingCounter = null;                                        // Si se ha dejado de estar en contacto con una encimera, se indica en la variable correspondiente que ya no se tiene una encimera cerca dónde dejar el objeto
-        }
-
-        KitchenAppliance appliance = other.GetComponent<KitchenAppliance>();
-        if (appliance != null)
-        {
-            collidingAppliance = null;
+            nearbyInteractables.Remove(other.gameObject);
+            if (closestInteractable == other.gameObject)
+            {
+                UpdateClosestInteractable();
+            }
         }
     }
-
 
     // Este método es el encargado de coger el objeto que se pasa como parámetro
     private void handlePickObject(GameObject other)
@@ -117,47 +238,6 @@ public class PlayerInteraction : MonoBehaviour
         pickedObject = other.gameObject;
     }
 
-    /* Este método es el encargado de manejar cuando el usuario quiere soltar un objeto. Lo puede hacer por cuatro motivos:
-     * - Dejar un objeto en una encimera
-     * - Dejar un ingrediente en un plato
-     * - Dejar un objeto en el suelo
-     * - Dejar un objeto, tipo comida, en un electrodoméstico para cocinarlo (el electrodoméstico se encargará de mirar si se puede)
-     */
-    private void handleReleaseObject()
-    {
-        // INTERACTUAR CON UN ELECTRODOMÉSTICO
-        if(pickedObject.GetComponent<Food>() != null && collidingAppliance != null && collidingAppliance.interactWithAppliance(pickedObject))
-        {
-            Debug.Log("Se ha interactuado con el electrodoméstico");
-            pickedObject = null;                                               
-
-        }
-        // INTERACTUAR CON UNA ENCIMERA, TANTO PARA DEJAR OBJETO COMO PARA EMPLATAR
-        else if (collidingCounter != null && collidingCounter.interactWithCounter(pickedObject))                        // Si hay una encimera cerca, se deja en ella el objeto
-        {
-            pickedObject = null;                                                
-        }
-        // DEJAR EN EL SUELO
-        else if(collidingAppliance == null && collidingCounter == null && pickedObject.GetComponent<Plate>() == null)   // Se deja en el suelo si no se está cerca de un electrodoméstico o encimera, para evitar colisiones erróneas con lo que hay en ellos.                                                                                            
-        {                                                                                                               // Además, se impide que los platos se puedan dejar en el suelo (no se podrían coger luego porque no se detectaría colisión al ser tan bajos)
-            pickedObject.GetComponent<Rigidbody>().useGravity = true;
-            pickedObject.GetComponent<Rigidbody>().isKinematic = false;
-
-            pickedObject.gameObject.transform.SetParent(null);
-
-            pickedObject = null;                                               
-        }
-    }
-
-    private void handleTableInteraction(Table table)
-    {
-        Plate plate;
-        if (pickedObject != null && (plate = pickedObject.GetComponent<Plate>()) != null && Input.GetKey(inputService.getServeDishKey()))          // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
-        {
-            deliverOrder(table.getTableNumber(), plate.getCompletedRecipeName());
-        }
-    }
-
     private void HandleCarInteraction(Vector3 collisionPoint)
     {
         isPlayerInteractingWithCar = true;
@@ -168,10 +248,10 @@ public class PlayerInteraction : MonoBehaviour
         this.transform.parent.gameObject.SetActive(false);
 
         // Programar la reaparición
-        Invoke(nameof(ReappearPlayer), 3f);
+        Invoke(nameof(RespawnPlayer), 3f);
     }
 
-    private void ReappearPlayer()
+    private void RespawnPlayer()
     {
         this.transform.parent.gameObject.SetActive(true);
         this.transform.parent.transform.position = respawnPoint.transform.position;
