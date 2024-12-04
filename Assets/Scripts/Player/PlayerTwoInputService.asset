@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d280cc4163e408e4ab326e193cf2fe44, type: 3}
   m_Name: PlayerTwoInputService
   m_EditorClassIdentifier: 
+  playerId: 2
   horizontalAxes: Horizontal_Arrow
   verticalAxes: Vertical_Arrow
   pickObject: 303
   releaseObject: 305
-  cutFood: 307
-  serveDish: 32
+  cutFood: 109
+  serveDish: 113
+  defaultPickObject: 303
+  defaultReleaseObject: 305
+  defaultCutFood: 109
+  defaultServeDish: 32
