@@ -5,13 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "InputServiceAsset", menuName = "ServiceAssets/InputServiceAsset")]
 public class InputServiceAsset : ScriptableObject
 {
-    /*[Header("Key Mappings")]
-    [Space(10)]
-
-    [SerializeField] private KeyCode forward;
-    [SerializeField] private KeyCode left;
-    [SerializeField] private KeyCode backward;
-    [SerializeField] private KeyCode right;*/
 
     [SerializeField] private string horizontalAxes;
     [SerializeField] private string verticalAxes;
@@ -21,19 +14,73 @@ public class InputServiceAsset : ScriptableObject
     [SerializeField] private KeyCode cutFood;
     [SerializeField] private KeyCode serveDish;
 
+
+    public KeyCode PickObject
+    {
+        get => pickObject;
+        set => pickObject = value;
+    }
+
+    public KeyCode ReleaseObject
+    {
+        get => releaseObject;
+        set => releaseObject = value;
+    }
+
+    public KeyCode CutFood
+    {
+        get => cutFood;
+        set => cutFood = value;
+    }
+
+    public KeyCode ServeDish
+    {
+        get => serveDish;
+        set => serveDish = value;
+    }
+
+    private const string PickObjectKey = "PickObjectKey";
+    private const string ReleaseObjectKey = "ReleaseObjectKey";
+    private const string CutFoodKey = "CutFoodKey";
+    private const string ServeDishKey = "ServeDishKey";
+
+    private void OnEnable()
+    {
+        // Cargar teclas personalizadas (si están guardadas)
+        pickObject = (KeyCode)PlayerPrefs.GetInt(PickObjectKey, (int)pickObject);
+        releaseObject = (KeyCode)PlayerPrefs.GetInt(ReleaseObjectKey, (int)releaseObject);
+        cutFood = (KeyCode)PlayerPrefs.GetInt(CutFoodKey, (int)cutFood);
+        serveDish = (KeyCode)PlayerPrefs.GetInt(ServeDishKey, (int)serveDish);
+    }
+
+    public void RebindKey(string action, KeyCode newKey)
+    {
+        switch (action)
+        {
+            case nameof(PickObject):
+                pickObject = newKey;
+                PlayerPrefs.SetInt(PickObjectKey, (int)newKey);
+                Debug.Log(pickObject.ToString());
+                break;
+            case nameof(ReleaseObject):
+                releaseObject = newKey;
+                PlayerPrefs.SetInt(ReleaseObjectKey, (int)newKey);
+                break;
+            case nameof(CutFood):
+                cutFood = newKey;
+                PlayerPrefs.SetInt(CutFoodKey, (int)newKey);
+                break;
+            case nameof(ServeDish):
+                serveDish = newKey;
+                PlayerPrefs.SetInt(ServeDishKey, (int)newKey);
+                break;
+        }
+        PlayerPrefs.Save();
+    }
+
+
     public Vector3 Poll()
     {
-        /*
-        var direction = Vector3.zero;
-
-        if (Input.GetKey(forward)) direction -= Vector3.forward;
-        if (Input.GetKey(left)) direction -= Vector3.left;
-        if (Input.GetKey(backward)) direction -= Vector3.back;
-        if (Input.GetKey(right)) direction -= Vector3.right;
-
-        direction.Normalize();
-
-        return direction;*/
         float horizontalInput = Input.GetAxis(horizontalAxes);
         float verticalInput = Input.GetAxis(verticalAxes);
 
