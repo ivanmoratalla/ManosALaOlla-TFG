@@ -17,17 +17,20 @@ public class RebindKeyUI : MonoBehaviour
     private void Start()
     {
         // Asignar callbacks a los botones
-        pickObjectButton.onClick.AddListener(() => StartRebind("PickObject"));
-        releaseObjectButton.onClick.AddListener(() => StartRebind("ReleaseObject"));
-        cutFoodButton.onClick.AddListener(() => StartRebind("CutFood"));
-        serveDishButton.onClick.AddListener(() => StartRebind("ServeDish"));
+        pickObjectButton.onClick.AddListener(() => StartRebind("PickObject", pickObjectButton));
+        releaseObjectButton.onClick.AddListener(() => StartRebind("ReleaseObject", releaseObjectButton));
+        cutFoodButton.onClick.AddListener(() => StartRebind("CutFood", cutFoodButton));
+        serveDishButton.onClick.AddListener(() => StartRebind("ServeDish", serveDishButton));
 
         UpdateKeyDisplay();
     }
 
-    private void StartRebind(string action)
+    private void StartRebind(string action, Button pressedButton)
     {
         keyToRebind = action;
+
+        pressedButton.GetComponentInChildren<Text>().text = "Pulse una tecla...";
+
         StartCoroutine(WaitForKeyPress());
     }
 
