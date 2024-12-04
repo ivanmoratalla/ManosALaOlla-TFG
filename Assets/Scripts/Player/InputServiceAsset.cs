@@ -14,31 +14,6 @@ public class InputServiceAsset : ScriptableObject
     [SerializeField] private KeyCode cutFood;
     [SerializeField] private KeyCode serveDish;
 
-
-    public KeyCode PickObject
-    {
-        get => pickObject;
-        set => pickObject = value;
-    }
-
-    public KeyCode ReleaseObject
-    {
-        get => releaseObject;
-        set => releaseObject = value;
-    }
-
-    public KeyCode CutFood
-    {
-        get => cutFood;
-        set => cutFood = value;
-    }
-
-    public KeyCode ServeDish
-    {
-        get => serveDish;
-        set => serveDish = value;
-    }
-
     private const string PickObjectKey = "PickObjectKey";
     private const string ReleaseObjectKey = "ReleaseObjectKey";
     private const string CutFoodKey = "CutFoodKey";
@@ -53,28 +28,31 @@ public class InputServiceAsset : ScriptableObject
         serveDish = (KeyCode)PlayerPrefs.GetInt(ServeDishKey, (int)serveDish);
     }
 
-    public void RebindKey(string action, KeyCode newKey)
+    public void SetPickObjectKey(KeyCode newKey)
     {
-        switch (action)
-        {
-            case nameof(PickObject):
-                pickObject = newKey;
-                PlayerPrefs.SetInt(PickObjectKey, (int)newKey);
-                Debug.Log(pickObject.ToString());
-                break;
-            case nameof(ReleaseObject):
-                releaseObject = newKey;
-                PlayerPrefs.SetInt(ReleaseObjectKey, (int)newKey);
-                break;
-            case nameof(CutFood):
-                cutFood = newKey;
-                PlayerPrefs.SetInt(CutFoodKey, (int)newKey);
-                break;
-            case nameof(ServeDish):
-                serveDish = newKey;
-                PlayerPrefs.SetInt(ServeDishKey, (int)newKey);
-                break;
-        }
+        pickObject = newKey;
+        PlayerPrefs.SetInt(PickObjectKey, (int)newKey);
+        PlayerPrefs.Save();
+    }
+
+    public void SetReleaseObjectKey(KeyCode newKey)
+    {
+        releaseObject = newKey;
+        PlayerPrefs.SetInt(ReleaseObjectKey, (int)newKey);
+        PlayerPrefs.Save();
+    }
+
+    public void SetCutFoodKey(KeyCode newKey)
+    {
+        cutFood = newKey;
+        PlayerPrefs.SetInt(CutFoodKey, (int)newKey);
+        PlayerPrefs.Save();
+    }
+
+    public void SetServeDishKey(KeyCode newKey)
+    {
+        serveDish = newKey;
+        PlayerPrefs.SetInt(ServeDishKey, (int)newKey);
         PlayerPrefs.Save();
     }
 

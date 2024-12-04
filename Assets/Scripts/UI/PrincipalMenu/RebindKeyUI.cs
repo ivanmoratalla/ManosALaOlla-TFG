@@ -17,41 +17,51 @@ public class RebindKeyUI : MonoBehaviour
     private void Start()
     {
         // Asignar callbacks a los botones
-        pickObjectButton.onClick.AddListener(() => StartRebind(nameof(inputServiceAsset.PickObject)));
-        releaseObjectButton.onClick.AddListener(() => StartRebind(nameof(inputServiceAsset.ReleaseObject)));
-        cutFoodButton.onClick.AddListener(() => StartRebind(nameof(inputServiceAsset.CutFood)));
-        serveDishButton.onClick.AddListener(() => StartRebind(nameof(inputServiceAsset.ServeDish)));
+        pickObjectButton.onClick.AddListener(() => StartRebind("PickObject"));
+        releaseObjectButton.onClick.AddListener(() => StartRebind("ReleaseObject"));
+        cutFoodButton.onClick.AddListener(() => StartRebind("CutFood"));
+        serveDishButton.onClick.AddListener(() => StartRebind("ServeDish"));
 
         UpdateKeyDisplay();
     }
 
     private void StartRebind(string action)
     {
-
-        Debug.Log(action);
-
         keyToRebind = action;
         StartCoroutine(WaitForKeyPress());
     }
 
     private IEnumerator WaitForKeyPress()
     {
-        // Esperar a que el jugador pulse una tecla
-        while (!Input.anyKeyDown)
+        while (!Input.anyKeyDown)                                               // Se espera hasta que el jugador pulse una tecla
         {
             yield return null;
         }
 
-        foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+        foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))     // Se busca la tecla que el jugaodr ha pulsado
         {
             if (Input.GetKeyDown(keyCode))
             {
-                inputServiceAsset.RebindKey(keyToRebind, keyCode);
+                switch (keyToRebind)
+                {
+                    case "PickObject":
+                        inputServiceAsset.SetPickObjectKey(keyCode);
+                        break;
+                    case "ReleaseObject":
+                        inputServiceAsset.SetReleaseObjectKey(keyCode);
+                        break;
+                    case "CutFood":
+                        inputServiceAsset.SetCutFoodKey(keyCode);
+                        break;
+                    case "ServeDish":
+                        inputServiceAsset.SetServeDishKey(keyCode);
+                        break;
+                }
+
                 Debug.Log($"Reasignado {keyToRebind} a {keyCode}");
                 break;
             }
         }
-
         UpdateKeyDisplay();
     }
 
