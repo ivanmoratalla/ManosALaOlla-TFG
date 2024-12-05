@@ -27,8 +27,14 @@ public class Plate : MonoBehaviour
     {
         string ingredientToAdd = food.getStateData().getName();
 
+        // Verificar si el ingrediente ya está en el plato
+        if (ingredientsInPlate.Contains(ingredientToAdd))
+        {
+            Debug.Log($"El ingrediente {ingredientToAdd} ya está en el plato. No se puede añadir de nuevo.");
+            return false;
+        }
 
-        if(ingredientsInPlate.Count == 0)                       // Si no hay ingredientes añadidos, se puede añadir cualquier ingrediente que esté en al menos una receta
+        if (ingredientsInPlate.Count == 0)                       // Si no hay ingredientes añadidos, se puede añadir cualquier ingrediente que esté en al menos una receta
         {
             validRecipes = RecipeManager.Instance.getRecipesByIngredient(ingredientToAdd);
 
