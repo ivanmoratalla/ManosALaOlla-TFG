@@ -49,7 +49,8 @@ public class PlayerInteraction : MonoBehaviour
         {
             if(interactable != null && interactable != pickedObject)                                                        // El objeto en la mano no se considera, ya que si no sería siempre el más cercano
             {
-                if (interactable.transform.parent != null && (interactable.transform.parent.GetComponent<Counter>() != null || interactable.transform.parent.GetComponent<KitchenAppliance>() != null)) // Si un objeto está sobre una encimera no se considera para ser el closest tile, ya que para quitarlo de la encimera
+                if (interactable.transform.parent != null && (interactable.transform.parent.GetComponent<Counter>() != null 
+                    || interactable.transform.parent.GetComponent<KitchenAppliance>() != null)) // Si un objeto está sobre una encimera no se considera para ser el closest tile, ya que para quitarlo de la encimera
                 {                                                                                                           // quiero usar el método de la misma, ya que si no seguiría apareciendo que hay un objeto cuando no
                     continue; // Saltar objetos que están en una encimera
                 }
@@ -136,6 +137,7 @@ public class PlayerInteraction : MonoBehaviour
             if (pickedObject.GetComponent<Food>() != null && closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance)  && appliance.interactWithAppliance(pickedObject))
             {
                 Debug.Log("Se ha interactuado con el electrodoméstico");
+                pickedObject.GetComponent<Collider>().enabled = true; 
                 pickedObject = null;
 
             }
@@ -143,12 +145,15 @@ public class PlayerInteraction : MonoBehaviour
             else if (closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.interactWithCounter(pickedObject))                        
             {
                 Debug.Log("Se ha interactuado con una encimera");
+                pickedObject.GetComponent<Collider>().enabled = true;
+
                 pickedObject = null;
             }
         }
         // DEJAR EN EL SUELO
         else if (pickedObject.GetComponent<Plate>() == null)   // Se deja en el suelo si no se está cerca de un electrodoméstico o encimera, para evitar colisiones erróneas con lo que hay en ellos.                                                                                            
         {                                                                                                               // Además, se impide que los platos se puedan dejar en el suelo (no se podrían coger luego porque no se detectaría colisión al ser tan bajos)
+            pickedObject.GetComponent<Collider>().enabled = true;
             DropObjectOnGround();
         }
     }
@@ -220,6 +225,7 @@ public class PlayerInteraction : MonoBehaviour
 
         other.transform.position = hand.transform.position;
         other.gameObject.transform.SetParent(hand.gameObject.transform);
+        other.GetComponent<Collider>().enabled = false;
 
         pickedObject = other.gameObject;
     }
