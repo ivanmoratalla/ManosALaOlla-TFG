@@ -6,12 +6,10 @@ public class Counter : MonoBehaviour
 {
     public GameObject storedObject = null;         // Objeto que hay encima de la encimera
 
-
     /* Método para que el jugador interactúe con la encimera. Devuelve true en dos casos:
      * - Si no hay ningún objeto en la mesa y se deja el objeto
      * - Si hay un plato y el ingrediente se puede emplatar
      */
-
     public bool interactWithCounter(GameObject obj)
     {
         // DEJAR OBJETO EN LA MESA

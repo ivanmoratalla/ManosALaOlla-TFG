@@ -8,8 +8,6 @@ public class PlayerInteraction : MonoBehaviour
 
     public GameObject hand;                                                         // Punto donde el objeto que el jugador tiene en la mano va a estar (posición)
     private GameObject pickedObject = null;                                         // Objeto que el jugador tiene en la mano
-    //private Counter collidingCounter = null;                                        // Esta variable índica si tengo una encimera con la que el personaje está colisionando, para poder coger/soltar objetos en ella
-    //private KitchenAppliance collidingAppliance = null;                             // Esta variable índica si tengo un electrodoméstico con el que el personaje está colisionando, para poder interactuar o no con él
 
     [SerializeField] private GameObject respawnPoint = null;                        // Punto donde reaparece el jugador (solo si hay coches en los niveles)
     private bool isPlayerInteractingWithCar = false;                                // Para evitar interaccion repetida con el coche mientras esté desactivado
@@ -32,8 +30,14 @@ public class PlayerInteraction : MonoBehaviour
     
     private void UpdateClosestInteractable()
     {
+        Highlighter highliter = new Highlighter();
+
         if (nearbyInteractables.Count <= 0)
         {
+            if (closestInteractable != null)
+            {
+                highliter.StopHighlight(closestInteractable);
+            }
             closestInteractable = null;
             return;
         } 
@@ -59,9 +63,19 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
-        if(closestInteractable != closest)
+        if (closestInteractable != closest)
         {
+            if (closestInteractable != null)
+            {
+                highliter.StopHighlight(closestInteractable);
+            }
+
             closestInteractable = closest;
+
+            if (closestInteractable != null)
+            {
+                highliter.StartHighlight(closestInteractable);
+            }
         }
     }
 
