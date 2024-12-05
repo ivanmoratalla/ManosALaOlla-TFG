@@ -49,7 +49,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if(interactable != null && interactable != pickedObject)                                                        // El objeto en la mano no se considera, ya que si no sería siempre el más cercano
             {
-                if (interactable.transform.parent != null && interactable.transform.parent.GetComponent<Counter>() != null) // Si un objeto está sobre una encimera no se considera para ser el closest tile, ya que para quitarlo de la encimera
+                if (interactable.transform.parent != null && (interactable.transform.parent.GetComponent<Counter>() != null || interactable.transform.parent.GetComponent<KitchenAppliance>() != null)) // Si un objeto está sobre una encimera no se considera para ser el closest tile, ya que para quitarlo de la encimera
                 {                                                                                                           // quiero usar el método de la misma, ya que si no seguiría apareciendo que hay un objeto cuando no
                     continue; // Saltar objetos que están en una encimera
                 }
@@ -184,35 +184,7 @@ public class PlayerInteraction : MonoBehaviour
     // Este metodo es llamado cuando el jugador entra en contacto con otro objeto
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Counter>() != null && !nearbyInteractables.Contains(other.gameObject))
-        {
-            if (!nearbyInteractables.Contains(other.gameObject))
-            {
-                nearbyInteractables.Add(other.gameObject);
-            }
-        }
-        else if (other.GetComponent<KitchenAppliance>() != null && !nearbyInteractables.Contains(other.gameObject))
-        {
-            if (!nearbyInteractables.Contains(other.gameObject))
-            {
-                nearbyInteractables.Add(other.gameObject);
-            }
-        }
-        else if (other.GetComponent<Crate>() != null && !nearbyInteractables.Contains(other.gameObject))
-        {
-            if (!nearbyInteractables.Contains(other.gameObject))
-            {
-                nearbyInteractables.Add(other.gameObject);
-            }
-        }
-        else if (other.GetComponent<Table>() != null && !nearbyInteractables.Contains(other.gameObject))
-        {
-            if (!nearbyInteractables.Contains(other.gameObject))
-            {
-                nearbyInteractables.Add(other.gameObject);
-            }
-        }
-        else if (other.CompareTag("Objeto"))
+        if (other.GetComponent<Counter>() != null || other.GetComponent<KitchenAppliance>() || other.GetComponent<Crate>() != null || other.GetComponent<Table>() != null || other.CompareTag("Objeto"))
         {
             if (!nearbyInteractables.Contains(other.gameObject))
             {

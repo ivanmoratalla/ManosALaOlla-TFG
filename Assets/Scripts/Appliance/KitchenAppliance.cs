@@ -21,7 +21,6 @@ public abstract class KitchenAppliance : MonoBehaviour
         storedFood = food;
         storedFood.transform.position = new Vector3(transform.position.x, newYPosition, transform.position.z);
         storedFood.transform.SetParent(this.transform);
-        storedFood.GetComponent<Collider>().enabled = false;        // Con esto evito que se pueda coger como si fuera un objeto del suelo, y que solo se pueda coger si la lógica del electrodoméstico lo permite
 
         Rigidbody rb = storedFood.GetComponent<Rigidbody>();
         if (rb != null)
