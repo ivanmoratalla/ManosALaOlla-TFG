@@ -104,15 +104,9 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         GameObject objectToPick = null;
-        if (closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.pickUpObject(out objectToPick))
-        {
-            handlePickObject(objectToPick);
-        }
-        else if (closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && (objectToPick = appliance.pickUpFood()) != null)
-        {
-            handlePickObject(objectToPick);
-        }
-        else if (closestInteractable.TryGetComponent<Crate>(out Crate crate) && (objectToPick = crate.pickUpFood()) != null)
+        if ((closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.pickUpObject(out objectToPick))
+            || (closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && (objectToPick = appliance.pickUpFood()) != null)
+            || (closestInteractable.TryGetComponent<Crate>(out Crate crate) && (objectToPick = crate.pickUpFood()) != null))
         {
             handlePickObject(objectToPick);
         }
