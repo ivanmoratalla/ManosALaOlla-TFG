@@ -29,6 +29,7 @@ public class Level : MonoBehaviour
     private float customersTimer;                                           // Temporizador para que los clientes lleguen de manera intercalada. 
 
     private Queue<CustomerData> customersQueue;                             // Cola de clientes que quieren llegar al restaurante
+    private Queue<CustomerData> customersWaiting;                           // Clientes aue ya les ha tocado llegar al restaurante pero están esperando por una mesa libre
     private OrderManager orderManager;                                      // Variable para la clase encargada de manejar las comandas de este nivel
 
 
@@ -51,7 +52,9 @@ public class Level : MonoBehaviour
         gameState = GameState.PreGame;                                      // Se establece que el estado del nivel sea el previo al comienzo
         actualTimer = levelData.getPreGameTime();                           // Se comienza a contar el tiempo previo al comienzo del nivel
         customersTimer = 0;                                                 // Se inicializa a 0 para que el primer cliente llegue instantaneamente
+        
         customersQueue = new Queue<CustomerData>(levelData.getCustomers()); // Se obtienen los datos de los clientes del nivel
+        customersWaiting = new Queue<CustomerData>();                       // Se inicializa la cola de los clientes en espera para llegar
 
         OnTimeChange?.Invoke(this, levelData.getGameTime());                // Se notifica que se actualice la UI con el tiempo total del nivel
 
@@ -73,11 +76,7 @@ public class Level : MonoBehaviour
                 }
                 break;
             case GameState.InGame:
-                if(customersQueue.Count > 0 && customersTimer <= 0)
-                {
-                    StartCoroutine(seatCustomer());
-                    customersTimer = levelData.getTimeBetweenCustomers();   // Se reinicia el tiempo para que llegue otro cliente
-                }
+                HandleCustomerSeating();
                 if (uiTimer <= 0)
                 {
                     OnTimeChange?.Invoke(this, actualTimer);                // Se invoca el evento para actualizar el tiempo restante en el UI
@@ -93,6 +92,36 @@ public class Level : MonoBehaviour
         orderManager.UpdateOrderTimes(Time.deltaTime);
     }
 
+    private void HandleCustomerSeating()
+    {
+        if (customersQueue.Count > 0 && customersTimer <= 0)
+        {
+            customersWaiting.Enqueue(customersQueue.Dequeue());     // Mueve al cliente de la cola de nivel a la cola de espera
+            customersTimer = levelData.getTimeBetweenCustomers();   // Reinicia el temporizador de llegada
+        }
+
+        if (customersWaiting.Count > 0)
+        {
+            Table availableTable = getAvailableTable();
+
+            if (availableTable != null)
+            {
+                CustomerData customerData = customersWaiting.Dequeue(); // Saca al cliente en espera
+                SeatCustomer(customerData, availableTable);            // Asignar al cliente a la mesa
+            }
+        }
+    }
+
+    private void SeatCustomer(CustomerData customerData, Table assignedTable)
+    {
+        Debug.Log("Sentando cliente en una mesa disponible");
+
+        Customer newCustomer = Instantiate(clientPrefab, clientSpawnPoint.position, Quaternion.identity).GetComponent<Customer>();
+        newCustomer.setData(customerData, assignedTable, orderManager, clientSpawnPoint); // Configurar los datos del cliente
+        assignedTable.seatCustomer(newCustomer); // Asignar el cliente a la mesa
+
+        Debug.Log("Cliente sentado en la mesa " + assignedTable.getTableNumber());
+    }
 
     private void setTables()
     {
@@ -104,38 +133,6 @@ public class Level : MonoBehaviour
         {
             tables.Add(table);
         }
-    }
-
-    private IEnumerator seatCustomer()
-    {
-        Debug.Log("Se intenta sentar a un cliente");
-
-        var customerData = customersQueue.Dequeue();                                                                                // Datos del cliente a instanciar cuando haya una mesa libre
-        Table assignedTable = null;
-
-        while (assignedTable == null)
-        {
-            assignedTable = getAvailableTable();
-
-            if (assignedTable != null)                                                                                              // Mesa libre encontrada
-            {
-                Debug.Log("Se ha encontrado una mesa libre para el cliente");
-            }
-            else
-            {
-                yield return new WaitForSeconds(1f);                                                                                // Si no hay mesas libres, esperar un segundo antes de volver a comprobar.
-            }
-        }
-
-        // Aquí ya se ha encontrado una mesa libre para el cliente, por lo que se le sien0ta
-        Customer newCustomer = Instantiate(clientPrefab, clientSpawnPoint.position, Quaternion.identity).GetComponent<Customer>();  // clientPrefab es el prefab de un cliente.
-        newCustomer.setData(customerData, assignedTable, orderManager, clientSpawnPoint);                                                             // Asigna los datos de cliente
-
-        yield return null;                                                                                                          // Introduzco un retraso para asegurarme que el cliente está completamente instanciado
-        
-        assignedTable.seatCustomer(newCustomer);
-
-        Debug.Log("Cliente creado"); 
     }
 
     private async void SetGameOver()
