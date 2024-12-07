@@ -12,6 +12,9 @@ public class AccesibilityMenu : MonoBehaviour
     [SerializeField] private Button voiceCommandsButton;
     [SerializeField] private VoiceCommandsMenu voiceCommandsMenu;
 
+    [SerializeField] private Button rebindingButton;
+    [SerializeField] private RebindKeyMenu rebindKeyMenu;
+
     private GameObject previousUI;   
 
     private void Awake()
@@ -19,6 +22,7 @@ public class AccesibilityMenu : MonoBehaviour
         // Configuración de listeners de todos los elemento de la UI
         goBackButton.onClick.AddListener(GoBack);
         voiceCommandsButton.onClick.AddListener(OpenVoiceCommandsMenu);
+        rebindingButton.onClick.AddListener(OpenRebindKeysMenu);
     }
 
     public void OpenAccesibilityMenu(GameObject previousUI)
@@ -26,6 +30,11 @@ public class AccesibilityMenu : MonoBehaviour
         this.previousUI = previousUI;
         this.previousUI.SetActive(false);
         this.gameObject.SetActive(true);
+    }
+
+    public void OpenRebindKeysMenu()
+    {
+        rebindKeyMenu.OpenVoiceCommandsMenu(this.gameObject);
     }
 
     private void OpenVoiceCommandsMenu()

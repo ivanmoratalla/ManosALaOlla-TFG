@@ -38,7 +38,7 @@ public class VoiceCommandsMenu : MonoBehaviour
 
             // Configurar dropdown con jugadores (suponiendo dos jugadores)
             playerDropdown.ClearOptions();
-            playerDropdown.AddOptions(new System.Collections.Generic.List<string> { "None", "Player 1", "Player 2" });
+            playerDropdown.AddOptions(new System.Collections.Generic.List<string> { "Ninguno", "Jugador 1", "Jugador 2" });
 
             // Seleccionar jugador activo
             int activePlayer = voiceService.GetActivePlayer();
