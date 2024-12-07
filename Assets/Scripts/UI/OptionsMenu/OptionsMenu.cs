@@ -9,7 +9,10 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     [SerializeField] private Button goBackButton = null;
-    
+    [SerializeField] private Button accesibilityButton = null;
+    [SerializeField] private AccesibilityMenu accesibilityMenu;
+
+
     [SerializeField] private Slider volumeSlider = null;
     [SerializeField] private Toggle fullScreenToggle = null;
     [SerializeField] private Dropdown qualityDropdown = null;
@@ -32,6 +35,7 @@ public class OptionsMenu : MonoBehaviour
     {
         // Configuración de listeners de todos los elemento de la UI
         goBackButton.onClick.AddListener(GoBack);
+        accesibilityButton.onClick.AddListener(OpenAccesibilityMenu);
         volumeSlider.onValueChanged.AddListener(SetVolume);
         brightnessSlider.onValueChanged.AddListener(SetBrightness);
         fullScreenToggle.onValueChanged.AddListener(SetFullScreen);
@@ -69,6 +73,11 @@ public class OptionsMenu : MonoBehaviour
             previousUI.SetActive(true);
             previousUI = null;
         }
+    }
+
+    private void OpenAccesibilityMenu()
+    {
+        accesibilityMenu.OpenAccesibilityMenu(this.gameObject);
     }
 
     private void LoadSettings()

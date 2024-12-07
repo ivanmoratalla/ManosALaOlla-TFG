@@ -697,6 +697,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goBackButton: {fileID: 7616143467786613461}
+  accesibilityButton: {fileID: 3713759411245433816}
+  accesibilityMenu: {fileID: 0}
   volumeSlider: {fileID: 7000450848858015935}
   fullScreenToggle: {fileID: 6515423499978796416}
   qualityDropdown: {fileID: 8298768327042561637}

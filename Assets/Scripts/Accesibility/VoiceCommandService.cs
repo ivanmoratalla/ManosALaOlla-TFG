@@ -18,12 +18,7 @@ public class VoiceCommandService : MonoBehaviour
     // Eventos para notificar los comandos por voz
     public static EventHandler<int> OnPickUpObject;
     public static EventHandler<int> OnReleaseObject;
-    public static EventHandler<int> OnServeDish;
-
-    public bool IsEnabled()
-    {
-        return activePlayer != -1;
-    }   
+    public static EventHandler<int> OnServeDish;   
 
     private void Awake()
     {
@@ -41,12 +36,18 @@ public class VoiceCommandService : MonoBehaviour
 
     public void EnableVoiceCommands(int playerId)
     {
+        Debug.Log("PERMITIENDO VOICE COMMANDS");
         if (IsEnabled() && activePlayer == playerId)
         {
             Debug.Log($"Comandos de voz ya habilitados para el jugador {playerId}.");
             return;
         }
-
+/*
+        // Se limpia el KeyWordRecognizer si ya estaba inicializado
+        keywordRecognizer?.Stop();
+        keywordRecognizer?.Dispose();
+        keywordRecognizer = null;
+*/
         activePlayer = playerId;
         InitializeRecognizer();
         keywordRecognizer?.Start();
@@ -91,6 +92,8 @@ public class VoiceCommandService : MonoBehaviour
 
     private void OnCommandRecognized(PhraseRecognizedEventArgs args)
     {
+        Debug.Log("FRASE RECONOCIDA");
+
         if (!IsEnabled()) return;
 
         if (voiceCommands.TryGetValue(args.text, out var action))
@@ -104,11 +107,12 @@ public class VoiceCommandService : MonoBehaviour
     {
         if (PlayerPrefs.HasKey(PlayerPrefKey))
         {
-            activePlayer = PlayerPrefs.GetInt(PlayerPrefKey, -1);
-            if (activePlayer != -1)
+            int savedPlayerId = PlayerPrefs.GetInt(PlayerPrefKey, -1);
+
+            if (savedPlayerId != -1)
             {
-                EnableVoiceCommands(activePlayer);
-                Debug.Log($"Configuración cargada: comandos de voz habilitados para el jugador {activePlayer}.");
+                EnableVoiceCommands(savedPlayerId);
+                Debug.Log($"Configuración cargada: comandos de voz habilitados para el jugador {savedPlayerId}.");
             }
         }
     }
@@ -118,5 +122,15 @@ public class VoiceCommandService : MonoBehaviour
         PlayerPrefs.SetInt(PlayerPrefKey, activePlayer);
         PlayerPrefs.Save();
         Debug.Log($"Configuración guardada: jugador {activePlayer}.");
+    }
+
+    public bool IsEnabled()
+    {
+        return activePlayer != -1;
+    }
+
+    public int GetActivePlayer()
+    {
+        return activePlayer;
     }
 }
