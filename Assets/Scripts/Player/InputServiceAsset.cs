@@ -113,6 +113,11 @@ public class InputServiceAsset : ScriptableObject
         return serveDish;
     }
 
+    public int getPlayerId()
+    {
+        return playerId;
+    }
+
     private string GetPrefixedKey(string key)
     {
         return $"Player{playerId}_{key}";

@@ -22,6 +22,20 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] public List<GameObject> nearbyInteractables = new List<GameObject>();
     private GameObject closestInteractable = null;
 
+    private void OnEnable()
+    {
+        VoiceCommandService.OnPickUpObject += HandlePickUpObjectEvent;
+        VoiceCommandService.OnReleaseObject += HandleReleaseObjectEvent;
+        VoiceCommandService.OnServeDish += HandleServeDishEvent;
+    }
+
+    private void OnDisable()
+    {
+        VoiceCommandService.OnPickUpObject -= HandlePickUpObjectEvent;
+        VoiceCommandService.OnReleaseObject -= HandleReleaseObjectEvent;
+        VoiceCommandService.OnServeDish -= HandleServeDishEvent;
+    }
+
     void Update()
     {
         UpdateClosestInteractable();
@@ -77,6 +91,30 @@ public class PlayerInteraction : MonoBehaviour
             {
                 highliter.StartHighlight(closestInteractable);
             }
+        }
+    }
+
+    private void HandlePickUpObjectEvent(object sender, int playerId)
+    {
+        if (inputService.getPlayerId() == playerId)
+        {
+            HandlePickUpObject();
+        }
+    }
+
+    private void HandleReleaseObjectEvent(object sender, int playerId)
+    {
+        if (inputService.getPlayerId() == playerId)
+        {
+            HandleReleaseObject();
+        }
+    }
+
+    private void HandleServeDishEvent(object sender, int playerId)
+    {
+        if (inputService.getPlayerId() == playerId)
+        {
+            HandleServeDish();
         }
     }
 
