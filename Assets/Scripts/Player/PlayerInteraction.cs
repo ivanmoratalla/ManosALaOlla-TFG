@@ -137,7 +137,7 @@ public class PlayerInteraction : MonoBehaviour
             ColorManager manager = FindObjectOfType<ColorManager>();
             if (manager != null)
             {
-                manager.ActivateAlternateMaterialsForType(typeof(Food));
+                manager.SetAlternativeStateForType(typeof(Food), true);
             }
         }
         else if (Input.GetKeyDown(KeyCode.V))
@@ -145,7 +145,7 @@ public class PlayerInteraction : MonoBehaviour
             ColorManager manager = FindObjectOfType<ColorManager>();
             if (manager != null)
             {
-                manager.ActivateAlternateMaterialsForType(typeof(Counter));
+                manager.SetAlternativeStateForType(typeof(Counter), true);
             }
         }
         else if (Input.GetKeyDown(KeyCode.B))
@@ -153,7 +153,7 @@ public class PlayerInteraction : MonoBehaviour
             ColorManager manager = FindObjectOfType<ColorManager>();
             if (manager != null)
             {
-                manager.DisableAlternateMaterialsForType(typeof(Food));
+                manager.SetAlternativeStateForType(typeof(Food), false);
             }
         }
         else if (Input.GetKeyDown(KeyCode.N))
@@ -161,7 +161,7 @@ public class PlayerInteraction : MonoBehaviour
             ColorManager manager = FindObjectOfType<ColorManager>();
             if (manager != null)
             {
-                manager.DisableAlternateMaterialsForType(typeof(Counter));
+                manager.SetAlternativeStateForType(typeof(Counter), false);
             }
         }
     }

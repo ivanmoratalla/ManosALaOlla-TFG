@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class KitchenAppliance : MonoBehaviour
+public abstract class KitchenAppliance : ColorableObject
 {
     public GameObject storedFood = null;         // Comida que se va a cocinar / se está cocinando
     protected bool isProcessing = false;            // Variable para indicar si se está cocinando algo

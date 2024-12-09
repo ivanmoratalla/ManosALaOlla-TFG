@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plate : MonoBehaviour
+public class Plate : ColorableObject
 {
     private List<Recipe> validRecipes;                          // Esta lista guardara las recetas que se pueden hacer en función de los ingredientes que haya en el plato
     private List<string> ingredientsInPlate;                    // Esta lista guarda los ingredientes que hay en el plato

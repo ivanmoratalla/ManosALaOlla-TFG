@@ -9183,6 +9183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColorSelectorUI
       objectReference: {fileID: 0}
+    - target: {fileID: 1643000711262491832, guid: 532e72776e6d0d34d8cf295a202186ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3844268892524492265, guid: 532e72776e6d0d34d8cf295a202186ba, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -9337,6 +9341,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6352108683032345406, guid: 532e72776e6d0d34d8cf295a202186ba, type: 3}
   m_PrefabInstance: {fileID: 1993149957}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1993149959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7728007194162697065, guid: 532e72776e6d0d34d8cf295a202186ba, type: 3}
+  m_PrefabInstance: {fileID: 1993149957}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc72bc376ec69424b95d1289729c2b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2006064559
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9449,6 +9464,10 @@ PrefabInstance:
       propertyPath: rebindKeyMenu
       value: 
       objectReference: {fileID: 1463527994}
+    - target: {fileID: 7265677755540365793, guid: 9e930b4644c08e141998bfb09936212a, type: 3}
+      propertyPath: customColorsMenu
+      value: 
+      objectReference: {fileID: 1993149959}
     - target: {fileID: 7265677755540365793, guid: 9e930b4644c08e141998bfb09936212a, type: 3}
       propertyPath: voiceCommandsMenu
       value: 

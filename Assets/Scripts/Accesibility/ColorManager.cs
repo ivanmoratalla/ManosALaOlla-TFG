@@ -77,6 +77,7 @@ public class ColorManager : MonoBehaviour
         if (types.Contains(type))
         {
             alternativeMaterials[type].color = newColor;
+            
             SaveColor(type, newColor);
             
             if (useAlternativeMaterial[type])
@@ -85,6 +86,27 @@ public class ColorManager : MonoBehaviour
                 {
                     obj.ApplyMaterial(alternativeMaterials[type]);
                 }
+            }
+        }
+    }
+
+    // Método para activar o desactivar el material alternativo para un determinado tipo
+    public void SetAlternativeStateForType(Type type, bool newState)
+    {
+        if (types.Contains(type))
+        {
+            useAlternativeMaterial[type] = newState;
+
+            SaveState(type, newState);
+
+            // Se actualizan los materiales de los objetos
+            if(newState)
+            {
+                ApplyMaterialForType(type, GetAlternateMaterialFor(type));
+            }
+            else
+            {
+                ApplyMaterialForType(type, null);
             }
         }
     }
@@ -98,24 +120,12 @@ public class ColorManager : MonoBehaviour
         return Color.white;
     }
 
-    // Método para activar el color alternativo de los objetos de un determinado tipo
-    public void ActivateAlternateMaterialsForType(Type type)
+    public bool GetAlternativeStateForType(Type type)
     {
-        useAlternativeMaterial[type] = true;
-
-        ApplyMaterialForType(type, GetAlternateMaterialFor(type));
-
-        SaveState(type, true);
-    }
-
-    // Método para desactivar el color alternativo de los objetos de un determinado tipo
-    public void DisableAlternateMaterialsForType(Type type)
-    {
-        useAlternativeMaterial[type] = false;
-
-        ApplyMaterialForType(type, null); 
-
-        SaveState(type, false);
+        if(types.Contains(type)) { 
+            return useAlternativeMaterial[type];
+        }
+        return false;
     }
 
     // Método privado para aplicar un material a todos los objetos de un tipo
@@ -175,18 +185,7 @@ public class ColorManager : MonoBehaviour
             {
                 bool useAltMaterial = PlayerPrefs.GetInt(stateKey) == 1;
 
-                // Si el estado es true, aplica el material alternativo
-                if (useAltMaterial)
-                {
-                    Debug.Log("Estado true para " + type);
-                    useAlternativeMaterial[type] = true;
-                    ActivateAlternateMaterialsForType(type);
-                }
-                else
-                {
-                    useAlternativeMaterial[type] = false;
-                    DisableAlternateMaterialsForType(type);
-                }
+                SetAlternativeStateForType(type, useAltMaterial);
             }
         }
     }

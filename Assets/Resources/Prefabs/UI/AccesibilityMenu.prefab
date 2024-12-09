@@ -214,6 +214,8 @@ MonoBehaviour:
   voiceCommandsMenu: {fileID: 0}
   rebindingButton: {fileID: 7724606263675648103}
   rebindKeyMenu: {fileID: 0}
+  customColorsButton: {fileID: 9220563022672889244}
+  customColorsMenu: {fileID: 0}
 --- !u!1 &1805458560813381830
 GameObject:
   m_ObjectHideFlags: 0

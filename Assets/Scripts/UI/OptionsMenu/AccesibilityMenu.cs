@@ -15,6 +15,9 @@ public class AccesibilityMenu : MonoBehaviour
     [SerializeField] private Button rebindingButton;
     [SerializeField] private RebindKeyMenu rebindKeyMenu;
 
+    [SerializeField] private Button customColorsButton;
+    [SerializeField] private ChangeObjectsColorMenu customColorsMenu;
+
     private GameObject previousUI;   
 
     private void Awake()
@@ -23,7 +26,9 @@ public class AccesibilityMenu : MonoBehaviour
         goBackButton.onClick.AddListener(GoBack);
         voiceCommandsButton.onClick.AddListener(OpenVoiceCommandsMenu);
         rebindingButton.onClick.AddListener(OpenRebindKeysMenu);
+        customColorsButton.onClick.AddListener(OpenCustomColorsMenu);
     }
+
 
     public void OpenAccesibilityMenu(GameObject previousUI)
     {
@@ -40,6 +45,11 @@ public class AccesibilityMenu : MonoBehaviour
     private void OpenVoiceCommandsMenu()
     {
         voiceCommandsMenu.OpenVoiceCommandsMenu(this.gameObject);
+    }
+
+    private void OpenCustomColorsMenu()
+    {
+        customColorsMenu.OpenCustomColorsMenu(this.gameObject);
     }
 
     private void GoBack()
