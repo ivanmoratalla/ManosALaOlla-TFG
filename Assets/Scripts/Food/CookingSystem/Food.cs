@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Esta clase representa a una comida, es decir, a un estado del autómata. Por tanto, incluye info del estado, junto a las transiciones que se pueden hacer desde este estado
-public class Food : MonoBehaviour
+public class Food : ColorableObject
 {
     [SerializeField] private FoodStateData stateData; // Al serializarlo puedo ver el atributo en el inspector aunque sea privado. Así, desde otras clases se mantiene privado (buenas prácticas) pero desde el inspector se puede modificar
-    
 
     public FoodStateData getStateData()
     {

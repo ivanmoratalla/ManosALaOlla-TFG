@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Counter : MonoBehaviour
+public class Counter : ColorableObject
 {
     public GameObject storedObject = null;         // Objeto que hay encima de la encimera
 
