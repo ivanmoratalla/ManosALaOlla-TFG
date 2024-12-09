@@ -5,6 +5,9 @@ using System;
 
 public class ColorManager : MonoBehaviour
 {
+    public static ColorManager Instance { get; private set; }                    // Singleton
+
+
     private List<Type> types;                        // Lista con los tipos cuyos objetos se pueden cambiar de oclor
     private Dictionary<Type, List<ColorableObject>> levelObjectsByType; // Por cada tipo de objeto coloreable, una lista con las instancias de ese tipo en el nivel
     private Dictionary<Type, Material> alternativeMaterials;            // Material alternativo por cada tipo de objeto coloreable
@@ -12,6 +15,15 @@ public class ColorManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
         types = new List<Type>();
         levelObjectsByType = new Dictionary<Type, List<ColorableObject>>();
         alternativeMaterials = new Dictionary<Type, Material>();

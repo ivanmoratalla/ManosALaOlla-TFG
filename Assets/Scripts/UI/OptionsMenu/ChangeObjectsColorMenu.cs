@@ -13,8 +13,6 @@ public class ChangeObjectsColorMenu : MonoBehaviour
     [SerializeField] private Button applyChangesButton;                 // Botón para aplicar cambios
     [SerializeField] private Button backButton;                         // Botón para volver atrás
 
-    [SerializeField] private ColorManager colorManager;
-
     private Type currentType;
     private Color selectedColor;
     private GameObject previousUI;
@@ -41,9 +39,9 @@ public class ChangeObjectsColorMenu : MonoBehaviour
 
         if (currentType == null) return;
 
-        stateToggle.isOn = colorManager.GetAlternativeStateForType(currentType);
+        stateToggle.isOn = ColorManager.Instance.GetAlternativeStateForType(currentType);
 
-        selectedColor = colorManager.GetAlternativeColorForType(currentType);
+        selectedColor = ColorManager.Instance.GetAlternativeColorForType(currentType);
 
         colorButton.interactable = stateToggle.isOn;
     }
@@ -55,7 +53,7 @@ public class ChangeObjectsColorMenu : MonoBehaviour
 
     private void OpenColorPicker()
     {
-        ColorPicker.Create(colorManager.GetAlternativeColorForType(currentType), "Elija un color", null, ColorChosen, true);
+        ColorPicker.Create(ColorManager.Instance.GetAlternativeColorForType(currentType), "Elija un color", null, ColorChosen, true);
     }
 
     private void ColorChosen(Color finishedColor)
@@ -68,11 +66,11 @@ public class ChangeObjectsColorMenu : MonoBehaviour
     {
         if (currentType != null)
         {
-            colorManager.SetAlternativeStateForType(currentType, stateToggle.isOn);
+            ColorManager.Instance.SetAlternativeStateForType(currentType, stateToggle.isOn);
 
             if (stateToggle.isOn)
             {
-                colorManager.SetAlternativeColorForType(currentType, selectedColor);
+                ColorManager.Instance.SetAlternativeColorForType(currentType, selectedColor);
             }
         }
 

@@ -134,34 +134,30 @@ public class PlayerInteraction : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Space))
         {
-            ColorManager manager = FindObjectOfType<ColorManager>();
-            if (manager != null)
+            if (ColorManager.Instance != null)
             {
-                manager.SetAlternativeStateForType(typeof(Food), true);
+                ColorManager.Instance.SetAlternativeStateForType(typeof(Food), true);
             }
         }
         else if (Input.GetKeyDown(KeyCode.V))
         {
-            ColorManager manager = FindObjectOfType<ColorManager>();
-            if (manager != null)
+            if (ColorManager.Instance != null)
             {
-                manager.SetAlternativeStateForType(typeof(Counter), true);
+                ColorManager.Instance.SetAlternativeStateForType(typeof(Counter), true);
             }
         }
         else if (Input.GetKeyDown(KeyCode.B))
         {
-            ColorManager manager = FindObjectOfType<ColorManager>();
-            if (manager != null)
+            if (ColorManager.Instance != null)
             {
-                manager.SetAlternativeStateForType(typeof(Food), false);
+                ColorManager.Instance.SetAlternativeStateForType(typeof(Food), false);
             }
         }
         else if (Input.GetKeyDown(KeyCode.N))
         {
-            ColorManager manager = FindObjectOfType<ColorManager>();
-            if (manager != null)
+            if (ColorManager.Instance != null)
             {
-                manager.SetAlternativeStateForType(typeof(Counter), false);
+                ColorManager.Instance.SetAlternativeStateForType(typeof(Counter), false);
             }
         }
     }
