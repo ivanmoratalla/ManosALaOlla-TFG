@@ -89,6 +89,15 @@ public class ColorManager : MonoBehaviour
         }
     }
 
+    public Color GetAlternativeColorForType(Type type)
+    {
+        if(types.Contains(type))
+        {
+            return alternativeMaterials[type].color;
+        }
+        return Color.white;
+    }
+
     // Método para activar el color alternativo de los objetos de un determinado tipo
     public void ActivateAlternateMaterialsForType(Type type)
     {

@@ -20,13 +20,26 @@ public class ChangeObjectsColorMenu : MonoBehaviour
 
     private void Start()
     {
-        colorButton.onClick.AddListener(ChangeColor);
+        typeDropdown.ClearOptions();
+        typeDropdown.AddOptions(new List<string> { "Food", "KitchenAppliance", "Plate", "Counter" });
+
+        colorButton.onClick.AddListener(OpenColorPicker);
+        applyChangesButton.onClick.AddListener(ApplyChanges);
     }
 
-    private void ChangeColor()
+    private void OpenColorPicker()
     {
-        selectedColor = new Color(UnityEngine.Random.value, UnityEngine.Random.value, UnityEngine.Random.value);
+        ColorPicker.Create(colorManager.GetAlternativeColorForType(typeof(Counter)), "Elija un color", null, ColorChosen, true);
+    }
 
+    private void ColorChosen(Color finishedColor)
+    {
+        Debug.Log("Finished color");
+        selectedColor = finishedColor;
+    }
+
+    private void ApplyChanges()
+    {
         colorManager.SetAlternativeColorForType(typeof(Counter), selectedColor);
     }
 }
