@@ -19,7 +19,7 @@ public class PlayerInteraction : MonoBehaviour
     public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
     public static event Action<float, Vector3> OnPlayerDisappear;                   // Evento para notificar que el jugador ha colisionado con un coche
 
-    [SerializeField] public List<GameObject> nearbyInteractables = new List<GameObject>();
+    private List<GameObject> nearbyInteractables = new List<GameObject>();
     private GameObject closestInteractable = null;
 
     private void OnEnable()

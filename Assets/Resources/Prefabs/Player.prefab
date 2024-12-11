@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 587592843572916414}
   - component: {fileID: 3518388344002579020}
   - component: {fileID: 8561700848212195243}
+  - component: {fileID: 7168257325625767793}
   - component: {fileID: 7834244500607123564}
   - component: {fileID: 8859646972040922900}
   m_Layer: 0
@@ -261,6 +262,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementService: {fileID: 11400000, guid: 00befb9bac22b3446b43fe6abcc5227c, type: 2}
+  inputService: {fileID: 0}
+--- !u!114 &7168257325625767793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812744522379660487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be158acb5c28d414f88fa1e19480c701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: {fileID: 789540005180560793}
+  respawnPoint: {fileID: 0}
   inputService: {fileID: 0}
 --- !u!54 &7834244500607123564
 Rigidbody:
@@ -452,7 +468,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4853776790000861665}
-  - component: {fileID: 4477911617760592195}
   - component: {fileID: 5710981942913080701}
   m_Layer: 0
   m_Name: Arm
@@ -477,22 +492,6 @@ Transform:
   - {fileID: 5183290936334327749}
   m_Father: {fileID: 1355260036891843307}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4477911617760592195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7079398141267547290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be158acb5c28d414f88fa1e19480c701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hand: {fileID: 789540005180560793}
-  respawnPoint: {fileID: 0}
-  inputService: {fileID: 0}
-  nearbyInteractables: []
 --- !u!135 &5710981942913080701
 SphereCollider:
   m_ObjectHideFlags: 0
