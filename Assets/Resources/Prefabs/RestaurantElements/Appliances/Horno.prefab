@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee4f0106f02421429bd86fd8bd1b777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalMaterial: {fileID: 0}
   storedFood: {fileID: 0}
   actionType: 4
   cookTime: 7

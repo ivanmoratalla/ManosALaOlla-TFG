@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f5ecb3ceb8e6a8f4c9c965fcc667d1ea, type: 3}
-  m_Name: Level_2_Data
+  m_Name: Level_3_Data
   m_EditorClassIdentifier: 
   levelNumber: 2
   customers:
@@ -19,21 +19,29 @@ MonoBehaviour:
   - name: Daniela
     dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
   - name: Ivan
-    dish: {fileID: 11400000, guid: 6745718c86a4cd244a427d028d153883, type: 2}
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
   - name: Pepe
+    dish: {fileID: 11400000, guid: 6745718c86a4cd244a427d028d153883, type: 2}
+  - name: Juan
+    dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
+  - name: Sonia
+    dish: {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
+  - name: Maria
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
+  - name: "Bel\xE9n"
+    dish: {fileID: 11400000, guid: 2712daa2dc716b04292ef09488e8c051, type: 2}
+  - name: Jose
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
+  - name: Mateo
     dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
   - name: Juan
     dish: {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
-  - name: Sonia
-    dish: {fileID: 11400000, guid: 2712daa2dc716b04292ef09488e8c051, type: 2}
-  - name: Maria
+  - name: Jaime
     dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
-  - name: "Bel\xE9n"
-    dish: {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
-  - name: Jose
+  - name: Silvia
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
+  - name: Anabel
     dish: {fileID: 11400000, guid: 2712daa2dc716b04292ef09488e8c051, type: 2}
-  - name: Mateo
-    dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
   preGameTime: 5
   gameTime: 180
   timeBetweenCustomers: 5

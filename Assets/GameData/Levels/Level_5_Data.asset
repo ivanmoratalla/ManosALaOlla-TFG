@@ -21,7 +21,7 @@ MonoBehaviour:
   - name: Alberto
     dish: {fileID: 11400000, guid: 649f172097dbc014babdb30bda038013, type: 2}
   - name: Josefina
-    dish: {fileID: 11400000, guid: 80322d9abf083ca458040486508943a0, type: 2}
+    dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
   - name: Pepe
     dish: {fileID: 11400000, guid: bd6ac4f611a95d24d854590097263f9d, type: 2}
   - name: Laura
@@ -33,12 +33,12 @@ MonoBehaviour:
   - name: Silvia
     dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
   - name: Candela
-    dish: {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
+    dish: {fileID: 11400000, guid: 80322d9abf083ca458040486508943a0, type: 2}
   - name: Candela
     dish: {fileID: 11400000, guid: bd6ac4f611a95d24d854590097263f9d, type: 2}
   - name: Candela
     dish: {fileID: 11400000, guid: 6b7013ffe19a5f54cb78dc431db1494c, type: 2}
-  preGameTime: 3
-  gameTime: 90
+  preGameTime: 5
+  gameTime: 180
   timeBetweenCustomers: 5
-  neededScore: 5
+  neededScore: 15

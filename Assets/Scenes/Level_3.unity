@@ -1100,8 +1100,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recipes:
+  - {fileID: 11400000, guid: 2712daa2dc716b04292ef09488e8c051, type: 2}
+  - {fileID: 11400000, guid: 6745718c86a4cd244a427d028d153883, type: 2}
   - {fileID: 11400000, guid: a11bab39114b4fc4cad2edcd1fb74846, type: 2}
   - {fileID: 11400000, guid: 604c96637b196224284b5afd5a83c9de, type: 2}
+  - {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
 --- !u!4 &177313756
 Transform:
   m_ObjectHideFlags: 0
@@ -7604,7 +7607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f560a276b2b732b4fba7dd4ee221d160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelData: {fileID: 11400000, guid: 65b5be0eba3b3b54f9efaadc1649aab5, type: 2}
+  levelData: {fileID: 11400000, guid: 3e544a60bd77e004eaf962e1168edbee, type: 2}
   clientPrefab: {fileID: 6286286897283448021, guid: 128e8161a49b88246bd2a6e00d6bd572, type: 3}
   clientSpawnPoint: {fileID: 637567656}
 --- !u!4 &1681365509
