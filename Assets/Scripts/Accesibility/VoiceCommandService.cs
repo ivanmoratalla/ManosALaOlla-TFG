@@ -18,7 +18,8 @@ public class VoiceCommandService : MonoBehaviour
     // Eventos para notificar los comandos por voz
     public static EventHandler<int> OnPickUpObject;
     public static EventHandler<int> OnReleaseObject;
-    public static EventHandler<int> OnServeDish;   
+    public static EventHandler<int> OnServeDish;
+    public static EventHandler<int> OnCutIngredient;
 
     private void Awake()
     {
@@ -42,12 +43,7 @@ public class VoiceCommandService : MonoBehaviour
             Debug.Log($"Comandos de voz ya habilitados para el jugador {playerId}.");
             return;
         }
-/*
-        // Se limpia el KeyWordRecognizer si ya estaba inicializado
-        keywordRecognizer?.Stop();
-        keywordRecognizer?.Dispose();
-        keywordRecognizer = null;
-*/
+
         activePlayer = playerId;
         InitializeRecognizer();
         keywordRecognizer?.Start();
@@ -83,7 +79,8 @@ public class VoiceCommandService : MonoBehaviour
         {
             { "coger", () => OnPickUpObject?.Invoke(this, activePlayer) },
             { "soltar", () => OnReleaseObject?.Invoke(this, activePlayer) },
-            { "servir", () => OnServeDish?.Invoke(this, activePlayer) }
+            { "servir", () => OnServeDish?.Invoke(this, activePlayer) },
+            { "cortar", () => OnCutIngredient?.Invoke(this, activePlayer) }
         };
 
         keywordRecognizer = new KeywordRecognizer(voiceCommands.Keys.ToArray());
