@@ -326,4 +326,9 @@ public class PlayerInteraction : MonoBehaviour
             }
         });
     }
+
+    public InputServiceAsset GetInputServiceAsset()
+    {
+        return this.inputService;
+    }
 }

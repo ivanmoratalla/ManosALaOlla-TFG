@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CuttingBoard : KitchenAppliance
 {
-    //private bool isCutting = false;                 // Variable que indica si el jugador está cortando el objeto
-    private bool isPlayerNearby = false;            // Variable que indica si el jugador está colisionando con la tabla (al actualizarse el timer en el Update necesito esta variable)
     [SerializeField] private float timeToCut = 3f;  // Variable que indica el tiempo que se tiene que mantener pulsado para cortar con éxito
     private float holdTime = 0f;                    // VAriable que indica el tiempo que se lleva cortando
+
+    private PlayerInteraction playerNearby = null;  // Variable que indica que jugador hay cerca de la tabla de cortar (null si no hay ninguno)
+
 
     public override FoodAction action
     {
@@ -29,9 +30,9 @@ public class CuttingBoard : KitchenAppliance
 
     private void Update()
     {
-        if (storedFood != null && isPlayerNearby)      // Solo se puede cortar si hay un objeto en la tabla y si el jugador está colisionando con la tabla
+        if (storedFood != null && playerNearby != null)      // Solo se puede cortar si hay un objeto en la tabla y si el jugador está colisionando con la tabla
         {
-            if (Input.GetKey(KeyCode.C))
+            if (Input.GetKey(playerNearby.GetInputServiceAsset().getCutFoodKey()))
             {
                 if (!isProcessing)
                 {
@@ -79,10 +80,10 @@ public class CuttingBoard : KitchenAppliance
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerInteraction player = other.GetComponent<PlayerInteraction>();
+        PlayerInteraction player = other.transform.parent.GetComponent<PlayerInteraction>();
         if (player != null)
         {
-            isPlayerNearby = true;
+            playerNearby = player;
         }
     }
 
@@ -91,7 +92,7 @@ public class CuttingBoard : KitchenAppliance
         PlayerInteraction player = other.GetComponent<PlayerInteraction>();
         if (player != null)
         {
-            isPlayerNearby = false;
+            playerNearby = null;
             isProcessing = false;
             //storedFood.GetComponent<Collider>().enabled = true;
         }
