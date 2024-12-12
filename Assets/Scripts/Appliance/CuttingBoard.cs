@@ -1,24 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CuttingBoard : KitchenAppliance
 {
-    //private bool isCutting = false;                 // Variable que indica si el jugador está cortando el objeto
-    private bool isPlayerNearby = false;            // Variable que indica si el jugador está colisionando con la tabla (al actualizarse el timer en el Update necesito esta variable)
     [SerializeField] private float timeToCut = 3f;  // Variable que indica el tiempo que se tiene que mantener pulsado para cortar con éxito
     private float holdTime = 0f;                    // VAriable que indica el tiempo que se lleva cortando
+
+    private PlayerInteraction playerNearby = null;  // Variable que indica que jugador hay cerca de la tabla de cortar (null si no hay ninguno)
+
 
     public override FoodAction action
     {
         get { return FoodAction.Cut; }              // Variable que indica que la acción que se hace en la tabla es "cortar"
     }
 
+    private void OnEnable()
+    {
+        VoiceCommandService.OnCutIngredient += HandleCutEvent;
+    }
+
+    private void OnDisable()
+    {
+        VoiceCommandService.OnCutIngredient -= HandleCutEvent;
+    }
+
 
     // En el caso de la tabla de cortar, no se quiere cortar al poner el objeto en la tabla, si no solo colocarlo
     public override bool interactWithAppliance(GameObject food)
     {
-        if(CanProcess(food))
+        if (CanProcess(food))
         {
             placeFood(food);
             Debug.Log("Se ha colocado la comida en la tabla de cortar");
@@ -29,9 +41,9 @@ public class CuttingBoard : KitchenAppliance
 
     private void Update()
     {
-        if (storedFood != null && isPlayerNearby)      // Solo se puede cortar si hay un objeto en la tabla y si el jugador está colisionando con la tabla
+        if (storedFood != null && playerNearby != null)      // Solo se puede cortar si hay un objeto en la tabla y si el jugador está colisionando con la tabla
         {
-            if (Input.GetKey(KeyCode.C))
+            if (Input.GetKey(playerNearby.GetInputServiceAsset().getCutFoodKey()))
             {
                 if (!isProcessing)
                 {
@@ -66,7 +78,7 @@ public class CuttingBoard : KitchenAppliance
     {
         storedFood.GetComponent<Food>().changeFoodState(action, out storedFood);
         Debug.Log("Comida cocinada");
-        
+
         isProcessing = false;
         holdTime = 0f;
 
@@ -79,10 +91,10 @@ public class CuttingBoard : KitchenAppliance
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerInteraction player = other.GetComponent<PlayerInteraction>();
+        PlayerInteraction player = other.transform.parent.GetComponent<PlayerInteraction>();
         if (player != null)
         {
-            isPlayerNearby = true;
+            playerNearby = player;
         }
     }
 
@@ -91,9 +103,23 @@ public class CuttingBoard : KitchenAppliance
         PlayerInteraction player = other.GetComponent<PlayerInteraction>();
         if (player != null)
         {
-            isPlayerNearby = false;
+            playerNearby = null;
             isProcessing = false;
-            //storedFood.GetComponent<Collider>().enabled = true;
         }
+    }
+
+    private void HandleCutEvent(object sender, int playerId)
+    {
+        if (playerNearby != null && playerNearby.GetInputServiceAsset().getPlayerId() == playerId)
+        {
+            StartCoroutine(CutFoodEvent());
+        }
+    }
+
+    private IEnumerator CutFoodEvent()
+    {
+        yield return new WaitForSeconds(3f);
+
+        cookFood();
     }
 }

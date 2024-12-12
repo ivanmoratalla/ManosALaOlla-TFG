@@ -41,7 +41,7 @@ public class PlayerInteraction : MonoBehaviour
         UpdateClosestInteractable();
         HandleInput();
     }
-    
+
     private void UpdateClosestInteractable()
     {
         Highlighter highliter = new Highlighter();
@@ -54,16 +54,16 @@ public class PlayerInteraction : MonoBehaviour
             }
             closestInteractable = null;
             return;
-        } 
+        }
 
         float minDistance = Mathf.Infinity;
         GameObject closest = null;
 
         foreach (var interactable in nearbyInteractables)
         {
-            if(interactable != null && interactable != pickedObject)                                                        // El objeto en la mano no se considera, ya que si no sería siempre el más cercano
+            if (interactable != null && interactable != pickedObject)                                                        // El objeto en la mano no se considera, ya que si no sería siempre el más cercano
             {
-                if (interactable.transform.parent != null && (interactable.transform.parent.GetComponent<Counter>() != null 
+                if (interactable.transform.parent != null && (interactable.transform.parent.GetComponent<Counter>() != null
                     || interactable.transform.parent.GetComponent<KitchenAppliance>() != null)) // Si un objeto está sobre una encimera no se considera para ser el closest tile, ya que para quitarlo de la encimera
                 {                                                                                                           // quiero usar el método de la misma, ya que si no seguiría apareciendo que hay un objeto cuando no
                     continue; // Saltar objetos que están en una encimera
@@ -132,39 +132,11 @@ public class PlayerInteraction : MonoBehaviour
         {
             HandleServeDish();
         }
-        else if(Input.GetKeyDown(KeyCode.Space))
-        {
-            if (ColorManager.Instance != null)
-            {
-                ColorManager.Instance.SetAlternativeStateForType(typeof(Food), true);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.V))
-        {
-            if (ColorManager.Instance != null)
-            {
-                ColorManager.Instance.SetAlternativeStateForType(typeof(Counter), true);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (ColorManager.Instance != null)
-            {
-                ColorManager.Instance.SetAlternativeStateForType(typeof(Food), false);
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.N))
-        {
-            if (ColorManager.Instance != null)
-            {
-                ColorManager.Instance.SetAlternativeStateForType(typeof(Counter), false);
-            }
-        }
     }
 
     private void HandlePickUpObject()
     {
-        if (pickedObject != null || closestInteractable == null) 
+        if (pickedObject != null || closestInteractable == null)
         {
             return;
         }
@@ -191,18 +163,18 @@ public class PlayerInteraction : MonoBehaviour
     private void HandleReleaseObject()
     {
         Debug.Log("Intentando soltar");
-        if(pickedObject != null && closestInteractable != null)
+        if (pickedObject != null && closestInteractable != null)
         {
             // INTERACTUAR CON UN ELECTRODOMÉSTICO
-            if (pickedObject.GetComponent<Food>() != null && closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance)  && appliance.interactWithAppliance(pickedObject))
+            if (pickedObject.GetComponent<Food>() != null && closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && appliance.interactWithAppliance(pickedObject))
             {
                 Debug.Log("Se ha interactuado con el electrodoméstico");
-                pickedObject.GetComponent<Collider>().enabled = true; 
+                pickedObject.GetComponent<Collider>().enabled = true;
                 pickedObject = null;
 
             }
             // INTERACTUAR CON UNA ENCIMERA, TANTO PARA DEJAR OBJETO COMO PARA EMPLATAR
-            else if (closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.interactWithCounter(pickedObject))                        
+            else if (closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.interactWithCounter(pickedObject))
             {
                 Debug.Log("Se ha interactuado con una encimera");
                 pickedObject.GetComponent<Collider>().enabled = true;
@@ -220,7 +192,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleServeDish()
     {
-        if(pickedObject != null && closestInteractable != null && closestInteractable.TryGetComponent<Table>(out Table table))
+        if (pickedObject != null && closestInteractable != null && closestInteractable.TryGetComponent<Table>(out Table table))
         {
             Plate plate;
             if ((plate = pickedObject.GetComponent<Plate>()) != null)          // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
@@ -256,7 +228,7 @@ public class PlayerInteraction : MonoBehaviour
                 nearbyInteractables.Add(other.gameObject);
             }
         }
-        else if(other.GetComponent<CarMovement>() != null && !isPlayerInteractingWithCar)
+        else if (other.GetComponent<CarMovement>() != null && !isPlayerInteractingWithCar)
         {
             Debug.Log("Jugador atropellado");
             Vector3 collisionPoint = other.ClosestPoint(transform.position);
@@ -280,8 +252,8 @@ public class PlayerInteraction : MonoBehaviour
     // Este método es el encargado de coger el objeto que se pasa como parámetro
     private void handlePickObject(GameObject other)
     {
-        other.GetComponent<Rigidbody>().useGravity = false;                 
-        other.GetComponent<Rigidbody>().isKinematic = true;                
+        other.GetComponent<Rigidbody>().useGravity = false;
+        other.GetComponent<Rigidbody>().isKinematic = true;
 
         other.transform.position = hand.transform.position;
         other.gameObject.transform.SetParent(hand.gameObject.transform);
@@ -325,5 +297,10 @@ public class PlayerInteraction : MonoBehaviour
                 // Aquí incluiré las penalizaciones que sean 
             }
         });
+    }
+
+    public InputServiceAsset GetInputServiceAsset()
+    {
+        return this.inputService;
     }
 }
