@@ -4218,6 +4218,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4359,6 +4360,20 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae42c8f78c60684aab6be6c18bd7a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  colorblindShader: {fileID: 4800000, guid: b35b8f7ae8cf168488129d5f5f39ebf4, type: 3}
 --- !u!1001 &971038372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6481,7 +6496,7 @@ Canvas:
   m_GameObject: {fileID: 1440800671}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 963194227}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
@@ -7896,10 +7911,6 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 7168257325625767793, guid: eea4c57c8a7d759468bb5acc331d0edc, type: 3}
-      propertyPath: inputService
-      value: 
-      objectReference: {fileID: 11400000, guid: 2ec1c35bddb35504e86661ddf6ad1a90, type: 2}
     - target: {fileID: 8561700848212195243, guid: eea4c57c8a7d759468bb5acc331d0edc, type: 3}
       propertyPath: inputService
       value: 
@@ -10037,10 +10048,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.034
       objectReference: {fileID: 0}
-    - target: {fileID: 7168257325625767793, guid: eea4c57c8a7d759468bb5acc331d0edc, type: 3}
-      propertyPath: inputService
-      value: 
-      objectReference: {fileID: 11400000, guid: ecf2791e4263f744a822f42a17ead1fb, type: 2}
     - target: {fileID: 8561700848212195243, guid: eea4c57c8a7d759468bb5acc331d0edc, type: 3}
       propertyPath: inputService
       value: 
