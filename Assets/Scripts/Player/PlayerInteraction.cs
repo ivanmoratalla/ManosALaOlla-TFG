@@ -162,7 +162,6 @@ public class PlayerInteraction : MonoBehaviour
      */
     private void HandleReleaseObject()
     {
-        Debug.Log("Intentando soltar");
         if (pickedObject != null && closestInteractable != null)
         {
             // INTERACTUAR CON UN ELECTRODOMÉSTICO
@@ -183,7 +182,7 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
         // DEJAR EN EL SUELO
-        else if (pickedObject.GetComponent<Plate>() == null)   // Se deja en el suelo si no se está cerca de un electrodoméstico o encimera, para evitar colisiones erróneas con lo que hay en ellos.                                                                                            
+        else if (pickedObject != null && pickedObject.GetComponent<Plate>() == null)   // Se deja en el suelo si no se está cerca de un electrodoméstico o encimera, para evitar colisiones erróneas con lo que hay en ellos.                                                                                            
         {                                                                                                               // Además, se impide que los platos se puedan dejar en el suelo (no se podrían coger luego porque no se detectaría colisión al ser tan bajos)
             pickedObject.GetComponent<Collider>().enabled = true;
             DropObjectOnGround();

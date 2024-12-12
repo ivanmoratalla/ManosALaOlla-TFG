@@ -9,6 +9,7 @@ public class CuttingBoard : KitchenAppliance
     private float holdTime = 0f;                    // VAriable que indica el tiempo que se lleva cortando
 
     private PlayerInteraction playerNearby = null;  // Variable que indica que jugador hay cerca de la tabla de cortar (null si no hay ninguno)
+    private bool voiceCommandActive = false;        // Variable para indicar si la acción fue activada por comando de voz
 
 
     public override FoodAction action
@@ -41,36 +42,50 @@ public class CuttingBoard : KitchenAppliance
 
     private void Update()
     {
-        if (storedFood != null && playerNearby != null)      // Solo se puede cortar si hay un objeto en la tabla y si el jugador está colisionando con la tabla
+        if(storedFood != null)              // Se comprueba si hay un ingrediente en la tabla de cortar
         {
-            if (Input.GetKey(playerNearby.GetInputServiceAsset().getCutFoodKey()))
+            if (playerNearby != null)       // Solo se puede cortar si el jugador está colisionando con la tabla
             {
-                if (!isProcessing)
+                if (Input.GetKey(playerNearby.GetInputServiceAsset().getCutFoodKey()) || voiceCommandActive)
                 {
-                    // El jugador ha comenzado a mantener la tecla presionada
-                    isProcessing = true;
-                    holdTime = 0f;
-                    //storedFood.GetComponent<Collider>().enabled = false;    // Para evitar que se pueda coger mientras se cocina
+                    if (!isProcessing)
+                    {
+                        // El jugador ha comenzado a mantener la tecla presionada
+                        isProcessing = true;
+                        holdTime = 0f;
+                        //storedFood.GetComponent<Collider>().enabled = false;    // Para evitar que se pueda coger mientras se cocina
+                    }
+
+                    // Aumentar el contador del tiempo que se mantiene la tecla presionada
+                    holdTime += Time.deltaTime;
+
+                    if (holdTime >= timeToCut)
+                    {
+                        // Si se ha mantenido presionada la tecla durante el tiempo requerido, empezar a cortar
+                        cookFood();
+                    }
                 }
-
-                // Aumentar el contador del tiempo que se mantiene la tecla presionada
-                holdTime += Time.deltaTime;
-
-                if (holdTime >= timeToCut)
+                else if (isProcessing)
                 {
-                    // Si se ha mantenido presionada la tecla durante el tiempo requerido, empezar a cortar
-                    cookFood();
+                    CancelCut();
+
+                    Debug.Log("Se ha soltado la tecla antes de tiempo. Intentar de nuevo.");
                 }
             }
             else if (isProcessing)
             {
-                // Si el jugador suelta la tecla antes de llegar al tiempo requerido, cancelar el proceso
-                isProcessing = false;
-                holdTime = 0f;
+                CancelCut();
 
-                Debug.Log("Has soltado la tecla antes de tiempo o no estás cerca. Intenta de nuevo.");
+                Debug.Log("El jugador se ha alejado de la tabla de cortar.");
             }
         }
+    }
+
+    private void CancelCut()
+    {
+        isProcessing = false;
+        holdTime = 0f;
+        voiceCommandActive = false; // Resetear el estado del comando de voz
     }
 
 
@@ -100,11 +115,10 @@ public class CuttingBoard : KitchenAppliance
 
     private void OnTriggerExit(Collider other)
     {
-        PlayerInteraction player = other.GetComponent<PlayerInteraction>();
+        PlayerInteraction player = other.transform.parent.GetComponent<PlayerInteraction>();
         if (player != null)
         {
             playerNearby = null;
-            isProcessing = false;
         }
     }
 
@@ -112,14 +126,7 @@ public class CuttingBoard : KitchenAppliance
     {
         if (playerNearby != null && playerNearby.GetInputServiceAsset().getPlayerId() == playerId)
         {
-            StartCoroutine(CutFoodEvent());
+            voiceCommandActive = true;
         }
-    }
-
-    private IEnumerator CutFoodEvent()
-    {
-        yield return new WaitForSeconds(3f);
-
-        cookFood();
     }
 }
