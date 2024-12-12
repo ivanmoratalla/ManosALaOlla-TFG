@@ -132,6 +132,34 @@ public class PlayerInteraction : MonoBehaviour
         {
             HandleServeDish();
         }
+        else if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if (ColorManager.Instance != null)
+            {
+                ColorManager.Instance.SetAlternativeStateForType(typeof(Food), true);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.V))
+        {
+            if (ColorManager.Instance != null)
+            {
+                ColorManager.Instance.SetAlternativeStateForType(typeof(Counter), true);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (ColorManager.Instance != null)
+            {
+                ColorManager.Instance.SetAlternativeStateForType(typeof(Food), false);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.N))
+        {
+            if (ColorManager.Instance != null)
+            {
+                ColorManager.Instance.SetAlternativeStateForType(typeof(Counter), false);
+            }
+        }
     }
 
     private void HandlePickUpObject()

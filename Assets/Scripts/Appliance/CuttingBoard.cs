@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,16 +13,6 @@ public class CuttingBoard : KitchenAppliance
     public override FoodAction action
     {
         get { return FoodAction.Cut; }              // Variable que indica que la acción que se hace en la tabla es "cortar"
-    }
-
-    private void OnEnable()
-    {
-        VoiceCommandService.OnCutIngredient += HandleCutEvent;
-    }
-
-    private void OnDisable()
-    {
-        VoiceCommandService.OnCutIngredient -= HandleCutEvent;
     }
 
 
@@ -105,21 +94,7 @@ public class CuttingBoard : KitchenAppliance
         {
             playerNearby = null;
             isProcessing = false;
+            //storedFood.GetComponent<Collider>().enabled = true;
         }
-    }
-
-    private void HandleCutEvent(object sender, int playerId)
-    {
-        if(playerNearby != null && playerNearby.GetInputServiceAsset().getPlayerId() == playerId)
-        {
-            StartCoroutine(CutFoodEvent());
-        }
-    }
-
-    private IEnumerator CutFoodEvent()
-    {
-        yield return new WaitForSeconds(3f);
-        
-        cookFood();
     }
 }
