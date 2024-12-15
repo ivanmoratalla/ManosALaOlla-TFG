@@ -34,6 +34,8 @@ public class CookingAppliance : KitchenAppliance
         float elapsedTime = 0f;                                                                     // Variable para medir el tiempo que pasa
         Boolean cooked = false;
 
+        StartProgressUI();
+
         while (elapsedTime < burnTime)                                                                                      
         {
             yield return null;
@@ -47,6 +49,7 @@ public class CookingAppliance : KitchenAppliance
             }
 
             elapsedTime += Time.deltaTime;                                                          // Se aumenta el tiempo transcurrido
+            OnProgressChange?.Invoke(this, elapsedTime / cookTime);
 
             if (!cooked && elapsedTime >= cookTime && elapsedTime < burnTime)                       // Se comprueba si ha transcurrido el tiempo necesario pero menos del necesario para quemar la comida
             {

@@ -204,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   originalMaterial: {fileID: 0}
   storedFood: {fileID: 0}
+  progressUIPrefab: {fileID: 1662787191950586296, guid: eee92e52256ab6d44af65d46f0e179b3, type: 3}
   actionType: 4
   cookTime: 7
   burnTime: 15

@@ -42,7 +42,8 @@ public class CuttingBoard : KitchenAppliance
 
     private void Update()
     {
-        if(storedFood != null)              // Se comprueba si hay un ingrediente en la tabla de cortar
+        if(storedFood != null && storedFood.GetComponent<Food>().canTransition(action))              // Se comprueba si hay un ingrediente en la tabla de cortar y si se puede transicionar (Pq al cortar
+                                                                                                     // el ingrediente cortado después ya no se puede cortar otra vez)
         {
             if (playerNearby != null)       // Solo se puede cortar si el jugador está colisionando con la tabla
             {
@@ -54,10 +55,12 @@ public class CuttingBoard : KitchenAppliance
                         isProcessing = true;
                         holdTime = 0f;
                         //storedFood.GetComponent<Collider>().enabled = false;    // Para evitar que se pueda coger mientras se cocina
+                        StartProgressUI();
                     }
 
                     // Aumentar el contador del tiempo que se mantiene la tecla presionada
                     holdTime += Time.deltaTime;
+                    OnProgressChange?.Invoke(this, holdTime / timeToCut);
 
                     if (holdTime >= timeToCut)
                     {

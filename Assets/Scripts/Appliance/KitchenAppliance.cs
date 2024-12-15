@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,10 +8,18 @@ public abstract class KitchenAppliance : ColorableObject
     protected bool isProcessing = false;            // Variable para indicar si se está cocinando algo
     public abstract FoodAction action { get; }
 
-
+    [SerializeField] private ProgressUI progressUIPrefab;
+    public EventHandler<float> OnProgressChange;
 
     // Este método se utilizará desde el jugador cuando quiera interactuar con un electrodoméstico, ya sea simplemente para colocar el objeto a cocinar como para comenzar a cocinar
     public abstract bool interactWithAppliance(GameObject food);
+
+    public void StartProgressUI()
+    {
+        ProgressUI progressUI = Instantiate(progressUIPrefab);
+        progressUI.transform.SetParent(GameObject.FindGameObjectWithTag("CanvasInteraction").transform);
+        progressUI.Set(this);
+    }
 
 
     // Método para colocar la comida en el electrodoméstico
