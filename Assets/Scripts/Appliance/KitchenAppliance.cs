@@ -14,7 +14,7 @@ public abstract class KitchenAppliance : ColorableObject
 
     // Este método se utilizará desde el jugador cuando quiera interactuar con un electrodoméstico, ya sea simplemente para colocar el objeto a cocinar como para comenzar a cocinar
     public abstract bool interactWithAppliance(GameObject food);
-
+    
     public void StartProgressUI()
     {
         ProgressUI progressUI = Instantiate(progressUIPrefab);
