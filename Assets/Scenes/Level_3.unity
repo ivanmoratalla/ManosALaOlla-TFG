@@ -784,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74ce9db700a79d745bff786eb86e66f2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74ce9db700a79d745bff786eb86e66f2, type: 3}
       propertyPath: m_LocalRotation.x
@@ -792,7 +792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74ce9db700a79d745bff786eb86e66f2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74ce9db700a79d745bff786eb86e66f2, type: 3}
       propertyPath: m_LocalRotation.z
@@ -804,7 +804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74ce9db700a79d745bff786eb86e66f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74ce9db700a79d745bff786eb86e66f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -5284,6 +5284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionsUI
       objectReference: {fileID: 0}
+    - target: {fileID: 1643000711262491832, guid: b20d30c50dbe04f4a8bfe91840d1b55f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3396379537668160873, guid: b20d30c50dbe04f4a8bfe91840d1b55f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5924,7 +5928,7 @@ GameObject:
   - component: {fileID: 1440800672}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

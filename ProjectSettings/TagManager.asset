@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Objeto
-  - CanvasInteraction
+  - RGBA
+  - ColorSlider
+  - Canvas
   layers:
   - Default
   - TransparentFX

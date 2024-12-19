@@ -18,7 +18,7 @@ public abstract class KitchenAppliance : ColorableObject
     public void StartProgressUI()
     {
         ProgressUI progressUI = Instantiate(progressUIPrefab);
-        progressUI.transform.SetParent(GameObject.FindGameObjectWithTag("CanvasInteraction").transform);
+        progressUI.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform);
         progressUI.Set(this);
     }
 
