@@ -10,6 +10,7 @@ public abstract class KitchenAppliance : ColorableObject
 
     [SerializeField] private ProgressUI progressUIPrefab;
     public EventHandler<float> OnProgressChange;
+    public EventHandler OnProgressCanceled;
 
     // Este método se utilizará desde el jugador cuando quiera interactuar con un electrodoméstico, ya sea simplemente para colocar el objeto a cocinar como para comenzar a cocinar
     public abstract bool interactWithAppliance(GameObject food);

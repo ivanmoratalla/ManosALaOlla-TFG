@@ -86,6 +86,7 @@ public class CuttingBoard : KitchenAppliance
 
     private void CancelCut()
     {
+        OnProgressCanceled?.Invoke(this, null);
         isProcessing = false;
         holdTime = 0f;
         voiceCommandActive = false; // Resetear el estado del comando de voz

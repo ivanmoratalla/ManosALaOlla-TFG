@@ -6,14 +6,11 @@ using UnityEngine.UI;
 
 public class ProgressUI : MonoBehaviour
 {
-    // Serialized
     [SerializeField] private Image progressBar;
 
-    // Private *****
     private Camera _camera;
     private KitchenAppliance _followingItem;
 
-    // MonoBehavior Methods
     private void Awake()
     {
         _camera = Camera.main;
@@ -34,15 +31,15 @@ public class ProgressUI : MonoBehaviour
     }
 
 
-
-    // Public Methods
-    public void Set(KitchenAppliance item)
+    // Método para configurar la barra de progreso con el electrodoméstico que le corresponda
+    public void Set(KitchenAppliance appliance)
     {
-        _followingItem = item;
+        _followingItem = appliance;
         _followingItem.OnProgressChange += Item_OnItemProgressChange;
+        _followingItem.OnProgressCanceled += OnProgressCanceled;
     }
 
-    // Private Methods
+    // Método para cambiar el avance de la barra de progreso de un electrodoméstico
     private void Item_OnItemProgressChange(object sender, float progressNormalized)
     {
         progressBar.fillAmount = progressNormalized;
@@ -54,11 +51,24 @@ public class ProgressUI : MonoBehaviour
         StartCoroutine(DestroyWithDelay(1f));
     }
 
+    // Método para cancelar la barra de progreso de un electrodoméstico
+    private void OnProgressCanceled(object sender, EventArgs e)
+    {
+        LeanTween.scale(gameObject, Vector3.zero, 0.3f).setEase(LeanTweenType.easeInBack);
+
+        StartCoroutine(DestroyWithDelay(0.3f));
+    }
+
+    // Nétodo para destruir la barra de progreso
     private IEnumerator DestroyWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        if (_followingItem) _followingItem.OnProgressChange -= Item_OnItemProgressChange;
+        if (_followingItem)
+        {
+            _followingItem.OnProgressChange -= Item_OnItemProgressChange;
+            _followingItem.OnProgressCanceled -= OnProgressCanceled;
+        }
 
         Destroy(gameObject);
     }
