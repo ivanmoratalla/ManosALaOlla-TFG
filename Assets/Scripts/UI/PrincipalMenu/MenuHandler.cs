@@ -7,7 +7,7 @@ public class MenuHandler : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject errorMenu;
     [SerializeField] private GameObject authMenu;
-    [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private OptionsMenu optionsMenu;
 
     private IAuthService authManager;
 
@@ -37,7 +37,7 @@ public class MenuHandler : MonoBehaviour
         mainMenu.SetActive(false);
         errorMenu.SetActive(false);
         authMenu.SetActive(false);
-        optionsMenu.SetActive(false);
+        optionsMenu.gameObject.SetActive(false);
     }
 
     public void ShowMainMenu()
@@ -63,6 +63,7 @@ public class MenuHandler : MonoBehaviour
     public void ShowOptionsMenu()
     {
         HideAllMenus();
-        optionsMenu.SetActive(true);
+        
+        optionsMenu.OpenOptionsMenu();
     }
 }

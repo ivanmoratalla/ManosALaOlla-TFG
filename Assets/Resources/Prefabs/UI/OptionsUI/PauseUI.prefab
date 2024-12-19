@@ -27,7 +27,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643000711262491832}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -109.4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -93,6 +93,7 @@ MonoBehaviour:
   goBackButton: {fileID: 519447370783058962}
   resumeButton: {fileID: 165314134132585601}
   reloadButton: {fileID: 4438102786840008631}
+  optionsMenu: {fileID: 0}
 --- !u!1001 &2404899869840045345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5384937460836220566, guid: 47d76b0ff89f0824e8b16b970ef646c7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 19
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5384937460836220566, guid: 47d76b0ff89f0824e8b16b970ef646c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
