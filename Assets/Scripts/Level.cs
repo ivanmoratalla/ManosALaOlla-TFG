@@ -48,7 +48,8 @@ public class Level : MonoBehaviour
     private void initializeLevel()
     {
         setTables();                                                        // Encontrar las mesas del nivel
-        
+        SetTableNumbersVisibility(true);
+
         gameState = GameState.PreGame;                                      // Se establece que el estado del nivel sea el previo al comienzo
         actualTimer = levelData.getPreGameTime();                           // Se comienza a contar el tiempo previo al comienzo del nivel
         customersTimer = 0;                                                 // Se inicializa a 0 para que el primer cliente llegue instantaneamente
@@ -71,6 +72,8 @@ public class Level : MonoBehaviour
             case GameState.PreGame:
                 if (actualTimer <= 0)                                       // Se comprueba si estando en el estado previo, ya se ha pasado su tiempo correspondiente
                 {
+                    SetTableNumbersVisibility(false);
+
                     actualTimer = levelData.getGameTime();                  // En ese caso, se comienza a contar el tiempo de juego normal
                     gameState = GameState.InGame;                           // Se cambia el estdo a "En partida"
                 }
@@ -132,6 +135,14 @@ public class Level : MonoBehaviour
         foreach (Table table in foundTables)
         {
             tables.Add(table);
+        }
+    }
+
+    private void SetTableNumbersVisibility(bool visible)
+    {
+        foreach (Table table in tables)
+        {
+            table.SetTableNumberVisible(visible);
         }
     }
 
