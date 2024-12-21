@@ -4529,10 +4529,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1923815962}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1562992694}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: PauseGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6599,6 +6599,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6352108683032345406, guid: 64ff496c8a0f80f4580e893bfae3f2ac, type: 3}
   m_PrefabInstance: {fileID: 1562992692}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1562992694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6976219737883354768, guid: 64ff496c8a0f80f4580e893bfae3f2ac, type: 3}
+  m_PrefabInstance: {fileID: 1562992692}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed864458170d43c4582be063b6b16f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1591699812
 GameObject:
   m_ObjectHideFlags: 0
@@ -7919,11 +7930,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 59e61c36c6e45814b8ab011af882722c, type: 3}
   m_PrefabInstance: {fileID: 1289246314}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1923815962 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1643000711262491832, guid: 64ff496c8a0f80f4580e893bfae3f2ac, type: 3}
-  m_PrefabInstance: {fileID: 1562992692}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1942261849
 PrefabInstance:

@@ -17,16 +17,16 @@ public class CuttingBoard : KitchenAppliance
         get { return FoodAction.Cut; }              // Variable que indica que la acción que se hace en la tabla es "cortar"
     }
 
-    private void OnEnable()
+    private void Start()
     {
         VoiceCommandService.OnCutIngredient += HandleCutEvent;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         VoiceCommandService.OnCutIngredient -= HandleCutEvent;
-    }
 
+    }
 
     // En el caso de la tabla de cortar, no se quiere cortar al poner el objeto en la tabla, si no solo colocarlo
     public override bool interactWithAppliance(GameObject food)

@@ -54,6 +54,11 @@ public class ColorManager : MonoBehaviour
     public void RegisterObject(ColorableObject obj)
     {
         Type objType = obj.GetType();
+        
+        if(objType == typeof(CookingAppliance) || objType == typeof(CuttingBoard))
+        {
+            objType = typeof(KitchenAppliance);
+        }
 
         if (!types.Contains(objType))                                   // Si no existe una lista para ese tipo, se crea
         {
@@ -75,6 +80,11 @@ public class ColorManager : MonoBehaviour
     public void UnregisterObject(ColorableObject obj)
     {
         Type objType = obj.GetType();
+
+        if (objType == typeof(CookingAppliance) || objType == typeof(CuttingBoard))
+        {
+            objType = typeof(KitchenAppliance);
+        }
 
         // Remueve el objeto de la lista correspondiente
         if (levelObjectsByType.ContainsKey(objType))
