@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Level : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class Level : MonoBehaviour
     private List<Table> tables;                                             // Lista con las distintas mesas que tiene el nivel
     [SerializeField] private GameObject clientPrefab;                       // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
     [SerializeField] private Transform clientSpawnPoint;                    // Punto donde se instancian los clientes (fuera de lo visible por el jugador)
+
+    private List<PlayerMovement> players; // Lista para almacenar a los jugadores
+
 
 
     private GameState gameState;                                            // Estado del nivel (Antes de comenzar el nivel, en el nivel o tras finalizar el nivel)
@@ -49,6 +53,7 @@ public class Level : MonoBehaviour
     {
         setTables();                                                        // Encontrar las mesas del nivel
         SetTableNumbersVisibility(true);
+        SetPlayerMovementEnabled(false);
 
         gameState = GameState.PreGame;                                      // Se establece que el estado del nivel sea el previo al comienzo
         actualTimer = levelData.getPreGameTime();                           // Se comienza a contar el tiempo previo al comienzo del nivel
@@ -73,6 +78,7 @@ public class Level : MonoBehaviour
                 if (actualTimer <= 0)                                       // Se comprueba si estando en el estado previo, ya se ha pasado su tiempo correspondiente
                 {
                     SetTableNumbersVisibility(false);
+                    SetPlayerMovementEnabled(true);
 
                     actualTimer = levelData.getGameTime();                  // En ese caso, se comienza a contar el tiempo de juego normal
                     gameState = GameState.InGame;                           // Se cambia el estdo a "En partida"
@@ -143,6 +149,20 @@ public class Level : MonoBehaviour
         foreach (Table table in tables)
         {
             table.SetTableNumberVisible(visible);
+        }
+    }
+
+    // Método para activar o desactivar el movimiento de los jugadores (para el estado previo al comienzo del nivel)
+    private void SetPlayerMovementEnabled(bool enabled)
+    {
+        if (players == null || players.Count == 0)
+        {
+            players = new List<PlayerMovement>(FindObjectsOfType<PlayerMovement>()); // Encuentra a todos los jugadores
+        }
+
+        foreach (var player in players)
+        {
+            player.enabled = enabled; // Habilita o deshabilita el componente de movimiento
         }
     }
 
