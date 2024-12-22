@@ -23,6 +23,8 @@ public class ChangeObjectsColorMenu : MonoBehaviour
         { "Electrodomésticos","KitchenAppliance" },
         { "Platos","Plate" },
         { "Encimeras","Counter" },
+        { "Suelo", "Floor" },
+        { "Paredes", "Wall"}
     };
 
 

@@ -33,6 +33,8 @@ public class ColorManager : MonoBehaviour
         types.Add(typeof(Counter));
         types.Add(typeof(Plate));
         types.Add(typeof(KitchenAppliance));
+        types.Add(typeof(Floor));
+        types.Add(typeof(Wall));
 
 
         for(int i = 0; i < types.Count; i++)

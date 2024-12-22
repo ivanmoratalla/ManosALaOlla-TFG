@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ColorableObject : MonoBehaviour
 {
-    public Material originalMaterial;
+    private Material originalMaterial;
     private List<Renderer> renderers = new List<Renderer>();
 
 
