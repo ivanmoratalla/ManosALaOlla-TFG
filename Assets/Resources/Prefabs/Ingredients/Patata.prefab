@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2858de717e207a4eb9f4fc169216696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originalMaterial: {fileID: 0}
   stateData: {fileID: 11400000, guid: d31b7e0f9d51ff14b9a42e0a28ddc421, type: 2}
 --- !u!1001 &6808161574684291583
 PrefabInstance:

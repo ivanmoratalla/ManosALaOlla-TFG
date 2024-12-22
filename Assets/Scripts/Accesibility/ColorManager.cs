@@ -53,6 +53,10 @@ public class ColorManager : MonoBehaviour
     // Método para registrar un objeto que puede cambiar de color
     public void RegisterObject(ColorableObject obj)
     {
+        if(obj.GetType() == typeof(Food))
+        {
+            Debug.Log("FOOD");
+        }
         Type objType = obj.GetType();
         
         if(objType == typeof(CookingAppliance) || objType == typeof(CuttingBoard))

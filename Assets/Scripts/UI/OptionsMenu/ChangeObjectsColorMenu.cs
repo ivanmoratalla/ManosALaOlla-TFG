@@ -17,11 +17,19 @@ public class ChangeObjectsColorMenu : MonoBehaviour
     private Color selectedColor;
     private GameObject previousUI;
 
+    private Dictionary<string,string> typeMapping = new Dictionary<string,string>
+    {
+        { "Ingredientes","Food" },
+        { "Electrodomésticos","KitchenAppliance" },
+        { "Platos","Plate" },
+        { "Encimeras","Counter" },
+    };
+
 
     private void Start()
     {
         typeDropdown.ClearOptions();
-        typeDropdown.AddOptions(new List<string> { "Food", "KitchenAppliance", "Plate", "Counter" });
+        typeDropdown.AddOptions(new List<string>(typeMapping.Keys));
         typeDropdown.onValueChanged.AddListener(OnTypeChanged);
 
         stateToggle.onValueChanged.AddListener(OnToggleChanged);
@@ -35,7 +43,12 @@ public class ChangeObjectsColorMenu : MonoBehaviour
 
     private void OnTypeChanged(int dropdownIndex)
     {
-        currentType = Type.GetType(typeDropdown.options[dropdownIndex].text);
+        string selectedOption = typeDropdown.options[dropdownIndex].text;
+
+        if (typeMapping.TryGetValue(selectedOption, out string selectedType))
+        {
+            currentType = Type.GetType(selectedType);
+        }
 
         if (currentType == null) return;
 

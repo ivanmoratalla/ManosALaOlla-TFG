@@ -5,15 +5,31 @@ using UnityEngine;
 public class ColorableObject : MonoBehaviour
 {
     public Material originalMaterial;
-    private Renderer foodRenderer;
+    private List<Renderer> renderers = new List<Renderer>();
+
 
     private void Awake()
     {
-        foodRenderer = GetComponent<Renderer>();
-
-        if (foodRenderer != null)
+        if (this is Food)
         {
-            originalMaterial = foodRenderer.material;
+            // Si es de tipo Food, busca los renderizadores en los hijos (porque algunas Comidas tienen varios GameObjects dentro al haberlas creado manualmente)
+            Renderer[] foundRenderers = GetComponentsInChildren<Renderer>();
+            if (foundRenderers.Length > 0)
+            {
+                renderers.AddRange(foundRenderers);
+                // Usar el material del primer renderer como material original por defecto
+                originalMaterial = foundRenderers[0].material;
+            }
+        }
+        else
+        {
+            // Solo buscar el Renderer del objeto actual si no es de tipo Food
+            Renderer renderer = GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderers.Add(renderer);
+                originalMaterial = renderer.material;
+            }
         }
 
     }
@@ -40,10 +56,13 @@ public class ColorableObject : MonoBehaviour
 
     public void ApplyMaterial(Material alternateMaterial)
     {
-        if (foodRenderer != null)
+        if (renderers.Count > 0)
         {
-            // Si no hay material alternativo, vuelve al original
-            foodRenderer.material = alternateMaterial != null ? alternateMaterial : originalMaterial;
+            // Aplicar el material alternativo o el original a todos los renderers
+            foreach (Renderer renderer in renderers)
+            {
+                renderer.material = alternateMaterial != null ? alternateMaterial : originalMaterial;
+            }
         }
     }
 }

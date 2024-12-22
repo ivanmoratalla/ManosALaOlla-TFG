@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Level : MonoBehaviour
 {
@@ -46,7 +45,6 @@ public class Level : MonoBehaviour
     {
         initializeLevel();
     }
-
 
     // Método para la inicialización de un nivel. Hay que encontrar las mesas que haya en el nivel y comenzar a sentar a los clientes en las mesas cuando les sea posible
     private void initializeLevel()
