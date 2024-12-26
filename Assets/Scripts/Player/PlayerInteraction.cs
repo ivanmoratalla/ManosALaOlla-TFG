@@ -267,10 +267,17 @@ public class PlayerInteraction : MonoBehaviour
 
         OnPlayerDisappear?.Invoke(3f, collisionPoint);
 
-        // Desactivar el jugador
+        // Se destruye el objeto que tenía en la mano el jugador (si tenía uno)
+        if(pickedObject != null)
+        {
+            Destroy(pickedObject.gameObject);
+            pickedObject = null;
+        }
+
+        // Se desactiva el jugador
         this.gameObject.SetActive(false);
 
-        // Programar la reaparición
+        // Se programa la reaparición
         Invoke(nameof(RespawnPlayer), 3f);
     }
 
