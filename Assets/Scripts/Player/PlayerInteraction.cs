@@ -267,8 +267,8 @@ public class PlayerInteraction : MonoBehaviour
 
         OnPlayerDisappear?.Invoke(3f, collisionPoint);
 
-        // Desactivar el objeto padre
-        this.transform.parent.gameObject.SetActive(false);
+        // Desactivar el jugador
+        this.gameObject.SetActive(false);
 
         // Programar la reaparición
         Invoke(nameof(RespawnPlayer), 3f);
@@ -276,8 +276,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private void RespawnPlayer()
     {
-        this.transform.parent.gameObject.SetActive(true);
-        this.transform.parent.transform.position = respawnPoint.transform.position;
+        this.gameObject.SetActive(true);
+        this.transform.position = respawnPoint.transform.position;
         isPlayerInteractingWithCar = false;
     }
 
