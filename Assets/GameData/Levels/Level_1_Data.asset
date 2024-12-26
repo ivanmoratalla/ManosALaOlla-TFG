@@ -34,7 +34,15 @@ MonoBehaviour:
     dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
   - name: Sofia
     dish: {fileID: 11400000, guid: 72b769a984499a749bab3719e9ae656e, type: 2}
+  - name: Juan
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
+  - name: Julia
+    dish: {fileID: 11400000, guid: 72b769a984499a749bab3719e9ae656e, type: 2}
+  - name: Jesus
+    dish: {fileID: 11400000, guid: 72b769a984499a749bab3719e9ae656e, type: 2}
+  - name: Clara
+    dish: {fileID: 11400000, guid: 0171f6c1a2adda440bb104e3ba8722e8, type: 2}
   preGameTime: 5
   gameTime: 90
   timeBetweenCustomers: 5
-  neededScore: 2
+  neededScore: 15

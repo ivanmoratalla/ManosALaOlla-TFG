@@ -21,6 +21,9 @@ public class OrderManager
     private float orderTimeLimit = 40f;                                                 // Duración máxima que puede esperar un cliente
     private const int maxStars = 5;                                                     // Puntos máximos que se pueden obtener por un pedido (5 estrellas)
 
+    public int pedidosEntregados = 0;
+    public int pedidosPerdidos = 0;
+
     public OrderManager(Level level)
     {
         activeOrders = new Dictionary<int, string>();
@@ -56,6 +59,7 @@ public class OrderManager
 
                 OnServedDish?.Invoke(this, score);        // Se invoca el evento al servir correctamente el plato para actualizar la UI con la nueva puntuación del nivel
                 OnOrderSuccess?.Invoke(this, tableNumber);
+                pedidosEntregados++;
 
                 Debug.Log("Plato correcto servido en la mesa " + tableNumber);
                 Debug.Log("Total de puntos del nivel: " + score);
@@ -127,6 +131,8 @@ public class OrderManager
                 expiredOrders.Add(tableNumber);
                 score -= 2; // Restamos 2 puntos por pedido perdido.
                 OnServedDish?.Invoke(this, score);
+
+                pedidosPerdidos++;
             }
             else
             {
