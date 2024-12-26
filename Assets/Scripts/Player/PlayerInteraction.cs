@@ -17,7 +17,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private InputServiceAsset inputService;                        // Servicio al que se le llamará para saber qué tecla corresponde a cada acción
 
     public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
-    public static event Action<float, Vector3> OnPlayerDisappear;                   // Evento para notificar que el jugador ha colisionado con un coche
+    public static event Action<int, float, Vector3> OnPlayerDisappear;              // Evento para notificar que el jugador ha colisionado con un coche
 
     private List<GameObject> nearbyInteractables = new List<GameObject>();
     private GameObject closestInteractable = null;
@@ -265,7 +265,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         isPlayerInteractingWithCar = true;
 
-        OnPlayerDisappear?.Invoke(3f, collisionPoint);
+        OnPlayerDisappear?.Invoke(inputService.getPlayerId(), 3f, collisionPoint);
 
         // Se destruye el objeto que tenía en la mano el jugador (si tenía uno)
         if(pickedObject != null)

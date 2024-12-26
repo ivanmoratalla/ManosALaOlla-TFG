@@ -9,8 +9,12 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private Text coinsText;
     [SerializeField] private Text timeText;
     
-    [SerializeField] private Text countdownToReappearText;
-    [SerializeField] private GameObject reappearInfoArea;
+    [SerializeField] private Text countdownToReappearTextPlayer1;
+    [SerializeField] private Text countdownToReappearTextPlayer2;
+
+    [SerializeField] private GameObject reappearInfoAreaPlayer1;
+    [SerializeField] private GameObject reappearInfoAreaPlayer2;
+
 
     // MonoBehavior Callbacks *****
     private void OnEnable()
@@ -19,7 +23,8 @@ public class StatsUI : MonoBehaviour
         Level.OnTimeChange += UpdateRemainingTime;
         PlayerInteraction.OnPlayerDisappear += ShowCountdownToReappear;
 
-        reappearInfoArea.SetActive(false);
+        reappearInfoAreaPlayer1.SetActive(false);
+        reappearInfoAreaPlayer2.SetActive(false);
     }
 
     private void OnDisable()
@@ -49,27 +54,33 @@ public class StatsUI : MonoBehaviour
         return string.Format("{0:00}:{1:00}", minutes, remainingSeconds); // Formatea como "mm:ss"
     }
 
-    private void ShowCountdownToReappear(float duration, Vector3 position)
+    private void ShowCountdownToReappear(int playerID, float duration, Vector3 position)
     {
-        StartCoroutine(HandleCountdown(duration, position));
+        if (playerID == 1)
+        {
+            StartCoroutine(HandleCountdown(duration, position, reappearInfoAreaPlayer1, countdownToReappearTextPlayer1));
+        }
+        else if (playerID == 2)
+        {
+            StartCoroutine(HandleCountdown(duration, position, reappearInfoAreaPlayer2, countdownToReappearTextPlayer2));
+        }
     }
 
-    private IEnumerator HandleCountdown(float duration, Vector3 position)
+    private IEnumerator HandleCountdown(float duration, Vector3 position, GameObject infoArea, Text countdownText)
     {
-        reappearInfoArea.SetActive(true);
+        infoArea.SetActive(true);
 
         float remainingTime = duration;
         while (remainingTime > 0)
         {
             int roundedTime = Mathf.CeilToInt(remainingTime);
 
-            countdownToReappearText.text = $"{roundedTime}s"; // Actualizar texto del contador
+            countdownText.text = $"{roundedTime}s"; // Actualizar texto del contador
 
             yield return new WaitForSeconds(0.1f);
             remainingTime -= 0.1f;
         }
 
-        reappearInfoArea.SetActive(false);
-
+        infoArea.SetActive(false);
     }
 }
