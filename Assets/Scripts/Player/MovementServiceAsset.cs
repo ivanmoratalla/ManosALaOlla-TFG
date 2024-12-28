@@ -33,6 +33,11 @@ public class MovementServiceAsset : ScriptableObject
     public void Move(Rigidbody rb, UnityEngine.Transform transform, Vector3 movementDirection)
     {
         rb.MovePosition(transform.position + movementDirection * movementSpeed * Time.fixedDeltaTime);
+
+        if (movementDirection.magnitude >= 0.1f)                                                                // Se rota al personaje solo si hay movimiento. Si no lo hay no se rotará nada.
+        {
+            Rotate(rb, movementDirection);
+        }
     }
 
     public void Rotate(Rigidbody rb, Vector3 movementDirection)

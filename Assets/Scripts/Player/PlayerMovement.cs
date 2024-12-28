@@ -25,12 +25,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movementDirection = inputService.Poll();                                                        // Se consigue la dirección de movimiento llamando al servicio encargado de obtenerla
 
         movementService.Move(rb, this.transform, movementDirection);                                            // Se llama al método del servicio que maneja el movimiento
-
-        if (movementDirection.magnitude >= 0.1f)                                                                // Se rota al personaje solo si hay movimiento. Si no lo hay no se rotará nada.
-        {
-            movementService.Rotate(rb,movementDirection);
-        }
-
     }
 
 }
