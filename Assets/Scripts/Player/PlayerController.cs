@@ -6,7 +6,7 @@ using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     // Servicios que utiliza el personaje
     [SerializeField] private MovementServiceAsset movementService;              // Servicio al que se le llamará para mover al personaje

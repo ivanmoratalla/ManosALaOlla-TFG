@@ -96,7 +96,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandlePickUpObjectEvent(object sender, int playerId)
     {
-        if (inputService.getPlayerId() == playerId)
+        if (inputService.GetPlayerId() == playerId)
         {
             HandlePickUpObject();
         }
@@ -104,7 +104,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleReleaseObjectEvent(object sender, int playerId)
     {
-        if (inputService.getPlayerId() == playerId)
+        if (inputService.GetPlayerId() == playerId)
         {
             HandleReleaseObject();
         }
@@ -112,7 +112,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleServeDishEvent(object sender, int playerId)
     {
-        if (inputService.getPlayerId() == playerId)
+        if (inputService.GetPlayerId() == playerId)
         {
             HandleServeDish();
         }
@@ -120,15 +120,15 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(inputService.getPickObjectKey()))
+        if (Input.GetKeyDown(inputService.GetPickObjectKey()))
         {
             HandlePickUpObject();
         }
-        else if (Input.GetKeyDown(inputService.getReleaseObjectKey()))
+        else if (Input.GetKeyDown(inputService.GetReleaseObjectKey()))
         {
             HandleReleaseObject();
         }
-        else if (Input.GetKeyDown(inputService.getServeDishKey()))
+        else if (Input.GetKeyDown(inputService.GetServeDishKey()))
         {
             HandleServeDish();
         }
@@ -265,7 +265,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         isPlayerInteractingWithCar = true;
 
-        OnPlayerDisappear?.Invoke(inputService.getPlayerId(), 3f, collisionPoint);
+        OnPlayerDisappear?.Invoke(inputService.GetPlayerId(), 3f, collisionPoint);
 
         // Se destruye el objeto que tenía en la mano el jugador (si tenía uno)
         if(pickedObject != null)

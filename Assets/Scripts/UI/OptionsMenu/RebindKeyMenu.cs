@@ -56,10 +56,10 @@ public class RebindKeyMenu : MonoBehaviour
         currentInputServiceAsset = selectedIndex == 0 ? inputServiceAssetPlayer1 : inputServiceAssetPlayer2;
 
         // Copiar las teclas actuales al diccionario temporal
-        temporaryKeyBindings["PickObject"] = currentInputServiceAsset.getPickObjectKey();
-        temporaryKeyBindings["ReleaseObject"] = currentInputServiceAsset.getReleaseObjectKey();
-        temporaryKeyBindings["CutFood"] = currentInputServiceAsset.getCutFoodKey();
-        temporaryKeyBindings["ServeDish"] = currentInputServiceAsset.getServeDishKey();
+        temporaryKeyBindings["PickObject"] = currentInputServiceAsset.GetPickObjectKey();
+        temporaryKeyBindings["ReleaseObject"] = currentInputServiceAsset.GetReleaseObjectKey();
+        temporaryKeyBindings["CutFood"] = currentInputServiceAsset.GetCutFoodKey();
+        temporaryKeyBindings["ServeDish"] = currentInputServiceAsset.GetServeDishKey();
 
         // Actualizar las etiquetas de los botones con las teclas temporales
         UpdateKeyDisplay();
@@ -120,10 +120,10 @@ public class RebindKeyMenu : MonoBehaviour
     {
         currentInputServiceAsset.ResetToDefaults();
 
-        temporaryKeyBindings["PickObject"] = currentInputServiceAsset.getPickObjectKey();
-        temporaryKeyBindings["ReleaseObject"] = currentInputServiceAsset.getReleaseObjectKey();
-        temporaryKeyBindings["CutFood"] = currentInputServiceAsset.getCutFoodKey();
-        temporaryKeyBindings["ServeDish"] = currentInputServiceAsset.getServeDishKey();
+        temporaryKeyBindings["PickObject"] = currentInputServiceAsset.GetPickObjectKey();
+        temporaryKeyBindings["ReleaseObject"] = currentInputServiceAsset.GetReleaseObjectKey();
+        temporaryKeyBindings["CutFood"] = currentInputServiceAsset.GetCutFoodKey();
+        temporaryKeyBindings["ServeDish"] = currentInputServiceAsset.GetServeDishKey();
 
         UpdateKeyDisplay();
 
@@ -139,7 +139,7 @@ public class RebindKeyMenu : MonoBehaviour
 
     private void GoBack()
     {
-        OnPlayerSelectionChanged(currentInputServiceAsset.getPlayerId() - 1);   // Como no se aplican los cambios, se ponen los valores guardados
+        OnPlayerSelectionChanged(currentInputServiceAsset.GetPlayerId() - 1);   // Como no se aplican los cambios, se ponen los valores guardados
 
         this.gameObject.SetActive(false);
         previousUI.SetActive(true);

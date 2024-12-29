@@ -31,7 +31,7 @@ public class MovementServiceAsset : ScriptableObject
         }
     }
 
-    public void Rotate(Rigidbody rb, Vector3 movementDirection)
+    private void Rotate(Rigidbody rb, Vector3 movementDirection)
     {
         Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
         rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime));

@@ -47,7 +47,7 @@ public class CuttingBoard : KitchenAppliance
         {
             if (playerNearby != null)       // Solo se puede cortar si el jugador está colisionando con la tabla
             {
-                if (Input.GetKey(playerNearby.GetInputServiceAsset().getCutFoodKey()) || voiceCommandActive)
+                if (Input.GetKey(playerNearby.GetInputServiceAsset().GetCutFoodKey()) || voiceCommandActive)
                 {
                     if (!isProcessing)
                     {
@@ -128,7 +128,7 @@ public class CuttingBoard : KitchenAppliance
 
     private void HandleCutEvent(object sender, int playerId)
     {
-        if (playerNearby != null && playerNearby.GetInputServiceAsset().getPlayerId() == playerId)
+        if (playerNearby != null && playerNearby.GetInputServiceAsset().GetPlayerId() == playerId)
         {
             voiceCommandActive = true;
         }

@@ -12,10 +12,10 @@ public class InputServiceAsset : ScriptableObject
 
     // Teclas actuales para las acciones del jugador
     [Header("Teclas Actuales")]
-    [SerializeField] private KeyCode pickObject;
-    [SerializeField] private KeyCode releaseObject;
-    [SerializeField] private KeyCode cutFood;
-    [SerializeField] private KeyCode serveDish;
+    private KeyCode pickObject;
+    private KeyCode releaseObject;
+    private KeyCode cutFood;
+    private KeyCode serveDish;
 
     // Teclas por defecto para las acciones del jugador
     [Header("Teclas por Defecto")]
@@ -100,31 +100,31 @@ public class InputServiceAsset : ScriptableObject
     }
 
     // Método que devuelve la tecla de coger objeto
-    public KeyCode getPickObjectKey()
+    public KeyCode GetPickObjectKey()
     {
         return pickObject;
     }
 
     // Método que devuelve la tecla de soltar objeto
-    public KeyCode getReleaseObjectKey()
+    public KeyCode GetReleaseObjectKey()
     {
         return releaseObject;
     }
 
     // Método que devuelve la tecla de cortar
-    public KeyCode getCutFoodKey()
+    public KeyCode GetCutFoodKey()
     {
         return cutFood;
     }
 
     // Método que devuelve la tecla de servir plato
-    public KeyCode getServeDishKey()
+    public KeyCode GetServeDishKey()
     {
         return serveDish;
     }
 
     // Método que devuelve el id del jugador
-    public int getPlayerId()
+    public int GetPlayerId()
     {
         return playerId;
     }

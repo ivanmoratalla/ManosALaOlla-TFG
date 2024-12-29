@@ -21,7 +21,7 @@ public class Level : MonoBehaviour
     [SerializeField] private GameObject clientPrefab;                       // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
     [SerializeField] private Transform clientSpawnPoint;                    // Punto donde se instancian los clientes (fuera de lo visible por el jugador)
 
-    private List<PlayerMovement> players; // Lista para almacenar a los jugadores
+    private List<PlayerController> players; // Lista para almacenar a los jugadores
 
 
 
@@ -155,7 +155,7 @@ public class Level : MonoBehaviour
     {
         if (players == null || players.Count == 0)
         {
-            players = new List<PlayerMovement>(FindObjectsOfType<PlayerMovement>()); // Encuentra a todos los jugadores
+            players = new List<PlayerController>(FindObjectsOfType<PlayerController>()); // Encuentra a todos los jugadores
         }
 
         foreach (var player in players)
