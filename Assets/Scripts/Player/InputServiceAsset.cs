@@ -51,6 +51,36 @@ public class InputServiceAsset : ScriptableObject
         return movementDirection;
     }
 
+    public void SetKey(string action, KeyCode newKey)
+    {
+        bool actionExists = true;
+
+        switch (action)
+        {
+            case "PickObject":
+                pickObject = newKey;
+                break;
+            case "ReleaseObject":
+                releaseObject = newKey; 
+                break;
+            case "CutFood":
+                cutFood = newKey;
+                break;
+            case "ServeDish":
+                serveDish = newKey;
+                break;
+            default:
+                actionExists = false;
+                break;
+        }
+
+        if(actionExists)
+        {
+            PlayerPrefs.SetInt(GetPrefixedKey(action + "Key"), (int)newKey);
+            PlayerPrefs.Save();
+        }
+    }
+
     public void SetPickObjectKey(KeyCode newKey)
     {
         pickObject = newKey;

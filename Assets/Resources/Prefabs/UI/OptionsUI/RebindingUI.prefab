@@ -422,7 +422,6 @@ GameObject:
   - component: {fileID: 6352108683032345406}
   - component: {fileID: 4900345762360700077}
   - component: {fileID: 1988036243395263721}
-  - component: {fileID: 471818193414186607}
   - component: {fileID: 5969368270974686145}
   m_Layer: 5
   m_Name: RebindingUI
@@ -489,22 +488,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &471818193414186607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1643000711262491832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2740bc0fca9cb62428b131218992b8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  voiceCommandsToggle: {fileID: 0}
-  playerDropdown: {fileID: 2381410209470919575}
-  applyButton: {fileID: 3713759411245433816}
-  backButton: {fileID: 7616143467786613461}
 --- !u!114 &5969368270974686145
 MonoBehaviour:
   m_ObjectHideFlags: 0
