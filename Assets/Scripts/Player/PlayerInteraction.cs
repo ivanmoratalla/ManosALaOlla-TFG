@@ -9,15 +9,11 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject hand;                                                         // Punto donde el objeto que el jugador tiene en la mano va a estar (posición)
     private GameObject pickedObject = null;                                         // Objeto que el jugador tiene en la mano
 
-    [SerializeField] private GameObject respawnPoint = null;                        // Punto donde reaparece el jugador (solo si hay coches en los niveles)
-    private bool isPlayerInteractingWithCar = false;                                // Para evitar interaccion repetida con el coche mientras esté desactivado
-
     private OrderManager orderManager;                                              // Manejador de pedidos con el que el jugador debe interactuar al completar uno
 
     [SerializeField] private InputServiceAsset inputService;                        // Servicio al que se le llamará para saber qué tecla corresponde a cada acción
 
     public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
-    public static event Action<int, float, Vector3> OnPlayerDisappear;              // Evento para notificar que el jugador ha colisionado con un coche
 
     private List<GameObject> nearbyInteractables = new List<GameObject>();
     private GameObject closestInteractable = null;
@@ -227,12 +223,6 @@ public class PlayerInteraction : MonoBehaviour
                 nearbyInteractables.Add(other.gameObject);
             }
         }
-        else if (other.GetComponent<CarMovement>() != null && !isPlayerInteractingWithCar)
-        {
-            Debug.Log("Jugador atropellado");
-            Vector3 collisionPoint = other.ClosestPoint(transform.position);
-            HandleCarInteraction(collisionPoint);
-        }
     }
 
     // Este metodo es llamado cuando el jugador deja de estar en contacto con otro objeto
@@ -260,35 +250,6 @@ public class PlayerInteraction : MonoBehaviour
 
         pickedObject = other.gameObject;
     }
-
-    private void HandleCarInteraction(Vector3 collisionPoint)
-    {
-        isPlayerInteractingWithCar = true;
-
-        OnPlayerDisappear?.Invoke(inputService.GetPlayerId(), 3f, collisionPoint);
-
-        // Se destruye el objeto que tenía en la mano el jugador (si tenía uno)
-        if(pickedObject != null)
-        {
-            Destroy(pickedObject.gameObject);
-            pickedObject = null;
-        }
-
-        // Se desactiva el jugador
-        this.gameObject.SetActive(false);
-
-        // Se programa la reaparición
-        Invoke(nameof(RespawnPlayer), 3f);
-    }
-
-    private void RespawnPlayer()
-    {
-        this.gameObject.SetActive(true);
-        this.transform.position = respawnPoint.transform.position;
-        isPlayerInteractingWithCar = false;
-    }
-
-
     private void deliverOrder(int tableNumber, string dish)
     {
         OnTryToServeDish?.Invoke(tableNumber, dish, res =>

@@ -14,4 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 7
   rotationSpeed: 50
-  freezeRotation: 1

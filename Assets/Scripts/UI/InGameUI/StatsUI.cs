@@ -21,7 +21,7 @@ public class StatsUI : MonoBehaviour
     {
         OrderManager.OnServedDish += UpdateCoins;
         Level.OnTimeChange += UpdateRemainingTime;
-        PlayerInteraction.OnPlayerDisappear += ShowCountdownToReappear;
+        CarInteraction.OnPlayerDisappear += ShowCountdownToReappear;
 
         reappearInfoAreaPlayer1.SetActive(false);
         reappearInfoAreaPlayer2.SetActive(false);
@@ -31,8 +31,7 @@ public class StatsUI : MonoBehaviour
     {
         OrderManager.OnServedDish -= UpdateCoins;
         Level.OnTimeChange -= UpdateRemainingTime;
-        PlayerInteraction.OnPlayerDisappear -= ShowCountdownToReappear;
-
+        CarInteraction.OnPlayerDisappear -= ShowCountdownToReappear;
     }
 
     // Private Methods *****
