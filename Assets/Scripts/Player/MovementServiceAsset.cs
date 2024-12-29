@@ -16,18 +16,9 @@ public class MovementServiceAsset : ScriptableObject
 
     [SerializeField] private float rotationSpeed;
 
-    [Header("RigidBody Settings")]
-    [Space(10)]
-
-    [SerializeField] private bool freezeRotation;
-
-
     public void Initialize(Rigidbody rb)
     {
-        if(freezeRotation)
-        {
-            rb.constraints = RigidbodyConstraints.FreezeRotation;
-        }
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     public void Move(Rigidbody rb, UnityEngine.Transform transform, Vector3 movementDirection)
