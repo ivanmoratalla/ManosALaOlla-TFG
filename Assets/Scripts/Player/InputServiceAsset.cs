@@ -81,34 +81,6 @@ public class InputServiceAsset : ScriptableObject
         }
     }
 
-    public void SetPickObjectKey(KeyCode newKey)
-    {
-        pickObject = newKey;
-        PlayerPrefs.SetInt(GetPrefixedKey(PickObjectKey), (int)newKey);
-        PlayerPrefs.Save();
-    }
-
-    public void SetReleaseObjectKey(KeyCode newKey)
-    {
-        releaseObject = newKey;
-        PlayerPrefs.SetInt(GetPrefixedKey(ReleaseObjectKey), (int)newKey);
-        PlayerPrefs.Save();
-    }
-
-    public void SetCutFoodKey(KeyCode newKey)
-    {
-        cutFood = newKey;
-        PlayerPrefs.SetInt(GetPrefixedKey(CutFoodKey), (int)newKey);
-        PlayerPrefs.Save();
-    }
-
-    public void SetServeDishKey(KeyCode newKey)
-    {
-        serveDish = newKey;
-        PlayerPrefs.SetInt(GetPrefixedKey(ServeDishKey), (int)newKey);
-        PlayerPrefs.Save();
-    }
-
     // Método para resetear las teclas de las acciones a los valores por defecto
     public void ResetToDefaults()
     {

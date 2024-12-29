@@ -112,12 +112,7 @@ public class RebindKeyMenu : MonoBehaviour
         {
             currentInputServiceAsset.SetKey(action, temporaryKeyBindings[action]);
         }
-        /*
-        currentInputServiceAsset.SetPickObjectKey(temporaryKeyBindings["PickObject"]);
-        currentInputServiceAsset.SetReleaseObjectKey(temporaryKeyBindings["ReleaseObject"]);
-        currentInputServiceAsset.SetCutFoodKey(temporaryKeyBindings["CutFood"]);
-        currentInputServiceAsset.SetServeDishKey(temporaryKeyBindings["ServeDish"]);
-        */
+
         Debug.Log($"{(playerDropdown.value == 0 ? "Player 1" : "Player 2")} ha aplicado los cambios.");
     }
 
