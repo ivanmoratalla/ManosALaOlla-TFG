@@ -6,20 +6,19 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
 
-    public GameObject hand;                                                         // Punto donde el objeto que el jugador tiene en la mano va a estar (posición)
+    [SerializeField] private GameObject hand;                                       // Punto donde el objeto que el jugador tiene en la mano va a estar (posición)
     private GameObject pickedObject = null;                                         // Objeto que el jugador tiene en la mano
-
-    private OrderManager orderManager;                                              // Manejador de pedidos con el que el jugador debe interactuar al completar uno
 
     [SerializeField] private InputServiceAsset inputService;                        // Servicio al que se le llamará para saber qué tecla corresponde a cada acción
 
     public static event Action<int, string, Action<bool>> OnTryToServeDish;         // Evento para notificar cuando se quiere servir un pedido
 
-    private List<GameObject> nearbyInteractables = new List<GameObject>();
-    private GameObject closestInteractable = null;
+    private List<GameObject> nearbyInteractables = new List<GameObject>();          // Lista con los objetos cercanos al jugador interactuables
+    private GameObject closestInteractable = null;                                  // Objeto más cercano de todos
 
     private void OnEnable()
     {
+        // Se suscribe a los eventos de acciones por comando de voz
         VoiceCommandService.OnPickUpObject += HandlePickUpObjectEvent;
         VoiceCommandService.OnReleaseObject += HandleReleaseObjectEvent;
         VoiceCommandService.OnServeDish += HandleServeDishEvent;
@@ -27,6 +26,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnDisable()
     {
+        // Se desuscribe de los eventos de acciones por comando de voz para evitar fallos y solapamientos.
         VoiceCommandService.OnPickUpObject -= HandlePickUpObjectEvent;
         VoiceCommandService.OnReleaseObject -= HandleReleaseObjectEvent;
         VoiceCommandService.OnServeDish -= HandleServeDishEvent;
@@ -38,6 +38,7 @@ public class PlayerInteraction : MonoBehaviour
         HandleInput();
     }
 
+    // Método para actualizar el objeto interactuable más cercano al jugador. Se llama en cada frame
     private void UpdateClosestInteractable()
     {
         Highlighter highliter = new Highlighter();
@@ -90,6 +91,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // Método para manejar la acción de coger objeto mediante comandos de voz
     private void HandlePickUpObjectEvent(object sender, int playerId)
     {
         if (inputService.GetPlayerId() == playerId)
@@ -98,6 +100,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // Método para manejar la acción de soltar objeto mediante comandos de voz
     private void HandleReleaseObjectEvent(object sender, int playerId)
     {
         if (inputService.GetPlayerId() == playerId)
@@ -106,6 +109,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // Método para manejar la acción de servir plato mediante comandos de voz
     private void HandleServeDishEvent(object sender, int playerId)
     {
         if (inputService.GetPlayerId() == playerId)
@@ -114,6 +118,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // Método para comprobar si el usuario está pulsando alguna de las teclas asociadas a acciones
     private void HandleInput()
     {
         if (Input.GetKeyDown(inputService.GetPickObjectKey()))
@@ -130,6 +135,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // Método encargado de coger un objeto
     private void HandlePickUpObject()
     {
         if (pickedObject != null || closestInteractable == null)
@@ -142,11 +148,11 @@ public class PlayerInteraction : MonoBehaviour
             || (closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && (objectToPick = appliance.pickUpFood()) != null)
             || (closestInteractable.TryGetComponent<Crate>(out Crate crate) && (objectToPick = crate.pickUpFood()) != null))
         {
-            handlePickObject(objectToPick);
+            PickObject(objectToPick);
         }
         else if (closestInteractable.gameObject.CompareTag("Objeto"))
         {
-            handlePickObject(closestInteractable.gameObject);
+            PickObject(closestInteractable.gameObject);
         }
     }
 
@@ -185,6 +191,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // Método encargado de servir un plato
     private void HandleServeDish()
     {
         if (pickedObject != null && closestInteractable != null && closestInteractable.TryGetComponent<Table>(out Table table))
@@ -192,12 +199,23 @@ public class PlayerInteraction : MonoBehaviour
             Plate plate;
             if ((plate = pickedObject.GetComponent<Plate>()) != null)          // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
             {
-                deliverOrder(table.getTableNumber(), plate.getCompletedRecipeName());
+                OnTryToServeDish?.Invoke(table.getTableNumber(), plate.getCompletedRecipeName(), res =>
+                {
+                    if (res)
+                    {
+                        Destroy(pickedObject);
+                        pickedObject = null;
+                    }
+                    else
+                    {
+                        // Aquí incluiré las penalizaciones que sean 
+                    }
+                });
             }
         }
     }
 
-
+    // Método para soltar un objeto en el suelo
     private void DropObjectOnGround()
     {
         Debug.Log("Se deja en el suelo");
@@ -239,7 +257,7 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     // Este método es el encargado de coger el objeto que se pasa como parámetro
-    private void handlePickObject(GameObject other)
+    private void PickObject(GameObject other)
     {
         other.GetComponent<Rigidbody>().useGravity = false;
         other.GetComponent<Rigidbody>().isKinematic = true;
@@ -249,21 +267,6 @@ public class PlayerInteraction : MonoBehaviour
         other.GetComponent<Collider>().enabled = false;
 
         pickedObject = other.gameObject;
-    }
-    private void deliverOrder(int tableNumber, string dish)
-    {
-        OnTryToServeDish?.Invoke(tableNumber, dish, res =>
-        {
-            if (res)
-            {
-                Destroy(pickedObject);
-                pickedObject = null;
-            }
-            else
-            {
-                // Aquí incluiré las penalizaciones que sean 
-            }
-        });
     }
 
     public InputServiceAsset GetInputServiceAsset()

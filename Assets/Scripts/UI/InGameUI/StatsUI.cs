@@ -53,19 +53,19 @@ public class StatsUI : MonoBehaviour
         return string.Format("{0:00}:{1:00}", minutes, remainingSeconds); // Formatea como "mm:ss"
     }
 
-    private void ShowCountdownToReappear(int playerID, float duration, Vector3 position)
+    private void ShowCountdownToReappear(int playerID, float duration)
     {
         if (playerID == 1)
         {
-            StartCoroutine(HandleCountdown(duration, position, reappearInfoAreaPlayer1, countdownToReappearTextPlayer1));
+            StartCoroutine(HandleCountdown(duration, reappearInfoAreaPlayer1, countdownToReappearTextPlayer1));
         }
         else if (playerID == 2)
         {
-            StartCoroutine(HandleCountdown(duration, position, reappearInfoAreaPlayer2, countdownToReappearTextPlayer2));
+            StartCoroutine(HandleCountdown(duration, reappearInfoAreaPlayer2, countdownToReappearTextPlayer2));
         }
     }
 
-    private IEnumerator HandleCountdown(float duration, Vector3 position, GameObject infoArea, Text countdownText)
+    private IEnumerator HandleCountdown(float duration, GameObject infoArea, Text countdownText)
     {
         infoArea.SetActive(true);
 
