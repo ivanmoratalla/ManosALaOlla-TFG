@@ -25,7 +25,7 @@ public class Plate : ColorableObject
 
     public bool addIngredient(Food food)
     {
-        string ingredientToAdd = food.getStateData().getName();
+        string ingredientToAdd = food.GetStateData().GetName();
 
         // Verificar si el ingrediente ya está en el plato
         if (ingredientsInPlate.Contains(ingredientToAdd))
@@ -85,7 +85,7 @@ public class Plate : ColorableObject
 
                 foreach (FoodStateData ingredient in recipeIngredients)
                 {
-                    if (!ingredientsInPlate.Contains(ingredient.getName()))      // Verificamos si el plato contiene todos los ingredientes de la receta
+                    if (!ingredientsInPlate.Contains(ingredient.GetName()))      // Verificamos si el plato contiene todos los ingredientes de la receta
                     {
                         match = false;
                         break;

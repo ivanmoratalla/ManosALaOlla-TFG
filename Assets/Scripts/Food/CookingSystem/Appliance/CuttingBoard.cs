@@ -42,7 +42,7 @@ public class CuttingBoard : KitchenAppliance
 
     private void Update()
     {
-        if(storedFood != null && storedFood.GetComponent<Food>().canTransition(action))              // Se comprueba si hay un ingrediente en la tabla de cortar y si se puede transicionar (Pq al cortar
+        if(storedFood != null && storedFood.GetComponent<Food>().CanTransition(action))              // Se comprueba si hay un ingrediente en la tabla de cortar y si se puede transicionar (Pq al cortar
                                                                                                      // el ingrediente cortado después ya no se puede cortar otra vez)
         {
             if (playerNearby != null)       // Solo se puede cortar si el jugador está colisionando con la tabla
@@ -95,7 +95,7 @@ public class CuttingBoard : KitchenAppliance
 
     private void cookFood()
     {
-        storedFood.GetComponent<Food>().changeFoodState(action, out storedFood);
+        storedFood.GetComponent<Food>().ChangeFoodState(action, out storedFood);
         Debug.Log("Comida cocinada");
 
         isProcessing = false;

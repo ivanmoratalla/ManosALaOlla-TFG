@@ -17,12 +17,12 @@ public class FoodTransition
     [SerializeField] private FoodAction action;             // Acción a realizar en esta transición
     [SerializeField] private GameObject nextStatePrefab;    // Prefab del estado al que se transiciona
 
-    public FoodAction getAction()
+    public FoodAction GetAction()
     {
         return action; 
     }
 
-    public GameObject getNextStatePrefab()
+    public GameObject GetNextStatePrefab()
     {
         return nextStatePrefab;
     }

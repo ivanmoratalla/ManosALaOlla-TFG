@@ -61,7 +61,7 @@ public abstract class KitchenAppliance : ColorableObject
      */
     protected bool CanProcess(GameObject food)
     {
-        return !isProcessing && food.GetComponent<Food>().canTransition(action);
+        return !isProcessing && food.GetComponent<Food>().CanTransition(action);
     }
 
     protected bool canPickUpFood()

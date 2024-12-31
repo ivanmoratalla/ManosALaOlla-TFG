@@ -55,7 +55,7 @@ public class CookingAppliance : KitchenAppliance
             {
                 // Comida cocinada correctamente
                 cooked = true;
-                storedFood.GetComponent<Food>().changeFoodState(actionType, out storedFood);
+                storedFood.GetComponent<Food>().ChangeFoodState(actionType, out storedFood);
                 storedFood.GetComponent<Collider>().enabled = false;                                // Se desactivan las colisiones y la gravedad del nuevo ingrediente instanciado para evitar que se caiga del electrodoméstico
                 storedFood.GetComponent<Rigidbody>().useGravity = false;
 
@@ -65,7 +65,7 @@ public class CookingAppliance : KitchenAppliance
             else if (elapsedTime >= burnTime)                                                       // Se comprueba si se ha pasado del tiempo máximo
             {
                 // Comida quemada
-                storedFood.GetComponent<Food>().changeFoodState(FoodAction.Burn, out storedFood);
+                storedFood.GetComponent<Food>().ChangeFoodState(FoodAction.Burn, out storedFood);
                 storedFood.GetComponent<Collider>().enabled = false;                                // Se desactivan las colisiones y la gravedad del nuevo ingrediente instanciado para evitar que se caiga del electrodoméstico
                 storedFood.GetComponent<Rigidbody>().useGravity = false;
 

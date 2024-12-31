@@ -4,24 +4,24 @@ using UnityEngine;
 
 
 
-[CreateAssetMenu(fileName = "NewFood", menuName = "Food")]
+[CreateAssetMenu(fileName = "NewFoodState", menuName = "FoodState")]
 public class FoodStateData : ScriptableObject
 {
     [SerializeField] private string foodName;                       // Nombre del estado (una comida o ingredinte)
     [SerializeField] private List<FoodTransition> transitions;      // Esto son las transiciones entre estados que se puede hacer en función de la acción que se haga
     [SerializeField] private Sprite ingredientSpriteForUI;          // Sprite del ingrediente para añadirlo a la UI de la comanda
     
-    public string getName()
+    public string GetName()
     {
         return foodName; 
     }
 
-    public List<FoodTransition> getTransitions()
+    public List<FoodTransition> GetTransitions()
     {
         return transitions;
     }
 
-    public Sprite getIngredientSprite()
+    public Sprite GetIngredientSprite()
     {
         return ingredientSpriteForUI;
     }

@@ -35,7 +35,7 @@ public class OrderUI : MonoBehaviour
             Image ingredientImage = newIngredientImage.GetComponent<Image>();
 
             // Aquí necesitas un sistema para mapear el nombre del ingrediente a su sprite
-            Sprite ingredientSprite = ingredient.getIngredientSprite();
+            Sprite ingredientSprite = ingredient.GetIngredientSprite();
             if (ingredientSprite != null)
             {
                 ingredientImage.sprite = ingredientSprite;

@@ -16,7 +16,7 @@ public class Recipe : ScriptableObject
     {
         foreach(FoodStateData foodData in ingredientsList)
         {
-            if(foodData.getName() == ingredient)
+            if(foodData.GetName() == ingredient)
             {
                 return true;
             }
