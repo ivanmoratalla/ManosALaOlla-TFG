@@ -11,8 +11,7 @@ public class CuttingBoard : KitchenAppliance
     private PlayerInteraction playerNearby = null;  // Variable que indica que jugador hay cerca de la tabla de cortar (null si no hay ninguno)
     private bool voiceCommandActive = false;        // Variable para indicar si la acción fue activada por comando de voz
 
-
-    public override FoodAction action
+    protected override FoodAction Action
     {
         get { return FoodAction.Cut; }              // Variable que indica que la acción que se hace en la tabla es "cortar"
     }
@@ -42,7 +41,7 @@ public class CuttingBoard : KitchenAppliance
 
     private void Update()
     {
-        if(storedFood != null && storedFood.GetComponent<Food>().CanTransition(action))              // Se comprueba si hay un ingrediente en la tabla de cortar y si se puede transicionar (Pq al cortar
+        if(storedFood != null && storedFood.GetComponent<Food>().CanTransition(Action))              // Se comprueba si hay un ingrediente en la tabla de cortar y si se puede transicionar (Pq al cortar
                                                                                                      // el ingrediente cortado después ya no se puede cortar otra vez)
         {
             if (playerNearby != null)       // Solo se puede cortar si el jugador está colisionando con la tabla
@@ -65,7 +64,7 @@ public class CuttingBoard : KitchenAppliance
                     if (holdTime >= timeToCut)
                     {
                         // Si se ha mantenido presionada la tecla durante el tiempo requerido, empezar a cortar
-                        cookFood();
+                        CookFood();
                     }
                 }
                 else if (isProcessing)
@@ -93,9 +92,9 @@ public class CuttingBoard : KitchenAppliance
     }
 
 
-    private void cookFood()
+    private void CookFood()
     {
-        storedFood.GetComponent<Food>().ChangeFoodState(action, out storedFood);
+        storedFood.GetComponent<Food>().ChangeFoodState(Action, out storedFood);
         Debug.Log("Comida cocinada");
 
         isProcessing = false;

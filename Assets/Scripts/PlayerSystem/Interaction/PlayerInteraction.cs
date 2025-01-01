@@ -142,7 +142,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             return;
         }
-
+        
         GameObject objectToPick = null;
         if ((closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.pickUpObject(out objectToPick))
             || (closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && (objectToPick = appliance.PickUpFood()) != null)

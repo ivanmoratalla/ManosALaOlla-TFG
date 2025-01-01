@@ -10,7 +10,7 @@ public class CookingAppliance : KitchenAppliance
     [SerializeField] private float cookTime = 7f;                                                           // Tiempo para que la comida esté lista
     [SerializeField] private float burnTime = 15f;                                                          // Tiempo para que la comida se queme
 
-    public override FoodAction action
+    protected override FoodAction Action
     {
         get { return actionType; }
     }
@@ -22,14 +22,14 @@ public class CookingAppliance : KitchenAppliance
             PlaceFood(food);
 
             isProcessing = true;            
-            StartCoroutine(cookFood());
+            StartCoroutine(CookFood());
             
             return true;
         }
         return false;
     }
 
-    private IEnumerator cookFood()
+    private IEnumerator CookFood()
     {
         float elapsedTime = 0f;                                                                     // Variable para medir el tiempo que pasa
         Boolean cooked = false;

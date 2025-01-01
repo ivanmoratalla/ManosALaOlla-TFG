@@ -6,7 +6,7 @@ public abstract class KitchenAppliance : ColorableObject
 {
     protected GameObject storedFood = null;         // Comida que se va a cocinar / se está cocinando
     protected bool isProcessing = false;            // Variable para indicar si se está cocinando algo
-    public abstract FoodAction action { get; }
+    protected abstract FoodAction Action { get; }
 
     [SerializeField] private ProgressUI progressUIPrefab;
     public EventHandler<float> OnProgressChange;
@@ -62,7 +62,7 @@ public abstract class KitchenAppliance : ColorableObject
      */
     protected bool CanProcess(GameObject food)
     {
-        return !isProcessing && food.GetComponent<Food>().CanTransition(action);
+        return !isProcessing && food.GetComponent<Food>().CanTransition(Action);
     }
 
     protected bool CanPickUpFood()
