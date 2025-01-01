@@ -15,11 +15,11 @@ public class CookingAppliance : KitchenAppliance
         get { return actionType; }
     }
 
-    public override bool interactWithAppliance(GameObject food)
+    public override bool InteractWithAppliance(GameObject food)
     {
         if (CanProcess(food))
         {
-            placeFood(food);
+            PlaceFood(food);
 
             isProcessing = true;            
             StartCoroutine(cookFood());

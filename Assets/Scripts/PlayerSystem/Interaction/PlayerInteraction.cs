@@ -145,7 +145,7 @@ public class PlayerInteraction : MonoBehaviour
 
         GameObject objectToPick = null;
         if ((closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.pickUpObject(out objectToPick))
-            || (closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && (objectToPick = appliance.pickUpFood()) != null)
+            || (closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && (objectToPick = appliance.PickUpFood()) != null)
             || (closestInteractable.TryGetComponent<Crate>(out Crate crate) && (objectToPick = crate.pickUpFood()) != null))
         {
             PickObject(objectToPick);
@@ -167,7 +167,7 @@ public class PlayerInteraction : MonoBehaviour
         if (pickedObject != null && closestInteractable != null)
         {
             // INTERACTUAR CON UN ELECTRODOMÉSTICO
-            if (pickedObject.GetComponent<Food>() != null && closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && appliance.interactWithAppliance(pickedObject))
+            if (pickedObject.GetComponent<Food>() != null && closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && appliance.InteractWithAppliance(pickedObject))
             {
                 Debug.Log("Se ha interactuado con el electrodoméstico");
                 pickedObject.GetComponent<Collider>().enabled = true;

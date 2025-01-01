@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class KitchenAppliance : ColorableObject
 {
-    public GameObject storedFood = null;         // Comida que se va a cocinar / se está cocinando
+    protected GameObject storedFood = null;         // Comida que se va a cocinar / se está cocinando
     protected bool isProcessing = false;            // Variable para indicar si se está cocinando algo
     public abstract FoodAction action { get; }
 
@@ -12,9 +12,10 @@ public abstract class KitchenAppliance : ColorableObject
     public EventHandler<float> OnProgressChange;
     public EventHandler OnProgressCanceled;
 
-    // Este método se utilizará desde el jugador cuando quiera interactuar con un electrodoméstico, ya sea simplemente para colocar el objeto a cocinar como para comenzar a cocinar
-    public abstract bool interactWithAppliance(GameObject food);
-    
+    // Método para interactuar con el electrodoméstico. Debe ser implementado por el electrodoméstico concreto ya que hacen cosas distintas.
+    // Se llamará desde el jugador cuando quiera interactuar con un electrodoméstico
+    public abstract bool InteractWithAppliance(GameObject food);
+
     public void StartProgressUI()
     {
         ProgressUI progressUI = Instantiate(progressUIPrefab);
@@ -24,9 +25,9 @@ public abstract class KitchenAppliance : ColorableObject
 
 
     // Método para colocar la comida en el electrodoméstico
-    public void placeFood(GameObject food)
+    protected void PlaceFood(GameObject food)
     {
-        float newYPosition = calculatePosition(food);
+        float newYPosition = CalculatePosition(food);
 
         storedFood = food;
         storedFood.transform.position = new Vector3(transform.position.x, newYPosition, transform.position.z);
@@ -41,10 +42,10 @@ public abstract class KitchenAppliance : ColorableObject
     }
 
     // Método para recoger el objeto del electrodoméstico
-    public GameObject pickUpFood()
+    public GameObject PickUpFood()
     {
         GameObject foodAux = null;
-        if(canPickUpFood())
+        if(CanPickUpFood())
         {
             foodAux = storedFood;
             storedFood.GetComponent<Collider>().enabled = true;     // Al coger el objeto se le activa el collider para que se pueda coger del suelo. No se activa la gravedad porque si no se caería
@@ -64,12 +65,12 @@ public abstract class KitchenAppliance : ColorableObject
         return !isProcessing && food.GetComponent<Food>().CanTransition(action);
     }
 
-    protected bool canPickUpFood()
+    protected bool CanPickUpFood()
     {
         return storedFood != null && !isProcessing;
     }
 
-    private float calculatePosition(GameObject obj)
+    private float CalculatePosition(GameObject obj)
     {
         // Calcula la altura del electrodoméstico
         float counterHeight = this.GetComponent<Collider>().bounds.size.y; // Obtiene la altura de la encimera

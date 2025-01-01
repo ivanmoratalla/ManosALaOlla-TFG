@@ -29,11 +29,11 @@ public class CuttingBoard : KitchenAppliance
     }
 
     // En el caso de la tabla de cortar, no se quiere cortar al poner el objeto en la tabla, si no solo colocarlo
-    public override bool interactWithAppliance(GameObject food)
+    public override bool InteractWithAppliance(GameObject food)
     {
         if (CanProcess(food))
         {
-            placeFood(food);
+            PlaceFood(food);
             Debug.Log("Se ha colocado la comida en la tabla de cortar");
             return true;
         }
