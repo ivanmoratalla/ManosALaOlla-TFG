@@ -14,7 +14,7 @@ public class RecipeManager : MonoBehaviour
     }
 
     // Este método se utilizará para encontrar todas las recetas que incluyen el primer ingrediente que se añada a un plato
-    public List<Recipe> getRecipesByIngredient(string ingredient)
+    public List<Recipe> GetRecipesByIngredient(string ingredient)
     {
         List<Recipe> recipesWithIngredient = new List<Recipe>();
 

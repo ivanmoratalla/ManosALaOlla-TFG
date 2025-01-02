@@ -23,7 +23,7 @@ public class Counter : ColorableObject
         Plate plate = storedObject.GetComponent<Plate>();
         Food ingredient = obj.GetComponent<Food>();
 
-        return plate != null && ingredient != null && plate.addIngredient(ingredient);
+        return plate != null && ingredient != null && plate.AddIngredient(ingredient);
     }
 
 
