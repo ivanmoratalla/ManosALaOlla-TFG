@@ -38,7 +38,7 @@ public class OrderManager
 
     public void CreateOrder(Recipe dishRequest, int tableNumber)
     {
-        activeOrders[tableNumber] = dishRequest.getRecipeName();
+        activeOrders[tableNumber] = dishRequest.GetRecipeName();
         orderTimers[tableNumber] = 0f;                                                  // Tiempo del pedido a 0
 
         OnOrderCreate?.Invoke(this, new KeyValuePair<int, Recipe>(tableNumber, dishRequest));

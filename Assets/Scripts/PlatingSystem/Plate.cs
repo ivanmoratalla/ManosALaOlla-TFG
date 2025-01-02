@@ -53,7 +53,7 @@ public class Plate : ColorableObject
 
             foreach (Recipe recipe in validRecipes)
             {
-                if(recipe.containsIngredient(ingredientToAdd))
+                if(recipe.ContainsIngredient(ingredientToAdd))
                 {
                     newValidRecipes.Add(recipe);                // Hay que buscar, entre las listas que eran válidas, a las que contengan el nuevo ingrediente a añadir
                 }
@@ -77,7 +77,7 @@ public class Plate : ColorableObject
     {
         foreach (Recipe recipe in validRecipes)
         {
-            List<FoodStateData> recipeIngredients = recipe.getIngredients();
+            List<FoodStateData> recipeIngredients = recipe.GetIngredients();
             
             if(ingredientsInPlate.Count == recipeIngredients.Count)
             {
@@ -94,9 +94,9 @@ public class Plate : ColorableObject
 
                 if (match)
                 {
-                    completedRecipeName = recipe.getRecipeName();               // Guardamos el nombre de la receta completada
+                    completedRecipeName = recipe.GetRecipeName();               // Guardamos el nombre de la receta completada
                     Debug.Log($"¡Receta completada: {completedRecipeName}!");
-                    instantiateRecipePrefab(recipe.getRecipePrefab());
+                    instantiateRecipePrefab(recipe.GetRecipePrefab());
                     return;                                                     // Salimos una vez que encontramos una receta completa
                 }
 

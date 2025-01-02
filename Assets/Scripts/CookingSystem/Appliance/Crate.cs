@@ -6,7 +6,7 @@ public class Crate : MonoBehaviour
 {
     [SerializeField] private GameObject ingredientInCrate;
 
-    public GameObject pickUpFood()
+    public GameObject PickUpFood()
     {
         GameObject ingredient = Instantiate(ingredientInCrate);
 

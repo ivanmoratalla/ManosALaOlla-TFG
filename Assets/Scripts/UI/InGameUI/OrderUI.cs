@@ -25,11 +25,11 @@ public class OrderUI : MonoBehaviour
     // Public Methods
     public void SetOrder(KeyValuePair<int, Recipe> orderData)
     {
-        recipeImage.sprite = orderData.Value.getRecipeSprite();     // Se establece la imagen de la receta
+        recipeImage.sprite = orderData.Value.GetRecipeSprite();     // Se establece la imagen de la receta
         assignedTable.text = "Mesa: " + orderData.Key.ToString();   // Se establece la mesa en la que va el pedido
 
         // Se crean las imágenes de los ingredientes 
-        foreach (FoodStateData ingredient in orderData.Value.getIngredients())
+        foreach (FoodStateData ingredient in orderData.Value.GetIngredients())
         {
             GameObject newIngredientImage = Instantiate(ingredientImagePrefab, ingredientContainer);
             Image ingredientImage = newIngredientImage.GetComponent<Image>();

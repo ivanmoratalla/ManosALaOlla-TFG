@@ -12,7 +12,7 @@ public class Recipe : ScriptableObject
     [SerializeField] private Sprite recipeSprite;
 
 
-    public bool containsIngredient(string ingredient)
+    public bool ContainsIngredient(string ingredient)
     {
         foreach(FoodStateData foodData in ingredientsList)
         {
@@ -24,22 +24,22 @@ public class Recipe : ScriptableObject
         return false;
     }
 
-    public string getRecipeName()
+    public string GetRecipeName()
     {
         return recipeName;
     }
 
-    public List<FoodStateData> getIngredients()
+    public List<FoodStateData> GetIngredients()
     {
         return ingredientsList;
     }
 
-    public GameObject getRecipePrefab()
+    public GameObject GetRecipePrefab()
     {
         return recipePrefab;
     }
 
-    public Sprite getRecipeSprite()
+    public Sprite GetRecipeSprite()
     {
         return recipeSprite;
     }

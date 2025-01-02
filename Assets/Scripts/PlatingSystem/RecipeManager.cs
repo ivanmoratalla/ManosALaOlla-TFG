@@ -20,7 +20,7 @@ public class RecipeManager : MonoBehaviour
 
         foreach (Recipe recipe in recipes)
         {
-            if (recipe.containsIngredient(ingredient))
+            if (recipe.ContainsIngredient(ingredient))
             {
                 recipesWithIngredient.Add(recipe);
             }
