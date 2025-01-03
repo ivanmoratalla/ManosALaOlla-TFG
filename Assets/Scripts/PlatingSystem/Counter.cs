@@ -10,12 +10,12 @@ public class Counter : ColorableObject
      * - Si no hay ningún objeto en la mesa y se deja el objeto
      * - Si hay un plato y el ingrediente se puede emplatar
      */
-    public bool interactWithCounter(GameObject obj)
+    public bool InteractWithCounter(GameObject obj)
     {
         // DEJAR OBJETO EN LA MESA
         if(storedObject == null)
         {
-            placeObject(obj);
+            PlaceObject(obj);
             return true;
         }
         
@@ -30,9 +30,9 @@ public class Counter : ColorableObject
 
 
     // Método que llamaré desde el jugador para colocar un objeto
-    public void placeObject(GameObject obj)
+    public void PlaceObject(GameObject obj)
     {
-        float placePosition = calculatePosition(obj);
+        float placePosition = CalculatePosition(obj);
         obj.transform.position = new Vector3(transform.position.x, placePosition, transform.position.z);    // Se coloca el objeto encima de la encimera
         obj.transform.SetParent(this.transform);                                                                        // Se establece la encimera como padre del objeto
 
@@ -47,7 +47,7 @@ public class Counter : ColorableObject
     }
 
     // Método para recoger el objeto de la encimera
-    public bool pickUpObject(out GameObject objectToPick)
+    public bool PickUpObject(out GameObject objectToPick)
     {
         objectToPick = null;
         if (storedObject != null)
@@ -59,7 +59,7 @@ public class Counter : ColorableObject
         return false;
     }
 
-    private float calculatePosition(GameObject obj)
+    private float CalculatePosition(GameObject obj)
     {
         // Calcula la posición de la encimera
         float counterHeight = transform.localScale.y; // Obtiene la altura de la encimera

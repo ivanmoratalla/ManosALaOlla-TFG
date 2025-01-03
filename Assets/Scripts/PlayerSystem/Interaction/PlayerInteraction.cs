@@ -144,7 +144,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         
         GameObject objectToPick = null;
-        if ((closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.pickUpObject(out objectToPick))
+        if ((closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.PickUpObject(out objectToPick))
             || (closestInteractable.TryGetComponent<KitchenAppliance>(out KitchenAppliance appliance) && (objectToPick = appliance.PickUpFood()) != null)
             || (closestInteractable.TryGetComponent<Crate>(out Crate crate) && (objectToPick = crate.PickUpFood()) != null))
         {
@@ -175,7 +175,7 @@ public class PlayerInteraction : MonoBehaviour
 
             }
             // INTERACTUAR CON UNA ENCIMERA, TANTO PARA DEJAR OBJETO COMO PARA EMPLATAR
-            else if (closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.interactWithCounter(pickedObject))
+            else if (closestInteractable.TryGetComponent<Counter>(out Counter counter) && counter.InteractWithCounter(pickedObject))
             {
                 Debug.Log("Se ha interactuado con una encimera");
                 pickedObject.GetComponent<Collider>().enabled = true;
