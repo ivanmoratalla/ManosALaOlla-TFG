@@ -167,10 +167,10 @@ public class Level : MonoBehaviour
     private async void SetGameOver()
     {
         gameState = GameState.GameOver;
-        int finalStars = orderManager.getScore();
+        int finalStars = orderManager.GetScore();
         Debug.Log("Final stars: " + finalStars);
-        Debug.Log("Pedidos entregados:" + orderManager.pedidosEntregados);
-        Debug.Log("Pedidos perdidos:" + orderManager.pedidosPerdidos);
+        //Debug.Log("Pedidos entregados:" + orderManager.pedidosEntregados);
+        //Debug.Log("Pedidos perdidos:" + orderManager.pedidosPerdidos);
 
 
         ICloudDataService saveDataService = new CloudDataService();

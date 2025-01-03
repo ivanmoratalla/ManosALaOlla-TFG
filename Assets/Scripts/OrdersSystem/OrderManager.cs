@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class OrderManager
 {
-    public static EventHandler<int> OnServedDish;                                       // Evento que se va a invocar para notificar a la UI que tiene que actualizar la puntuación
-    public static EventHandler<KeyValuePair<int, Recipe>> OnOrderCreate;                // Evento para notificar a la UI cuando se crea un nuevo pedido
+    public static EventHandler<int> OnServedDish;                                       // Evento que se va a invocar para notificar al HUD que tiene que actualizar la puntuación
+    public static EventHandler<KeyValuePair<int, Recipe>> OnOrderCreate;                // Evento para notificar al HUD cuando se crea un nuevo pedido
     public static EventHandler<int> OnOrderSuccess;                                     // Evento para notificar cuando un pedido ha sido completado (se envía la mesa)
     public static EventHandler<int> OnOrderFailed;                                      // Evento para notificar cuando un pedido ha fracasado (se envía la mesa)
 
     public static EventHandler<KeyValuePair<int,float>> OnOrderTimeChange;              // Evento para notificar que hay que cambiar la barra de tiempo del pedido de una mesa
-
 
     private Level level;                                                                // Nivel sobre el que maneja las órdenes    
     private Dictionary<int, string> activeOrders;                                       // Pedidos por mesa activos
@@ -19,10 +18,9 @@ public class OrderManager
     private int score;                                                                  // Puntuación del nivel
 
     private float orderTimeLimit = 40f;                                                 // Duración máxima que puede esperar un cliente
-    private const int maxStars = 5;                                                     // Puntos máximos que se pueden obtener por un pedido (5 estrellas)
 
-    public int pedidosEntregados = 0;
-    public int pedidosPerdidos = 0;
+    //public int pedidosEntregados = 0;
+    //public int pedidosPerdidos = 0;
 
     public OrderManager(Level level)
     {
@@ -59,7 +57,7 @@ public class OrderManager
 
                 OnServedDish?.Invoke(this, score);        // Se invoca el evento al servir correctamente el plato para actualizar la UI con la nueva puntuación del nivel
                 OnOrderSuccess?.Invoke(this, tableNumber);
-                pedidosEntregados++;
+                //pedidosEntregados++;
 
                 Debug.Log("Plato correcto servido en la mesa " + tableNumber);
                 Debug.Log("Total de puntos del nivel: " + score);
@@ -122,17 +120,17 @@ public class OrderManager
         {
             int tableNumber = order.Key;
 
-            // Acumulamos el tiempo que ha pasado desde que se creó el pedido
+            // Se acumula el tiempo que ha pasado desde que se creó el pedido
             orderTimers[tableNumber] += deltaTime;
 
             if (orderTimers[tableNumber] >= orderTimeLimit)
             {
                 Debug.Log("El pedido en la mesa " + tableNumber + " ha expirado y se ha perdido.");
                 expiredOrders.Add(tableNumber);
-                score -= 2; // Restamos 2 puntos por pedido perdido.
+                score -= 2; // Se resta 2 puntos por pedido perdido.
                 OnServedDish?.Invoke(this, score);
 
-                pedidosPerdidos++;
+                //pedidosPerdidos++;
             }
             else
             {
@@ -140,7 +138,7 @@ public class OrderManager
             }
         }
 
-        // Eliminamos los pedidos expirados de los diccionarios y liberamos las mesas.
+        // Se eliminan los pedidos expirados de los diccionarios y se liberan las mesas.
         foreach (int tableNumber in expiredOrders)
         {
             OnOrderFailed?.Invoke(this, tableNumber);
@@ -151,7 +149,7 @@ public class OrderManager
         }
     }
 
-    public int getScore()
+    public int GetScore()
     {
         return score;
     }
