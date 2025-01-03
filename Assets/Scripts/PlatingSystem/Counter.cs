@@ -26,11 +26,8 @@ public class Counter : ColorableObject
         return plate != null && ingredient != null && plate.AddIngredient(ingredient);
     }
 
-
-
-
     // Método que llamaré desde el jugador para colocar un objeto
-    public void PlaceObject(GameObject obj)
+    private void PlaceObject(GameObject obj)
     {
         float placePosition = CalculatePosition(obj);
         obj.transform.position = new Vector3(transform.position.x, placePosition, transform.position.z);    // Se coloca el objeto encima de la encimera
