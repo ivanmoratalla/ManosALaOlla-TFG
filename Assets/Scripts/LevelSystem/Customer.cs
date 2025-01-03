@@ -13,16 +13,10 @@ public class Customer : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>(); // Obtener el NavMeshAgent
-        handleCustomerArrival();
+        GoToTable(assignedTable);
     }
 
-    private void handleCustomerArrival()
-    {
-        // Moverse hacia la mesa asignada
-        goToTable(assignedTable);
-    }
-
-    private void goToTable(Table table)
+    private void GoToTable(Table table)
     {
         if (navMeshAgent != null)
         {
@@ -45,22 +39,17 @@ public class Customer : MonoBehaviour
             yield return null;                                                      // Se espera al siguiente frame para volver a hacer la comprobacon
         }
 
-        orderManager.CreateOrder(data.getDish(), assignedTable.getTableNumber());   // Se crea la orden cuando llega a la mesa
+        orderManager.CreateOrder(data.GetDish(), assignedTable.getTableNumber());   // Se crea la orden cuando llega a la mesa
         
         navMeshAgent.enabled = false;                                               // Con esto evito que se mueva de su sitio una vez llegue a la mesa
     }
 
-    public void setData(CustomerData data, Table assignedTable, OrderManager od, Transform spawnAndDestroyPoint)
+    public void SetData(CustomerData data, Table assignedTable, OrderManager od, Transform spawnAndDestroyPoint)
     {
         this.data = data;
         this.assignedTable = assignedTable;
         this.orderManager = od;
         this.spawnAndDestroyPoint = spawnAndDestroyPoint;
-    }
-
-    public CustomerData getData()
-    {
-        return this.data;
     }
 
     public void LeaveRestaurant()
@@ -82,6 +71,5 @@ public class Customer : MonoBehaviour
         }
 
         Destroy(this.gameObject);
-
     }
 }

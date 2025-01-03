@@ -8,12 +8,7 @@ public class CustomerData
     [SerializeField] private string name;           // Nombre del cliente.
     [SerializeField] private Recipe dish;           // Plato que va a pedir.
 
-    public string getName()
-    {
-        return name;
-    }
-
-    public Recipe getDish()
+    public Recipe GetDish()
     {
         return dish;
     }

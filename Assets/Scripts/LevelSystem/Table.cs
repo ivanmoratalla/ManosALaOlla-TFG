@@ -28,7 +28,6 @@ public class Table : MonoBehaviour
         if(isAvailable) {
             isAvailable = false;
             currentCustomer = customer;
-            Debug.Log("Se ha sentado al cliente " + customer.getData().getName() + " en la mesa " + tableNumber);
         }
         else {
             Debug.Log("No se ha podido sentar al usuario en la mesa " + tableNumber + " porque está ocupada");

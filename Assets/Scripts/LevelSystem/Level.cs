@@ -124,7 +124,7 @@ public class Level : MonoBehaviour
         Debug.Log("Sentando cliente en una mesa disponible");
 
         Customer newCustomer = Instantiate(clientPrefab, clientSpawnPoint.position, Quaternion.identity).GetComponent<Customer>();
-        newCustomer.setData(customerData, assignedTable, orderManager, clientSpawnPoint); // Configurar los datos del cliente
+        newCustomer.SetData(customerData, assignedTable, orderManager, clientSpawnPoint); // Configurar los datos del cliente
         assignedTable.seatCustomer(newCustomer); // Asignar el cliente a la mesa
 
         Debug.Log("Cliente sentado en la mesa " + assignedTable.getTableNumber());
