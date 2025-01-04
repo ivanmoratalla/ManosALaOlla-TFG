@@ -63,7 +63,7 @@ public class OrderManager
                 Debug.Log("Total de puntos del nivel: " + score);
 
                 activeOrders.Remove(tableNumber);                                   // Elimino la comanda.
-                level.freeTable(tableNumber);                                       // LLamo al manager para liberar la mesa y que se pueda sentar otro cliente que llegue
+                level.FreeTable(tableNumber);                                       // LLamo al manager para liberar la mesa y que se pueda sentar otro cliente que llegue
 
                 res = true;
             }
@@ -145,7 +145,7 @@ public class OrderManager
 
             activeOrders.Remove(tableNumber);
             orderTimers.Remove(tableNumber);
-            level.freeTable(tableNumber);
+            level.FreeTable(tableNumber);
         }
     }
 

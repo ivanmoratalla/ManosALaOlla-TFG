@@ -199,7 +199,7 @@ public class PlayerInteraction : MonoBehaviour
             Plate plate;
             if ((plate = pickedObject.GetComponent<Plate>()) != null)          // Se comprueba si se tiene en la mano un plato y se pulsa el botón de entregar
             {
-                OnTryToServeDish?.Invoke(table.getTableNumber(), plate.GetCompletedRecipeName(), res =>
+                OnTryToServeDish?.Invoke(table.GetTableNumber(), plate.GetCompletedRecipeName(), res =>
                 {
                     if (res)
                     {

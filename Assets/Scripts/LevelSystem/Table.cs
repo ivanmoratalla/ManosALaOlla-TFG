@@ -23,7 +23,7 @@ public class Table : MonoBehaviour
         }
     }
 
-    public void seatCustomer(Customer customer)
+    public void SeatCustomer(Customer customer)
     {
         if(isAvailable) {
             isAvailable = false;
@@ -34,7 +34,7 @@ public class Table : MonoBehaviour
         }
     }
 
-    public void removeCustomer()
+    public void RemoveCustomer()
     {
         if (!isAvailable)
         {
@@ -71,7 +71,7 @@ public class Table : MonoBehaviour
         }
     }
 
-    public int getTableNumber() { 
+    public int GetTableNumber() { 
         return tableNumber; 
     }
 

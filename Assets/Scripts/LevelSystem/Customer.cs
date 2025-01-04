@@ -39,7 +39,7 @@ public class Customer : MonoBehaviour
             yield return null;                                                      // Se espera al siguiente frame para volver a hacer la comprobacon
         }
 
-        orderManager.CreateOrder(data.GetDish(), assignedTable.getTableNumber());   // Se crea la orden cuando llega a la mesa
+        orderManager.CreateOrder(data.GetDish(), assignedTable.GetTableNumber());   // Se crea la orden cuando llega a la mesa
         
         navMeshAgent.enabled = false;                                               // Con esto evito que se mueva de su sitio una vez llegue a la mesa
     }

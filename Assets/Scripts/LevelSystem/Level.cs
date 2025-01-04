@@ -21,9 +21,7 @@ public class Level : MonoBehaviour
     [SerializeField] private GameObject clientPrefab;                       // Prefab de los clientes (para poder instanciarlos al llegar al restaurante)
     [SerializeField] private Transform clientSpawnPoint;                    // Punto donde se instancian los clientes (fuera de lo visible por el jugador)
 
-    private List<PlayerController> players; // Lista para almacenar a los jugadores
-
-
+    private List<PlayerController> players;                                 // Lista para almacenar a los jugadores
 
     private GameState gameState;                                            // Estado del nivel (Antes de comenzar el nivel, en el nivel o tras finalizar el nivel)
     
@@ -43,25 +41,18 @@ public class Level : MonoBehaviour
 
     void Start()
     {
-        initializeLevel();
-    }
-
-    // Método para la inicialización de un nivel. Hay que encontrar las mesas que haya en el nivel y comenzar a sentar a los clientes en las mesas cuando les sea posible
-    private void initializeLevel()
-    {
-        setTables();                                                        // Encontrar las mesas del nivel
+        SetTables();                                                        // Encontrar las mesas del nivel
         SetTableNumbersVisibility(true);
         SetPlayerMovementEnabled(false);
 
         gameState = GameState.PreGame;                                      // Se establece que el estado del nivel sea el previo al comienzo
-        actualTimer = levelData.getPreGameTime();                           // Se comienza a contar el tiempo previo al comienzo del nivel
+        actualTimer = levelData.GetPreGameTime();                           // Se comienza a contar el tiempo previo al comienzo del nivel
         customersTimer = 0;                                                 // Se inicializa a 0 para que el primer cliente llegue instantaneamente
-        
-        customersQueue = new Queue<CustomerData>(levelData.getCustomers()); // Se obtienen los datos de los clientes del nivel
+
+        customersQueue = new Queue<CustomerData>(levelData.GetCustomers()); // Se obtienen los datos de los clientes del nivel
         customersWaiting = new Queue<CustomerData>();                       // Se inicializa la cola de los clientes en espera para llegar
 
-        OnTimeChange?.Invoke(this, levelData.getGameTime());                // Se notifica que se actualice la UI con el tiempo total del nivel
-
+        OnTimeChange?.Invoke(this, levelData.GetGameTime());                // Se notifica que se actualice la UI con el tiempo total del nivel
     }
 
     private void Update()
@@ -78,7 +69,7 @@ public class Level : MonoBehaviour
                     SetTableNumbersVisibility(false);
                     SetPlayerMovementEnabled(true);
 
-                    actualTimer = levelData.getGameTime();                  // En ese caso, se comienza a contar el tiempo de juego normal
+                    actualTimer = levelData.GetGameTime();                  // En ese caso, se comienza a contar el tiempo de juego normal
                     gameState = GameState.InGame;                           // Se cambia el estdo a "En partida"
                 }
                 break;
@@ -104,12 +95,12 @@ public class Level : MonoBehaviour
         if (customersQueue.Count > 0 && customersTimer <= 0)
         {
             customersWaiting.Enqueue(customersQueue.Dequeue());     // Mueve al cliente de la cola de nivel a la cola de espera
-            customersTimer = levelData.getTimeBetweenCustomers();   // Reinicia el temporizador de llegada
+            customersTimer = levelData.GetTimeBetweenCustomers();   // Reinicia el temporizador de llegada
         }
 
         if (customersWaiting.Count > 0)
         {
-            Table availableTable = getAvailableTable();
+            Table availableTable = GetAvailableTable();
 
             if (availableTable != null)
             {
@@ -125,12 +116,12 @@ public class Level : MonoBehaviour
 
         Customer newCustomer = Instantiate(clientPrefab, clientSpawnPoint.position, Quaternion.identity).GetComponent<Customer>();
         newCustomer.SetData(customerData, assignedTable, orderManager, clientSpawnPoint); // Configurar los datos del cliente
-        assignedTable.seatCustomer(newCustomer); // Asignar el cliente a la mesa
+        assignedTable.SeatCustomer(newCustomer); // Asignar el cliente a la mesa
 
-        Debug.Log("Cliente sentado en la mesa " + assignedTable.getTableNumber());
+        Debug.Log("Cliente sentado en la mesa " + assignedTable.GetTableNumber());
     }
 
-    private void setTables()
+    private void SetTables()
     {
         tables = new List<Table>();
 
@@ -172,22 +163,21 @@ public class Level : MonoBehaviour
         //Debug.Log("Pedidos entregados:" + orderManager.pedidosEntregados);
         //Debug.Log("Pedidos perdidos:" + orderManager.pedidosPerdidos);
 
-
         ICloudDataService saveDataService = new CloudDataService();
 
-        await saveDataService.SaveStarsForLevelIfHigher(levelData.getLevelNumber(), finalStars);    // Se guarda en la base de datos la puntuación obtenida (solo si es mayor que la previa)
+        await saveDataService.SaveStarsForLevelIfHigher(levelData.GetLevelNumber(), finalStars);    // Se guarda en la base de datos la puntuación obtenida (solo si es mayor que la previa)
 
-        bool levelPassed = finalStars >= levelData.getNeededScore();
+        bool levelPassed = finalStars >= levelData.GetNeededScore();
 
         if (levelPassed)
         {
-            await saveDataService.UpdateMaxLevelIfNeeded(levelData.getLevelNumber());               // Si el nivel se ha completado, se comprueba si hay que actualizar el nivel máximo desbloqueado
+            await saveDataService.UpdateMaxLevelIfNeeded(levelData.GetLevelNumber());               // Si el nivel se ha completado, se comprueba si hay que actualizar el nivel máximo desbloqueado
         }
 
-        OnGameOver?.Invoke(this, new KeyValuePair<int, int>(finalStars, levelData.getNeededScore()));                                                      // Se notifica el evento para que aparezca la UI de fin de nivel                                                          
+        OnGameOver?.Invoke(this, new KeyValuePair<int, int>(finalStars, levelData.GetNeededScore()));                                                      // Se notifica el evento para que aparezca la UI de fin de nivel                                                          
     }
 
-    private Table getAvailableTable()
+    private Table GetAvailableTable()
     {
         foreach (Table table in tables)
         {
@@ -199,15 +189,15 @@ public class Level : MonoBehaviour
         return null; // Si no hay mesas disponibles.
     }
 
-    public void freeTable(int tableNumber)
+    public void FreeTable(int tableNumber)
     {
         Debug.Log("Liberando mesa " + tableNumber);
 
         foreach (Table table in tables)
         {
-            if (table.getTableNumber() == tableNumber)
+            if (table.GetTableNumber() == tableNumber)
             {
-                table.removeCustomer();
+                table.RemoveCustomer();
                 Debug.Log("Se ha liberado la mesa " + tableNumber);
                 return;
             }

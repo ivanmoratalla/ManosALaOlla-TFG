@@ -13,32 +13,32 @@ public class LevelData : ScriptableObject
 
     [SerializeField] private int neededScore;               // Puntuación necesaria para conseguir completar un nivel
 
-    public List<CustomerData> getCustomers()
+    public List<CustomerData> GetCustomers()
     {
         return customers;
     }
     
-    public int getLevelNumber()
+    public int GetLevelNumber()
     {
         return levelNumber;
     }
 
-    public float getPreGameTime()
+    public float GetPreGameTime()
     {
         return preGameTime;
     }
 
-    public float getGameTime()
+    public float GetGameTime()
     {
         return gameTime;
     }
 
-    public int getNeededScore()
+    public int GetNeededScore()
     {
         return neededScore;
     }
 
-    public float getTimeBetweenCustomers()
+    public float GetTimeBetweenCustomers()
     {
         return timeBetweenCustomers;
     }
