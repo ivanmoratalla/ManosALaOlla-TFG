@@ -24,7 +24,7 @@ public class ErrorMenu : MonoBehaviour
 
     public void ShowError(string message)
     {
-        errorText.text = message;
+        errorText.text = "Error: " + message;
     }
 
 
