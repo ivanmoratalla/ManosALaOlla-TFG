@@ -20,15 +20,13 @@ public class MenuHandler : MonoBehaviour
 
     private async void InitializeMenus()
     {
-        HideAllMenus();                                 // Se ocultan todos los menús de manera inicial
-
         if (await authManager.TryAutoLogin())           // Si se ha podido iniciar sesión de manera automática, se va a la pantalla de inicio
         {
-            mainMenu.SetActive(true);
+            ShowMainMenu();
         }
         else                                            // Si no se ha podido, se lleva a la pantalla de autenticación
         {
-            authMenu.SetActive(true);
+            ShowAuthMenu();
         }
     }
 
