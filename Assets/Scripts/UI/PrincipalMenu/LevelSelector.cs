@@ -16,10 +16,10 @@ public class LevelSelector : MonoBehaviour
     {
         saveDataService = new CloudDataService();                                        // Clase para cargar datos de la nube de Unity
 
-        generateLevelButtons();
+        GenerateLevelButtons();
     }
 
-    private async void generateLevelButtons()
+    private async void GenerateLevelButtons()
     {
 
         foreach (Transform child in container)                                          // Si hubiera algún botón creado, se elimian                               
@@ -27,7 +27,7 @@ public class LevelSelector : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        totalLevels = calculateNumberOfLevels();                                        // Se calcula el número de niveles que tiene mi juego
+        totalLevels = CalculateNumberOfLevels();                                        // Se calcula el número de niveles que tiene mi juego
         int maxUnlockedLevel = await saveDataService.LoadMaxUnlockedLevel();            // Se obtiene el máximo nivel desbloqueado
 
         Debug.Log("Total de niveles: " + totalLevels);
@@ -45,7 +45,7 @@ public class LevelSelector : MonoBehaviour
             // Configurar la interacción del botón
             int levelNumber = i;
             Button button = newButton.GetComponent<Button>();
-            button.onClick.AddListener(() => loadLevel(levelNumber));
+            button.onClick.AddListener(() => LoadLevel(levelNumber));
 
             // Comprobar si el nivel está desbloqueado
             button.interactable = i <= maxUnlockedLevel;
@@ -53,13 +53,13 @@ public class LevelSelector : MonoBehaviour
         }
     }
 
-    private void loadLevel(int levelNumber)
+    private void LoadLevel(int levelNumber)
     {
         SceneManager.LoadScene("Level_" + levelNumber); 
         Debug.Log($"Cargando nivel: {levelNumber}");
     }
 
-    private int calculateNumberOfLevels()
+    private int CalculateNumberOfLevels()
     {
         int total = 0;
 
