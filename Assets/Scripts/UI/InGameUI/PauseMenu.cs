@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    private bool isPaused = false;
-
     [SerializeField] private Button optionsButton;
     [SerializeField] private Button goBackButton;
     [SerializeField] private Button resumeButton;
@@ -25,31 +23,14 @@ public class PauseMenu : MonoBehaviour
         reloadButton.onClick.AddListener(RestartLevel);
     }
 
-    private void Update()
-    {
-        if(Input.GetKey(KeyCode.Escape))
-        {
-            if(isPaused)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
-        }
-    }
-
     public void PauseGame()
     {
-        isPaused = true;
         this.gameObject.SetActive(true);
         Time.timeScale = 0f;
     }
 
     private void ResumeGame()
     {
-        isPaused = false;
         this.gameObject.SetActive(false);
         Time.timeScale = 1f;
     }
