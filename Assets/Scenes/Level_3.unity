@@ -6918,7 +6918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelData: {fileID: 11400000, guid: 3e544a60bd77e004eaf962e1168edbee, type: 2}
-  clientPrefab: {fileID: 6286286897283448021, guid: 128e8161a49b88246bd2a6e00d6bd572, type: 3}
+  clientPrefab: {fileID: 343638522572748073, guid: 2fab036e9dac9d24491d93345d43206e, type: 3}
   clientSpawnPoint: {fileID: 637567656}
 --- !u!4 &1681365509
 Transform:

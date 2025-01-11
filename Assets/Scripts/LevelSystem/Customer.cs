@@ -9,10 +9,12 @@ public class Customer : MonoBehaviour
     private OrderManager orderManager;
     private NavMeshAgent navMeshAgent; // Referencia al NavMeshAgent
     private Transform spawnAndDestroyPoint;
+    private Animator animator;
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>(); // Obtener el NavMeshAgent
+        animator = GetComponent<Animator>();
         GoToTable(assignedTable);
     }
 
@@ -34,13 +36,15 @@ public class Customer : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);                                        // Espero al principio 1s para evitar que detecte velocidad 0 de cuando justo se instancia y empieza a moverse
 
+        animator.SetBool("isWalking", true);
+
         while (navMeshAgent.velocity.sqrMagnitude > 0.0001f)                        // Se comprueba si el cliente ha dejado de moverse (ha llegado a su destino)
         {
             yield return null;                                                      // Se espera al siguiente frame para volver a hacer la comprobacon
         }
 
+        animator.SetBool("isWalking", false);
         orderManager.CreateOrder(data.GetDish(), assignedTable.GetTableNumber());   // Se crea la orden cuando llega a la mesa
-        
         navMeshAgent.enabled = false;                                               // Con esto evito que se mueva de su sitio una vez llegue a la mesa
     }
 
