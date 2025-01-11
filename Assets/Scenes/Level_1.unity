@@ -5973,7 +5973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 608415574491283630, guid: 96be1b7550a32544290e535500c1e60e, type: 3}
       propertyPath: m_Name
-      value: AlmondCJ_R
+      value: Player_1
       objectReference: {fileID: 0}
     - target: {fileID: 6107974812006468572, guid: 96be1b7550a32544290e535500c1e60e, type: 3}
       propertyPath: inputService

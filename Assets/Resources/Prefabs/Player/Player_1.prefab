@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementService: {fileID: 11400000, guid: 00befb9bac22b3446b43fe6abcc5227c, type: 2}
-  inputService: {fileID: 0}
+  inputService: {fileID: 11400000, guid: ecf2791e4263f744a822f42a17ead1fb, type: 2}
 --- !u!114 &-7286070772061409292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 2788036094065293574}
-  inputService: {fileID: 0}
+  inputService: {fileID: 11400000, guid: ecf2791e4263f744a822f42a17ead1fb, type: 2}
 --- !u!54 &-7265062593045599078
 Rigidbody:
   m_ObjectHideFlags: 0

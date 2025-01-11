@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementService: {fileID: 11400000, guid: 00befb9bac22b3446b43fe6abcc5227c, type: 2}
-  inputService: {fileID: 0}
+  inputService: {fileID: 11400000, guid: 2ec1c35bddb35504e86661ddf6ad1a90, type: 2}
 --- !u!114 &-1040578439295113587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 7338718704229334326}
-  inputService: {fileID: 0}
+  inputService: {fileID: 11400000, guid: 2ec1c35bddb35504e86661ddf6ad1a90, type: 2}
 --- !u!54 &-2965461619525715538
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,11 +150,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.1078046, y: 0.16420825, z: 0.1033687}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.001021673, y: 0.1664419, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &472944953049430861
 GameObject:
