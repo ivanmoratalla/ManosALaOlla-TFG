@@ -1438,9 +1438,9 @@ RectTransform:
   - {fileID: 673397854}
   m_Father: {fileID: 1360732910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 778.99664, y: 447.99802}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -161.00336, y: -81.00198}
   m_SizeDelta: {x: 250, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959776168
@@ -2008,7 +2008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 568416423887020386, guid: 4b8eff51c0c77df49852bf02866ba241, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1527741696327418685, guid: 4b8eff51c0c77df49852bf02866ba241, type: 3}
       propertyPath: m_IsActive
@@ -2020,7 +2020,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1643000711262491832, guid: 4b8eff51c0c77df49852bf02866ba241, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1773596801998727494, guid: 4b8eff51c0c77df49852bf02866ba241, type: 3}
       propertyPath: m_IsActive
@@ -2032,11 +2032,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3396379537668160873, guid: 4b8eff51c0c77df49852bf02866ba241, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4376073890328766113, guid: 4b8eff51c0c77df49852bf02866ba241, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4450968535415537566, guid: 4b8eff51c0c77df49852bf02866ba241, type: 3}
       propertyPath: m_IsActive
@@ -2128,7 +2128,7 @@ PrefabInstance:
       objectReference: {fileID: 1017200726}
     - target: {fileID: 7264904578595132812, guid: 4b8eff51c0c77df49852bf02866ba241, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
