@@ -5,10 +5,10 @@ using System;
 
 public class ColorManager : MonoBehaviour
 {
-    public static ColorManager Instance { get; private set; }                    // Singleton
+    public static ColorManager Instance { get; private set; }           // Singleton
 
 
-    private List<Type> types;                        // Lista con los tipos cuyos objetos se pueden cambiar de oclor
+    private List<Type> types;                                           // Lista con los tipos cuyos objetos se pueden cambiar de oclor
     private Dictionary<Type, List<ColorableObject>> levelObjectsByType; // Por cada tipo de objeto coloreable, una lista con las instancias de ese tipo en el nivel
     private Dictionary<Type, Material> alternativeMaterials;            // Material alternativo por cada tipo de objeto coloreable
     private Dictionary<Type, bool> useAlternativeMaterial;              // Por cada tipo de objeto coloreable, si se usa o no su material alternativo
@@ -66,7 +66,7 @@ public class ColorManager : MonoBehaviour
             objType = typeof(KitchenAppliance);
         }
 
-        if (!types.Contains(objType))                                   // Si no existe una lista para ese tipo, se crea
+        if (!types.Contains(objType))                                                   // Si no existe una lista para ese tipo, se crea
         {
             return;
         }
@@ -197,7 +197,7 @@ public class ColorManager : MonoBehaviour
             string colorKey = $"{type.Name}_Color";
             string stateKey = $"{type.Name}_State";
 
-            // Cargar el color guardado
+            // Se carga el color guardado
             if (PlayerPrefs.HasKey(colorKey))
             {
                 string colorString = PlayerPrefs.GetString(colorKey);
@@ -208,7 +208,7 @@ public class ColorManager : MonoBehaviour
                 }
             }
 
-            // Cargar el estado guardado (si se usa material alternativo)
+            // Se carga el estado guardado (si se usa material alternativo)
             if (PlayerPrefs.HasKey(stateKey))
             {
                 bool useAltMaterial = PlayerPrefs.GetInt(stateKey) == 1;

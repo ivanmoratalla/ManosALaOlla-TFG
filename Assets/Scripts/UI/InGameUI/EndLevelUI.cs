@@ -95,7 +95,4 @@ public class EndLevelUI : MonoBehaviour
             SceneManager.LoadScene("LevelsMenu");
         }
     }
-
-    
-
 }

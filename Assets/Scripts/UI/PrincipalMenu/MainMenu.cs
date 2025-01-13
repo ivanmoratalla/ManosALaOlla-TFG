@@ -16,9 +16,9 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        authManager = new AuthService();                        // Instancia de la clase encargada de los métodos de autenticación
+        authManager = new AuthService();                                // Instancia de la clase encargada de los métodos de autenticación
 
-        logoutButton.onClick.AddListener(SignOut);                     //Inicializar el botón
+        logoutButton.onClick.AddListener(SignOut);                     
         playButton.onClick.AddListener(Play);
         optionsButton.onClick.AddListener(OpenOptionsMenu);
 

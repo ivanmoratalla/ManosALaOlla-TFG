@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class CarInteraction : MonoBehaviour
 {
-    [SerializeField] private GameObject hand;                                                         // Punto donde el objeto que el jugador tiene en la mano va a estar (posición)
+    [SerializeField] private GameObject hand;                                   // Punto donde el objeto que el jugador tiene en la mano va a estar (posición)
 
-    [SerializeField] private GameObject respawnPoint = null;                        // Punto donde reaparece el jugador (solo si hay coches en los niveles)
+    [SerializeField] private GameObject respawnPoint = null;                    // Punto donde reaparece el jugador (solo si hay coches en los niveles)
     [SerializeField] private int playerNumber;
 
-    public static event Action<int, float> OnPlayerDisappear;              // Evento para notificar que el jugador ha colisionado con un coche
+    public static event Action<int, float> OnPlayerDisappear;                   // Evento para notificar que el jugador ha colisionado con un coche
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,7 +24,7 @@ public class CarInteraction : MonoBehaviour
 
     private void HandleCarInteraction()
     {
-        OnPlayerDisappear?.Invoke(playerNumber, 3f);    // Se notifica a StatsUI que debe poner el tiempo para la reaparición
+        OnPlayerDisappear?.Invoke(playerNumber, 3f);                            // Se notifica a StatsUI que debe poner el tiempo para la reaparición
 
         // Se destruye el objeto que tenía en la mano el jugador (si tenía uno)
         if (hand.transform.childCount > 0)

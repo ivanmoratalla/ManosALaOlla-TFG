@@ -12,7 +12,7 @@ public class VoiceCommandService : MonoBehaviour
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, System.Action> voiceCommands;
 
-    public int activePlayer = -1;                                                      // Ningún jugador con comandos de voz por defecto
+    public int activePlayer = -1;                                                       // Ningún jugador con comandos de voz por defecto
     private const string PlayerPrefKey = "ActiveVoicePlayer";                           // Clave para guardar el jugador activo en PlayerPrefs
 
     // Eventos para notificar los comandos por voz
